@@ -10,15 +10,18 @@ using Microsoft.Extensions.Logging;
 
 namespace EasyRent.Server
 {
-    public static void Main(string[] args)
+    public class Program
     {
-        var host = CreateWebHostBuilder(args).Build();
+        public static void Main(string[] args)
+        {
+            var host = CreateWebHostBuilder(args).Build();
 
-        host.Run();
-    }
+            host.Run();
+        }
 
-    public static IWebHostBuilder CreateWebHostBuilder(string[] args)
-    {
-        return WebHost.CreateDefaultBuilder(args).UseStartup<Startup>();
+        public static IWebHostBuilder CreateWebHostBuilder(string[] args)
+        {
+            return WebHost.CreateDefaultBuilder(args).UseStartup<Startup>();
+        }
     }
 }

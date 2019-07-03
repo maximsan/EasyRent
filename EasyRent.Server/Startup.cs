@@ -13,18 +13,20 @@ using Microsoft.EntityFrameworkCore;
 using EasyRent.Server.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 
 namespace EasyRent.Server
 {
     public class Startup
     {
+        public IConfiguration Configuration { get; }
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
-
-        public IConfiguration Configuration { get; }
-
+        
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
@@ -35,19 +37,24 @@ namespace EasyRent.Server
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDefaultIdentity<IdentityUser>()
-                .AddDefaultUI(UIFramework.Bootstrap4)
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+            InitDatabaseConfigurations(services);
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddMvc()
+                    .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+            services.AddSpaStaticFiles(config =>
+            {
+                config.RootPath = "wwwroot/build";
+            });
+
+            InitDependencies(services);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
+            //loggerFactory.AddFileLogger();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -58,12 +65,13 @@ namespace EasyRent.Server
                 app.UseExceptionHandler("/Home/Error");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
+                app.UseHttpsRedirection();
             }
 
-            app.UseHttpsRedirection();
             app.UseStaticFiles();
-            app.UseCookiePolicy();
+            app.UseSpaStaticFiles();
 
+            app.UseCookiePolicy();
             app.UseAuthentication();
 
             app.UseMvc(routes =>
@@ -71,7 +79,43 @@ namespace EasyRent.Server
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
+
+                routes.MapSpaFallbackRoute("spa-fallback", new { controller = "Home", action = "Index" });
             });
+
+            app.UseSpa(spa =>
+            {
+                spa.Options.SourcePath = "wwwroot";
+
+                if (env.IsDevelopment())
+                {
+                    spa.UseReactDevelopmentServer("start");
+                }
+            });
+        }
+
+        private void InitDatabaseConfigurations(IServiceCollection services)
+        {
+            //services.AddDbContext<ApplicationDbContext>(
+            //    options => options.UseNpgsql(Configuration.GetConnectionString("MainDatabase")));
+
+            //services.AddDefaultIdentity<User>()
+            //        .AddDefaultUI(UIFramework.Bootstrap4)
+            //        .AddEntityFrameworkStores<ApplicationDbContext>();
+        }
+
+        private void InitDependencies(IServiceCollection services)
+        {
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
+            //services.AddTransient<AddressRepository>();
+            //services.AddTransient<AdRepository>();
+            //services.AddTransient<CategoryRepository>();
+            //services.AddTransient<ContactRepository>();
+            //services.AddTransient<ImageRepository>();
+            //services.AddTransient<SubcategoryRepository>();
+            //services.AddTransient<UserContactRepository>();
+            //services.AddScoped<UnitOfWork>();
         }
     }
 }

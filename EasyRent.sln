@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.28922.388
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EasyRent.Server", "EasyRent.Server\EasyRent.Server.csproj", "{EF40AAF7-38C7-4073-B3C3-B8CDF12026C1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EasyRent.Server", "EasyRent.Server\EasyRent.Server.csproj", "{EF40AAF7-38C7-4073-B3C3-B8CDF12026C1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EasyRent.Data", "EasyRent.Data\EasyRent.Data.csproj", "{C8714D5A-9363-438A-A8A7-DCFBA3C7946D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{EF40AAF7-38C7-4073-B3C3-B8CDF12026C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EF40AAF7-38C7-4073-B3C3-B8CDF12026C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EF40AAF7-38C7-4073-B3C3-B8CDF12026C1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C8714D5A-9363-438A-A8A7-DCFBA3C7946D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C8714D5A-9363-438A-A8A7-DCFBA3C7946D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C8714D5A-9363-438A-A8A7-DCFBA3C7946D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C8714D5A-9363-438A-A8A7-DCFBA3C7946D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

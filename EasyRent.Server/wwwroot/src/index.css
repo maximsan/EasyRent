@@ -1,0 +1,13 @@
+html,
+body {
+  height: 100%;
+  margin: 0;
+  font-family: 'Roboto', sans-serif;
+  color: #020f11;
+}
+#root {
+  display: flex;
+  flex-wrap: wrap;
+  height: 100vh;
+  margin: 0;
+}

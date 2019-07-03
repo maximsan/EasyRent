@@ -1,14 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles';
 
 const SignInClasses = makeStyles((theme) => ({
-  // root: {
-  //   height: '70vh',
-  //   width: '450px',
-  //   maxWidth: '100%',
-  //   display: 'flex',
-  //   borderRadius: '0px',
-  //   position: 'relative',
-  // },
   rootLeft: {
     display: 'flex',
     width: '600px',
@@ -19,28 +11,6 @@ const SignInClasses = makeStyles((theme) => ({
     // width: '50%',
     background: '#fff',
   },
-  // rootOverlayLayoutRight: {
-  //   display: 'flex',
-  //   width: '450px',
-  //   background: '#086574',
-  //   position: 'absolute',
-  //   left: '50%',
-  //   height: '70vh',
-  //   overflow: 'hidden',
-  //   zIndex: 100,
-  // },
-  // rootOverlayLayoutLeft: {
-  //   display: 'flex',
-  //   // width: '450px',
-  //   background: '#086574',
-  //   position: 'absolute',
-  //   // top: 0,
-  //   // left: '50%',
-  //   // width: '50%',
-  //   height: '70vh',
-  //   overflow: 'hidden',
-  //   zIndex: 100,
-  // },
   leftHeader: {
     color: '#0C9EB5',
   },
@@ -104,7 +74,6 @@ const SignInClasses = makeStyles((theme) => ({
   svgIconRoot: {
     opacity: '0.6',
   },
-  inputGroupRoot: {},
 }));
 
 export default SignInClasses;

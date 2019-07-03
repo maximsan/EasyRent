@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Switch, Route } from 'react-router-dom';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import useLayoutStyles from './layout-styles';
-import SignInUpForm from './SignInUpForm';
+import SignInUpForm from '../SignInUpForm';
 
 const PublicLayout = () => {
   const classes = useLayoutStyles();

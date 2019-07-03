@@ -1,11 +1,10 @@
 import React, { useState, useRef } from 'react';
 import PropTypes from 'prop-types';
-import useSignInClasses from './sign-in/signin-styles';
 import SignInForm from './sign-in/SignInForm';
 import SignInOverlay from './sign-in/SignInOverlay';
 import SignUpForm from './sign-up/SignUpForm';
 import SignUpOverlay from './sign-up/SignUpOverlay';
-import classes from './SignInUp.module.css';
+import classes from './SignInUp.module.scss';
 
 const SignInUpForm = () => {
   const [value, setValue] = useState({

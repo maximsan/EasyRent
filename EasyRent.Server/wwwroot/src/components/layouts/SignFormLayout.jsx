@@ -10,7 +10,7 @@ import {
 import Email from '../email/Email';
 import Password from '../password/Password';
 import TextInput from '../text-input/TextInput';
-import Button from '../Button';
+import Button from '../button/Button';
 import FacebookIcon from '../icons/FacebookIcon';
 import GoogleIcon from '../icons/GoogleIcon';
 import TelegramIcon from '../icons/TelegramIcon';

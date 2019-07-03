@@ -1,29 +1,35 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
 using EasyRent.Server.Models;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 
-namespace EasyRent.Server.Controllers
+namespace EasyRent.Controllers
 {
-    public class HomeController : Controller
+    [Route("api/[controller]")]
+    public class HomeController //: BaseController
     {
-        public IActionResult Index()
+        private readonly List<string> list = new List<string>
         {
-            return View();
-        }
+            "Max",
+            "Alex",
+            "Fedr"
+        };
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
+        //[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        //public IActionResult Error()
+        //{
+        //    return View(new ErrorViewModel
+        //    {
+        //        RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier
+        //    });
+        //}
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        [HttpGet("[action]")]
+        public IEnumerable<string> Index()
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            return list.ToList();
         }
     }
 }

@@ -15,7 +15,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
-using EasyPeasyRent;
+using EasyRent;
 
 namespace EasyRent.Server
 {

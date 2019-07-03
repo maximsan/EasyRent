@@ -1,4 +1,4 @@
-﻿namespace EasyPeasyRent.Common
+﻿namespace EasyRent.Common
 {
     public class JsonResponseTemplate<TResponse> : JsonResponseTemplate
     {

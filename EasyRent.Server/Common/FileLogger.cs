@@ -2,7 +2,7 @@
 using System.IO;
 using Microsoft.Extensions.Logging;
 
-namespace EasyPeasyRent.Common
+namespace EasyRent.Common
 {
     public class FileLogger : ILogger
     {

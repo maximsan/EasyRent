@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace EasyRent.Controllers
 {
     [Route("api/[controller]")]
-    public class HomeController //: BaseController
+    public class HomeController : BaseController
     {
         private readonly List<string> list = new List<string>
         {

@@ -1,5 +1,4 @@
-﻿using EasyPeasyRent;
-using EasyRent.Data;
+﻿using EasyRent.Data;
 using EasyRent.Data.Entities;
 using EasyRent.Data.Repositories;
 using Microsoft.AspNetCore.Builder;

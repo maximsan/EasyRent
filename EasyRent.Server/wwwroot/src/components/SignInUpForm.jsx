@@ -1,5 +1,7 @@
 import React, { useState, useRef } from 'react';
 import PropTypes from 'prop-types';
+import { connect, useDispatch } from 'react-redux';
+import { signIn, signUp } from '../reducers/signInReducer';
 import SignInForm from './sign-in/SignInForm';
 import SignInOverlay from './sign-in/SignInOverlay';
 import SignUpForm from './sign-up/SignUpForm';
@@ -7,11 +9,13 @@ import SignUpOverlay from './sign-up/SignUpOverlay';
 import classes from './SignInUp.module.scss';
 
 const SignInUpForm = () => {
-  const [value, setValue] = useState({
+  const [values, setValues] = useState({
     email: '',
     password: '',
     name: '',
   });
+
+  const dispatch = useDispatch();
 
   const containerRef = useRef();
 
@@ -19,38 +23,44 @@ const SignInUpForm = () => {
 
   const onHandleChange = (name) => (event) => {
     event.preventDefault();
-    setValue({ [name]: event.target.value });
+    setValues({ [name]: event.target.value });
   };
 
   const onSignInSubmit = (props) => {
-    console.log('onHandleSignInClick');
+    dispatch(signIn({ email: values.email, password: values.password }));
   };
 
   const onHandleSignUpClick = (props) => {
     containerRef.current.classList.add(`${classes.rightPanelActive}`);
-    // window.location.pathname = 'signup';
+    window.location.pathname = 'signup';
   };
 
   const onHandleSignInClick = (props) => {
     containerRef.current.classList.remove(`${classes.rightPanelActive}`);
-    // window.location.pathname = 'signin';
+    window.location.pathname = 'signin';
   };
 
   const onSignUpSubmit = (props) => {
-    console.log('onHandleSignUpClick');
+    dispatch(
+      signUp({
+        name: values.name,
+        email: values.email,
+        password: values.password,
+      }),
+    );
   };
 
   return (
     <div className={classes.container} ref={containerRef}>
       <SignUpForm
         className={`${classes.signUpContainer} ${classes.formContainer}`}
-        value={value}
+        value={values}
         onHandleChange={onHandleChange}
         onSignUpSubmit={onSignUpSubmit}
       />
       <SignInForm
         className={`${classes.signInContainer} ${classes.formContainer}`}
-        value={value}
+        value={values}
         isSignIn={isSignIn}
         onHandleChange={onHandleChange}
         onSignInSubmit={onSignInSubmit}
@@ -77,4 +87,12 @@ const SignInUpForm = () => {
   );
 };
 
-export default SignInUpForm;
+SignInUpForm.propTypes = {
+  dispatch: PropTypes.func,
+};
+
+SignInUpForm.defaultProps = {
+  dispatch: () => {},
+};
+
+export default connect()(SignInUpForm);

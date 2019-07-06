@@ -5,7 +5,7 @@ namespace EasyRent.Data
 {
     public class UnitOfWork : IDisposable
     {
-        private bool disposed;
+        private bool disposed = false;
 
         private readonly ApplicationDbContext dbContext;
 
@@ -51,7 +51,7 @@ namespace EasyRent.Data
         {
             if (disposing)
             {
-                if (disposed)
+                if (!disposed)
                 {
                     // UserManager.Dispose();
                     AddressRepository.Dispose();

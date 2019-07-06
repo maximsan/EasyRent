@@ -4,14 +4,17 @@ import { Route } from 'react-router-dom';
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
   return (
-    <Route {...rest} render={(props) => <Component {...props} {...rest} />} />
+    <Route
+      {...rest}
+      render={(props) => {
+        return <Component {...props} {...rest} />;
+      }}
+    />
   );
 };
 
 PrivateRoute.defaultProps = {};
 
-PrivateRoute.propTypes = {
-  component: PropTypes.node,
-};
+PrivateRoute.propTypes = {};
 
 export default PrivateRoute;

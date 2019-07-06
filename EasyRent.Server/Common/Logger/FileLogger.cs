@@ -2,7 +2,7 @@
 using System.IO;
 using Microsoft.Extensions.Logging;
 
-namespace EasyRent.Common
+namespace EasyRent.Server.Common.Logger
 {
     public class FileLogger : ILogger
     {
@@ -14,10 +14,10 @@ namespace EasyRent.Common
             CreateCatalogIfNotExist();
         }
 
-        public void Log<TState>(LogLevel logLevel, 
-                                EventId eventId, 
-                                TState state, 
-                                Exception exception, 
+        public void Log<TState>(LogLevel logLevel,
+                                EventId eventId,
+                                TState state,
+                                Exception exception,
                                 Func<TState, Exception, string> formatter)
         {
             CreateFileIfNotExist();
@@ -45,21 +45,12 @@ namespace EasyRent.Common
             return null;
         }
 
-        private static string GetFullCatalogPath()
-        {
-            return Path.Combine(Environment.CurrentDirectory, rootCatalog);
-        }
-
-        private static string GetFullFilePath()
-        {
-            return Path.Combine(GetFullCatalogPath(), DateTime.Now.ToShortDateString() + ".txt");
-        }
-
         private void CreateCatalogIfNotExist()
         {
             lock (locker)
             {
                 string fullPathRoot = GetFullCatalogPath();
+
                 try
                 {
                     if (!Directory.Exists(fullPathRoot))
@@ -86,6 +77,16 @@ namespace EasyRent.Common
                 }
                 catch { }
             }
+        }
+
+        private static string GetFullCatalogPath()
+        {
+            return Path.Combine(Environment.CurrentDirectory, rootCatalog);
+        }
+
+        private static string GetFullFilePath()
+        {
+            return Path.Combine(GetFullCatalogPath(), DateTime.Now.ToShortDateString() + ".txt");
         }
     }
 }

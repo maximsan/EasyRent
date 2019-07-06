@@ -1,4 +1,7 @@
-﻿namespace EasyRent.Common
+﻿using System.Collections.Generic;
+using System.Linq;
+
+namespace EasyRent.Server.Common
 {
     public class JsonResponseTemplate<TResponse> : JsonResponseTemplate
     {
@@ -8,17 +11,33 @@
         {
             Response = response;
         }
+
+        public JsonResponseTemplate(TResponse response, List<string> errorMessages) : base(response, errorMessages)
+        {
+            Response = response;
+        }
     }
 
     public class JsonResponseTemplate
     {
-        public string ErrorMessage { get; set; }
+        public List<string> ErrorMessages { get; set; }
 
         public object Response { get; set; }
 
         public JsonResponseTemplate(object response, string errorMessage)
         {
-            ErrorMessage = errorMessage;
+            ErrorMessages = new List<string>
+            {
+                errorMessage
+            };
+
+            Response = response;
+        }
+
+        public JsonResponseTemplate(object response, IEnumerable<string> errorMessages)
+        {
+            ErrorMessages = errorMessages.ToList();
+
             Response = response;
         }
     }

@@ -115,7 +115,7 @@ const SignFormLayout = ({
               <Password
                 variant='filled'
                 value={confirmPassword}
-                onChange={onChange('confirPassword')}
+                onChange={onChange('confirmPassword')}
                 labelText='Confirm password'
                 required
                 error={false}

@@ -21,7 +21,7 @@ namespace EasyRent.Server.Controllers
             SignInManager = signInManager;
         }
 
-        [HttpPost]
+        [HttpPost("sign-in")]
         public async Task<IActionResult> SignIn(SignInModel model)
         {
             SignInValidator modelValidator = GetService<SignInValidator>();
@@ -39,7 +39,7 @@ namespace EasyRent.Server.Controllers
                            await SignInManager.CheckPasswordSignInAsync(user, model.Password, false), string.Empty));
         }
 
-        [HttpPost]
+        [HttpPost("sign-up")]
         public async Task<IActionResult> SignUp(SignUpModel model)
         {
             SignUpValidator modelValidator = GetService<SignUpValidator>();

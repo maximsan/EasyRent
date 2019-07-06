@@ -1,13 +1,11 @@
 ﻿using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using EasyRent.Server.Models;
-using Microsoft.AspNetCore.Http;
+using AutoMapper;
+using EasyRent.Data;
+using EasyRent.Server.Common;
 using Microsoft.AspNetCore.Mvc;
 
-namespace EasyRent.Controllers
+namespace EasyRent.Server.Controllers
 {
-    [Route("api/[controller]")]
     public class HomeController : BaseController
     {
         private readonly List<string> list = new List<string>
@@ -16,6 +14,8 @@ namespace EasyRent.Controllers
             "Alex",
             "Fedr"
         };
+
+        public HomeController(UnitOfWork unitOfWork, IMapper mapper) : base(unitOfWork, mapper) { }
 
         //[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         //public IActionResult Error()
@@ -26,10 +26,9 @@ namespace EasyRent.Controllers
         //    });
         //}
 
-        [HttpGet("[action]")]
-        public IEnumerable<string> Index()
+        public IActionResult Index()
         {
-            return list.ToList();
+            return Json(new JsonResponseTemplate(nameof(HomeController), string.Empty));
         }
     }
 }

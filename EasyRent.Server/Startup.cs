@@ -1,6 +1,12 @@
-﻿using EasyRent.Data;
+﻿using AutoMapper;
+using EasyRent.Data;
 using EasyRent.Data.Entities;
 using EasyRent.Data.Repositories;
+using EasyRent.Server.Common.Extentions;
+using EasyRent.Server.Common.Validators;
+using EasyRent.Server.Models;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -48,7 +54,8 @@ namespace EasyRent.Server
 
             app.UseMvc(routes =>
             {
-                routes.MapRoute("default", "{controller=Home}/{action=Index}/{id?}");
+                routes.MapRoute("Home", "{controller=Home}/{action=Index}/{id?}");
+                routes.MapRoute("Account", "{controller=Account}/{action}");
 
                 routes.MapSpaFallbackRoute("spa-fallback", new
                 {
@@ -81,7 +88,11 @@ namespace EasyRent.Server
             InitDatabaseConfigurations(services);
 
             services.AddMvc()
-                    .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+                    .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
+                    .AddFluentValidation(config =>
+                    {
+                        config.RunDefaultMvcValidationAfterFluentValidationExecutes = true;
+                    });
 
             services.AddSpaStaticFiles(config =>
             {
@@ -113,6 +124,15 @@ namespace EasyRent.Server
             services.AddTransient<SubcategoryRepository>();
             services.AddTransient<UserContactRepository>();
             services.AddScoped<UnitOfWork>();
+
+            services.AddTransient<IValidator<SignInModel>, SignInValidator>();
+            services.AddTransient<IValidator<SignUpModel>, SignUpValidator>();
+
+            services.AddAutoMapper(config =>
+            {
+                config.CreateMap<SignInModel, User>();
+                config.CreateMap<SignUpModel, User>();
+            }, typeof(Startup));
         }
     }
 }

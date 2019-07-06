@@ -22,8 +22,8 @@ const SignInUpForm = () => {
   const [isSignIn, setSignIn] = useState(true);
 
   const onHandleChange = (name) => (event) => {
-    event.preventDefault();
-    setValues({ [name]: event.target.value });
+    event.persist();
+    setValues((prevValues) => ({ ...prevValues, [name]: event.target.value }));
   };
 
   const onSignInSubmit = (props) => {

@@ -6,7 +6,7 @@ import SignInForm from './sign-in/SignInForm';
 import SignInOverlay from './sign-in/SignInOverlay';
 import SignUpForm from './sign-up/SignUpForm';
 import SignUpOverlay from './sign-up/SignUpOverlay';
-import classes from './SignInUp.module.scss';
+import classes from './SignInUp.module.css';
 
 const SignInUpForm = () => {
   const [values, setValues] = useState({

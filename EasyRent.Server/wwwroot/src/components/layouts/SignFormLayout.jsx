@@ -18,7 +18,7 @@ import useSignInClasses from '../sign-in/signin-styles';
 
 const SignFormLayout = ({
   gridClasses,
-  onHandleChange,
+  onChange,
   onHandleClick,
   value,
   header,
@@ -62,7 +62,7 @@ const SignFormLayout = ({
               labelText='Name'
               variant='filled'
               value={name}
-              onChange={onHandleChange('name')}
+              onChange={onChange('name')}
               required
               hasError={false}
               startIcon={
@@ -83,7 +83,7 @@ const SignFormLayout = ({
             <Email
               variant='filled'
               value={email}
-              onChange={onHandleChange('email')}
+              onChange={onChange('email')}
               required
               error={false}
               startIcon={
@@ -98,7 +98,7 @@ const SignFormLayout = ({
             <Password
               variant='filled'
               value={password}
-              onChange={onHandleChange('password')}
+              onChange={onChange('password')}
               required
               error={false}
               startIcon={

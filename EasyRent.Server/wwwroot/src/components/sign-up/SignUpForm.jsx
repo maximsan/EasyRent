@@ -3,15 +3,15 @@ import PropTypes from 'prop-types';
 import SignFormLayout from '../layouts/SignFormLayout';
 import SignUpOverlay from './SignUpOverlay';
 
-const SignUpForm = ({ value, onHandleChange, onSignUpSubmit, className }) => {
+const SignUpForm = ({ value, onChange, onSubmit, className }) => {
   return (
     <div className={className}>
       <SignFormLayout
         value={value}
-        onHandleChange={onHandleChange}
+        onChange={onChange}
         header='Create Account'
         hint='or use your email for registration:'
-        onHandleClick={onSignUpSubmit}
+        onHandleClick={onSubmit}
       />
     </div>
   );

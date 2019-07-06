@@ -21,9 +21,10 @@ const SignInUpForm = () => {
 
   const [isSignIn, setSignIn] = useState(true);
 
-  const onHandleChange = (name) => (event) => {
+  const onChange = (name) => (event) => {
     event.persist();
     setValues((prevValues) => ({ ...prevValues, [name]: event.target.value }));
+    // setValues({ [name]: event.target.value });
   };
 
   const onSignInSubmit = (props) => {
@@ -55,15 +56,15 @@ const SignInUpForm = () => {
       <SignUpForm
         className={`${classes.signUpContainer} ${classes.formContainer}`}
         value={values}
-        onHandleChange={onHandleChange}
-        onSignUpSubmit={onSignUpSubmit}
+        onChange={onChange}
+        onSubmit={onSignUpSubmit}
       />
       <SignInForm
         className={`${classes.signInContainer} ${classes.formContainer}`}
         value={values}
         isSignIn={isSignIn}
-        onHandleChange={onHandleChange}
-        onSignInSubmit={onSignInSubmit}
+        onChange={onChange}
+        onSubmit={onSignInSubmit}
       />
       <div className={classes.overlayContainer}>
         <div className={classes.overlay}>

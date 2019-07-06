@@ -1,10 +1,12 @@
 import axios from 'axios';
-import isEmpty from 'lodash';
+import _ from 'lodash';
 import { SIGN_IN, SIGN_UP } from './actionTypes';
 // import Utils from '../utils';
 
 export const signIn = (data) => (dispatch, getState) => {
-  if (isEmpty(data)) {
+  const { email, password } = data;
+
+  if (_.isEmpty(data) || email === '' || password === '') {
     return;
   }
 

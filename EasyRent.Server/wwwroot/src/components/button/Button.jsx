@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button } from '@material-ui/core';
-import classes from './button.module.scss';
+import classes from './button.module.css';
 
 const CustomButton = ({ children, addClasses, ...rest }) => {
   return (

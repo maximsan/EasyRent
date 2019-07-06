@@ -4,6 +4,7 @@ import { Switch, Route } from 'react-router-dom';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import useLayoutStyles from './layout-styles';
 import SignInUpForm from '../SignInUpForm';
+import Home from '../home/Home';
 
 const PublicLayout = () => {
   const classes = useLayoutStyles();
@@ -24,6 +25,7 @@ const PublicLayout = () => {
       <Switch>
         <Route path='/signin' exact component={SignInUpForm} />
         <Route path='/signup' exact component={SignInUpForm} />
+        <Route path='/home' exact component={Home} />
       </Switch>
     </div>
   );

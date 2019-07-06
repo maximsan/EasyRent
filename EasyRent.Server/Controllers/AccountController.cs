@@ -8,12 +8,18 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace EasyRent.Server.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
+    [Route("[controller]")]
+    //[ApiController]
     public class AccountController : ControllerBase
     {
         [HttpPost("sign-in")]
-        public void SignIn (SignInUserModel user)
+        public void SignIn ([FromBody]SignInUserModel user)
+        {
+            var newUser = user;
+        }
+
+        [HttpPost("sign-up")]
+        public void SignUp([FromBody]SignUpUserModel user)
         {
             var newUser = user;
         }

@@ -27,7 +27,7 @@ const SignFormLayout = ({
 }) => {
   const classes = useSignInClasses();
 
-  const { name, email, password } = value;
+  const { name, email, password, confirmPassword } = value;
 
   return (
     <div className={classes.rootMainLayout}>
@@ -99,6 +99,7 @@ const SignFormLayout = ({
               variant='filled'
               value={password}
               onChange={onChange('password')}
+              labelText='Password'
               required
               error={false}
               startIcon={
@@ -108,6 +109,24 @@ const SignFormLayout = ({
                 />
               }
             />
+          </Grid>
+          <Grid container justify='center'>
+            {!isSignIn && (
+              <Password
+                variant='filled'
+                value={confirmPassword}
+                onChange={onChange('confirPassword')}
+                labelText='Confirm password'
+                required
+                error={false}
+                startIcon={
+                  <LockOutlined
+                    classes={{ root: classes.svgIconRoot }}
+                    fontSize='small'
+                  />
+                }
+              />
+            )}
           </Grid>
         </Grid>
         {isSignIn && (

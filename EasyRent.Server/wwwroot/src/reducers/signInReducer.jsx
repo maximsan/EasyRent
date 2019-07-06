@@ -19,7 +19,7 @@ export const signIn = (data) => (dispatch, getState) => {
   // dispatch(startRequest);
 
   const handleSuccess = (response) => {
-    console.log('Fine!');
+    window.location.pathname = 'main';
     // dispatch(receiveRequest);
   };
   const handleError = (response) => {
@@ -31,7 +31,33 @@ export const signIn = (data) => (dispatch, getState) => {
     .catch(handleError);
 };
 
-export const signUp = (data) => (dispatch, getState) => {};
+export const signUp = (data) => (dispatch, getState) => {
+  const { email, password, name } = data;
+
+  if (_.isEmpty(data) || email === '' || password === '' || name === '') {
+    return;
+  }
+
+  const request = {
+    method: 'POST',
+    url: `${process.env.REACT_APP_BASE_URL}/account/sign-up`,
+    data,
+  };
+
+  // dispatch(startRequest);
+
+  const handleSuccess = (response) => {
+    window.location.pathname = 'main';
+    // dispatch(receiveRequest);
+  };
+  const handleError = (response) => {
+    // dispatch(handleError);
+  };
+
+  axios(request)
+    .then(handleSuccess)
+    .catch(handleError);
+};
 
 const signInReducer = (state = {}, action) => {
   switch (action.type) {

@@ -12,6 +12,7 @@ const SignInUpForm = () => {
   const [values, setValues] = useState({
     email: '',
     password: '',
+    confirmPassword: '',
     name: '',
   });
 
@@ -33,12 +34,12 @@ const SignInUpForm = () => {
 
   const onHandleSignUpClick = (props) => {
     containerRef.current.classList.add(`${classes.rightPanelActive}`);
-    window.location.pathname = 'signup';
+    // window.location.pathname = 'signup';
   };
 
   const onHandleSignInClick = (props) => {
     containerRef.current.classList.remove(`${classes.rightPanelActive}`);
-    window.location.pathname = 'signin';
+    // window.location.pathname = 'signin';
   };
 
   const onSignUpSubmit = (props) => {

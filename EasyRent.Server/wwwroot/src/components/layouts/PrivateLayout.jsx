@@ -3,13 +3,15 @@ import PropTypes from 'prop-types';
 import { Switch, Route } from 'react-router-dom';
 import useLayoutStyles from './layout-styles';
 import Home from '../home/Home';
+import Main from '../main/Main';
 
 const PrivateLayout = () => {
   const classes = useLayoutStyles();
   return (
     <div className={classes.main}>
       <Switch>
-        <Route path='/' component={Home} />
+        <Route exact path='/' component={Home} />
+        <Route exact path='/main' component={Main} />
       </Switch>
     </div>
   );

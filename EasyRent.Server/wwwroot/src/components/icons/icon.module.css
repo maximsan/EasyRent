@@ -1,16 +1,12 @@
-.root {
-  color: '#020F11';
-}
-
 .fabRoot {
-  border: '1.5px #E8F6F8 solid';
-  background: '#fff';
+  border: 1.5px #e8f6f8 solid !important;
+  background: #fff !important;
 }
 
 .fabRoot:hover {
-  background: '#E8F6F8';
+  background: #e8f6f8 !important;
 }
 
 .svgIconRoot {
-  opacity: '0.6';
+  opacity: 0.6;
 }

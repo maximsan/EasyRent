@@ -1,7 +1,8 @@
 import React from 'react';
+import Header from '../header/Header';
 
 const Main = () => {
-  return 'Welcome to Main page, dude!';
+  return <Header />;
 };
 
 export default Main;

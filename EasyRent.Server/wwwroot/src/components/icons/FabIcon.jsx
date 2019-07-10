@@ -9,7 +9,7 @@ const useClasses = makeStyles({
   },
 });
 
-const Icon = ({
+const FabIcon = ({
   size,
   variant,
   children,
@@ -21,29 +21,32 @@ const Icon = ({
   className,
   htmlColor,
   classes,
+  svgIconClasses,
   ...rest
 }) => {
   const iconClasses = useClasses();
 
   return (
-    <SvgIcon
-      {...rest}
-      color={color}
-      fontSize={fontSize}
-      titleAccess={titleAccess}
-      viewBox={viewBox}
-      htmlColor={htmlColor}
-      classes={classes}
-    >
-      {children}
-    </SvgIcon>
+    <Fab classes={classes} className={className} size={size} variant={variant}>
+      <SvgIcon
+        {...rest}
+        color={color}
+        fontSize={fontSize}
+        titleAccess={titleAccess}
+        viewBox={viewBox}
+        htmlColor={htmlColor}
+        classes={svgIconClasses}
+      >
+        {children}
+      </SvgIcon>
+    </Fab>
   );
 };
 
-Icon.defaultTypes = {};
+FabIcon.defaultTypes = {};
 
-Icon.propTypes = {
+FabIcon.propTypes = {
   icon: PropTypes.node,
 };
 
-export default Icon;
+export default FabIcon;

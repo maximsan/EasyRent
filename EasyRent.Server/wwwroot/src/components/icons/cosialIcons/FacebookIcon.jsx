@@ -1,16 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Icon from './Icon';
-import { makeStyles } from '@material-ui/core/styles';
-import useIconClasses from './Icon-styles';
+import Icon from '../Icon';
+import customClasses from '../icon.module.css';
 
 const FacebookIcon = () => {
-  const classes = useIconClasses();
-
   return (
     <Icon
       classNameSVG=''
-      classes={{ root: classes.fabRoot }}
+      className={customClasses.fabRoot}
       href=''
       size='medium'
       titleAccess='Log in via Facebook'
@@ -20,8 +17,6 @@ const FacebookIcon = () => {
     </Icon>
   );
 };
-
-const useClasses = makeStyles((theme) => ({}));
 
 FacebookIcon.defaultTypes = {};
 

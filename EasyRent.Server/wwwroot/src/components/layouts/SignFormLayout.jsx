@@ -11,9 +11,9 @@ import Email from '../email/Email';
 import Password from '../password/Password';
 import TextInput from '../text-input/TextInput';
 import Button from '../button/Button';
-import FacebookIcon from '../icons/FacebookIcon';
-import GoogleIcon from '../icons/GoogleIcon';
-import TelegramIcon from '../icons/TelegramIcon';
+import FacebookIcon from '../icons/cosialIcons/FacebookIcon';
+import GoogleIcon from '../icons/cosialIcons/GoogleIcon';
+import TelegramIcon from '../icons/cosialIcons/TelegramIcon';
 import useSignInClasses from '../sign-in/signin-styles';
 
 const SignFormLayout = ({

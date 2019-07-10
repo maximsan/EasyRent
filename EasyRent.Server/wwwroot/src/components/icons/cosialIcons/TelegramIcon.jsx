@@ -1,14 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Icon from './Icon';
-import useIconClasses from './Icon-styles';
+import Icon from '../Icon';
+import customClasses from '../icon.module.css';
 
 const TelegramIcon = () => {
-  const classes = useIconClasses();
-
   return (
     <Icon
-      classes={{ root: classes.fabRoot }}
+      className={customClasses.fabRoot}
       href=''
       size='medium'
       fontSize='large'

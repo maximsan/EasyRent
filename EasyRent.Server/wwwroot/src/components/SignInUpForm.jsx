@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react';
 import PropTypes from 'prop-types';
-import useSignInClasses from './sign-in/signin-styles';
+import { connect, useDispatch } from 'react-redux';
+import { signIn, signUp } from '../reducers/signInReducer';
 import SignInForm from './sign-in/SignInForm';
 import SignInOverlay from './sign-in/SignInOverlay';
 import SignUpForm from './sign-up/SignUpForm';
@@ -8,23 +9,27 @@ import SignUpOverlay from './sign-up/SignUpOverlay';
 import classes from './SignInUp.module.css';
 
 const SignInUpForm = () => {
-  const [value, setValue] = useState({
+  const [values, setValues] = useState({
     email: '',
     password: '',
+    confirmPassword: '',
     name: '',
   });
+
+  const dispatch = useDispatch();
 
   const containerRef = useRef();
 
   const [isSignIn, setSignIn] = useState(true);
 
-  const onHandleChange = (name) => (event) => {
-    event.preventDefault();
-    setValue({ [name]: event.target.value });
+  const onChange = (name) => (event) => {
+    event.persist();
+    setValues((prevValues) => ({ ...prevValues, [name]: event.target.value }));
+    // setValues({ [name]: event.target.value });
   };
 
   const onSignInSubmit = (props) => {
-    console.log('onHandleSignInClick');
+    dispatch(signIn({ email: values.email, password: values.password }));
   };
 
   const onHandleSignUpClick = (props) => {
@@ -38,23 +43,29 @@ const SignInUpForm = () => {
   };
 
   const onSignUpSubmit = (props) => {
-    console.log('onHandleSignUpClick');
+    dispatch(
+      signUp({
+        name: values.name,
+        email: values.email,
+        password: values.password,
+      }),
+    );
   };
 
   return (
     <div className={classes.container} ref={containerRef}>
       <SignUpForm
         className={`${classes.signUpContainer} ${classes.formContainer}`}
-        value={value}
-        onHandleChange={onHandleChange}
-        onSignUpSubmit={onSignUpSubmit}
+        value={values}
+        onChange={onChange}
+        onSubmit={onSignUpSubmit}
       />
       <SignInForm
         className={`${classes.signInContainer} ${classes.formContainer}`}
-        value={value}
+        value={values}
         isSignIn={isSignIn}
-        onHandleChange={onHandleChange}
-        onSignInSubmit={onSignInSubmit}
+        onChange={onChange}
+        onSubmit={onSignInSubmit}
       />
       <div className={classes.overlayContainer}>
         <div className={classes.overlay}>
@@ -78,4 +89,12 @@ const SignInUpForm = () => {
   );
 };
 
-export default SignInUpForm;
+SignInUpForm.propTypes = {
+  dispatch: PropTypes.func,
+};
+
+SignInUpForm.defaultProps = {
+  dispatch: () => {},
+};
+
+export default connect()(SignInUpForm);

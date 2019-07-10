@@ -10,15 +10,15 @@ import {
 import Email from '../email/Email';
 import Password from '../password/Password';
 import TextInput from '../text-input/TextInput';
-import Button from '../Button';
-import FacebookIcon from '../icons/FacebookIcon';
-import GoogleIcon from '../icons/GoogleIcon';
-import TelegramIcon from '../icons/TelegramIcon';
+import Button from '../button/Button';
+import FacebookIcon from '../icons/cosialIcons/FacebookIcon';
+import GoogleIcon from '../icons/cosialIcons/GoogleIcon';
+import TelegramIcon from '../icons/cosialIcons/TelegramIcon';
 import useSignInClasses from '../sign-in/signin-styles';
 
 const SignFormLayout = ({
   gridClasses,
-  onHandleChange,
+  onChange,
   onHandleClick,
   value,
   header,
@@ -27,7 +27,7 @@ const SignFormLayout = ({
 }) => {
   const classes = useSignInClasses();
 
-  const { name, email, password } = value;
+  const { name, email, password, confirmPassword } = value;
 
   return (
     <div className={classes.rootMainLayout}>
@@ -62,7 +62,7 @@ const SignFormLayout = ({
               labelText='Name'
               variant='filled'
               value={name}
-              onChange={onHandleChange('name')}
+              onChange={onChange('name')}
               required
               hasError={false}
               startIcon={
@@ -83,7 +83,7 @@ const SignFormLayout = ({
             <Email
               variant='filled'
               value={email}
-              onChange={onHandleChange('email')}
+              onChange={onChange('email')}
               required
               error={false}
               startIcon={
@@ -98,7 +98,8 @@ const SignFormLayout = ({
             <Password
               variant='filled'
               value={password}
-              onChange={onHandleChange('password')}
+              onChange={onChange('password')}
+              labelText='Password'
               required
               error={false}
               startIcon={
@@ -108,6 +109,24 @@ const SignFormLayout = ({
                 />
               }
             />
+          </Grid>
+          <Grid container justify='center'>
+            {!isSignIn && (
+              <Password
+                variant='filled'
+                value={confirmPassword}
+                onChange={onChange('confirmPassword')}
+                labelText='Confirm password'
+                required
+                error={false}
+                startIcon={
+                  <LockOutlined
+                    classes={{ root: classes.svgIconRoot }}
+                    fontSize='small'
+                  />
+                }
+              />
+            )}
           </Grid>
         </Grid>
         {isSignIn && (

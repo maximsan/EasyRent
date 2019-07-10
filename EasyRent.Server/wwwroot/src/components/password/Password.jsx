@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 import Input from '../input/Input';
 import StartIcon from '../icons/StartIcon';
 
-const Password = ({ startIcon, ...rest }) => {
+const Password = ({ startIcon, labelText, ...rest }) => {
   return (
     <Input
       id='password'
       type='password'
-      labelText='Password'
+      labelText={labelText}
       {...rest}
       startAdornment={<StartIcon icon={startIcon} />}
     />

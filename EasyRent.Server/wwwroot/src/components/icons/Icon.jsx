@@ -1,9 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Fab, SvgIcon } from '@material-ui/core';
-import useIconClasses from './Icon-styles';
+import { Fab, SvgIcon, makeStyles } from '@material-ui/core';
+import customClasses from './icon.module.css';
 
-const FabIcon = ({
+const useClasses = makeStyles({
+  root: {
+    color: '#020f11',
+  },
+});
+
+const Icon = ({
   size,
   variant,
   children,
@@ -15,32 +21,29 @@ const FabIcon = ({
   className,
   htmlColor,
   classes,
-  svgIconClasses,
   ...rest
 }) => {
-  const iconClasses = useIconClasses();
+  const iconClasses = useClasses();
 
   return (
-    <Fab classes={classes} className={className} size={size} variant={variant}>
-      <SvgIcon
-        {...rest}
-        color={color}
-        fontSize={fontSize}
-        titleAccess={titleAccess}
-        viewBox={viewBox}
-        htmlColor={htmlColor}
-        classes={{ root: iconClasses.root, ...svgIconClasses }}
-      >
-        {children}
-      </SvgIcon>
-    </Fab>
+    <SvgIcon
+      {...rest}
+      color={color}
+      fontSize={fontSize}
+      titleAccess={titleAccess}
+      viewBox={viewBox}
+      htmlColor={htmlColor}
+      classes={classes}
+    >
+      {children}
+    </SvgIcon>
   );
 };
 
-FabIcon.defaultTypes = {};
+Icon.defaultTypes = {};
 
-FabIcon.propTypes = {
-  icon: PropTypes.node.isRequired,
+Icon.propTypes = {
+  icon: PropTypes.node,
 };
 
-export default FabIcon;
+export default Icon;

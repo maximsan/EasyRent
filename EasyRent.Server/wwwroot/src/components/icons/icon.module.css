@@ -1,0 +1,12 @@
+.fabRoot {
+  border: 1.5px #e8f6f8 solid !important;
+  background: #fff !important;
+}
+
+.fabRoot:hover {
+  background: #e8f6f8 !important;
+}
+
+.svgIconRoot {
+  opacity: 0.6;
+}

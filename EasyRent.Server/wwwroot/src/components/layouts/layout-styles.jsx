@@ -2,13 +2,13 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const LayoutStyles = makeStyles({
   main: {
-    height: '100%',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
     flex: '1',
-    background: '#E8F6F8',
+    height: '100%',
     position: 'relative',
+    background: '#E8F6F8',
   },
   page: {
     position: 'absolute',

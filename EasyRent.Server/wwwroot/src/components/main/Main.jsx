@@ -5,6 +5,7 @@ import { Grid, makeStyles } from '@material-ui/core';
 
 const useClasses = makeStyles({
   root: {
+    minHeight: '100vh',
     height: '100%',
   },
 });

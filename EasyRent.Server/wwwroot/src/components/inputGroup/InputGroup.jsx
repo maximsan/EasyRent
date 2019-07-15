@@ -10,6 +10,9 @@ const useClasses = makeStyles({
   formControlRoot: {
     margin: '20px 0',
   },
+  labelRoot: {
+    marginBottom: '10px',
+  },
 });
 
 const InputGroup = ({ label, items }) => {
@@ -18,7 +21,7 @@ const InputGroup = ({ label, items }) => {
   return (
     <>
       <FormControl classes={{ root: classes.formControlRoot }}>
-        <FormLabel>{label}</FormLabel>
+        <FormLabel classes={{ root: classes.labelRoot }}>{label}</FormLabel>
         <div className={customClasses.inputs}>
           {items.map(({ name, value, onChange, placeholder }) => (
             <Input

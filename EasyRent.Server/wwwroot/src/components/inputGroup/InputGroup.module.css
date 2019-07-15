@@ -1,0 +1,8 @@
+.inputs {
+  display: flex;
+  width: 320px;
+}
+
+.input:nth-child(1) {
+  margin-right: 80px;
+}

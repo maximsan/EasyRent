@@ -1,28 +1,49 @@
-import React, { PureComponent } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { Input, FormControl, FormLabel } from '@material-ui/core';
+import { makeStyles, Input, FormControl, FormLabel } from '@material-ui/core';
+import customClasses from './InputGroup.module.css';
+
+const useClasses = makeStyles({
+  inputRoot: {
+    width: '120px',
+  },
+  formControlRoot: {
+    margin: '20px 0',
+  },
+});
 
 const InputGroup = ({ label, items }) => {
+  const classes = useClasses();
+
   return (
     <>
-      <FormControl>
+      <FormControl classes={{ root: classes.formControlRoot }}>
         <FormLabel>{label}</FormLabel>
-        {items.map((item) => (
-          <Input
-            type='number'
-            name={item.name}
-            value={item.value}
-            onChange={item.onChange}
-            placeholder={item.placeholder}
-          />
-        ))}
+        <div className={customClasses.inputs}>
+          {items.map(({ name, value, onChange, placeholder }) => (
+            <Input
+              classes={{ root: classes.inputRoot }}
+              className={customClasses.input}
+              type='number'
+              name={name}
+              value={value}
+              onChange={onChange}
+              placeholder={placeholder}
+            />
+          ))}
+        </div>
       </FormControl>
     </>
   );
 };
 
-InputGroup.propTypes = {};
+InputGroup.propTypes = {
+  items: PropTypes.arrayOf({}),
+  label: PropTypes.string,
+};
 
-InputGroup.defaultProps = {};
+InputGroup.defaultProps = {
+  label: '',
+};
 
 export default InputGroup;

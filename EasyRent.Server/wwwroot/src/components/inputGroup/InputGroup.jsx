@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { Input, FormControl, FormLabel } from '@material-ui/core';
 
@@ -7,13 +7,13 @@ const InputGroup = ({ label, items }) => {
     <>
       <FormControl>
         <FormLabel>{label}</FormLabel>
-        {items.map((item) => (
+        {items.map(({ name, value, onChange, placeholder }) => (
           <Input
             type='number'
-            name={item.name}
-            value={item.value}
-            onChange={item.onChange}
-            placeholder={item.placeholder}
+            name={name}
+            value={value}
+            onChange={onChange}
+            placeholder={placeholder}
           />
         ))}
       </FormControl>
@@ -21,8 +21,13 @@ const InputGroup = ({ label, items }) => {
   );
 };
 
-InputGroup.propTypes = {};
+InputGroup.propTypes = {
+  items: PropTypes.arrayOf({}),
+  label: PropTypes.string,
+};
 
-InputGroup.defaultProps = {};
+InputGroup.defaultProps = {
+  label: '',
+};
 
 export default InputGroup;

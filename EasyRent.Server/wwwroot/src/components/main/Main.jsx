@@ -1,12 +1,12 @@
 import React from 'react';
+import { Grid, makeStyles } from '@material-ui/core';
 import Header from '../header/Header';
 import Filter from '../filter/Filter';
-import { Grid, makeStyles } from '@material-ui/core';
+import Masonry from '../masonry/Masonry';
 
 const useClasses = makeStyles({
   root: {
-    minHeight: '100vh',
-    height: '100%',
+    minHeight: '100%',
   },
 });
 
@@ -17,6 +17,7 @@ const Main = () => {
     <Grid container classes={{ root: classes.root }}>
       <Header />
       <Filter />
+      <Masonry />
     </Grid>
   );
 };

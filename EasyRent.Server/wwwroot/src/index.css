@@ -10,4 +10,5 @@ body {
   flex-wrap: wrap;
   height: 100vh;
   margin: 0;
+  overflow: scroll;
 }

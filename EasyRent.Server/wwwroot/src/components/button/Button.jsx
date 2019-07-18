@@ -5,18 +5,14 @@ import classes from './button.module.css';
 
 const CustomButton = ({ children, addClasses, ...rest }) => {
   return (
-    <Button
-      {...rest}
-      classes={{ ...classes, ...addClasses }}
-      variant='contained'
-    >
+    <Button {...rest} classes={{ ...addClasses }} variant='contained'>
       {children}
     </Button>
   );
 };
 
 CustomButton.propTypes = {
-  children: PropTypes.arrayOf({}).isRequired,
+  children: PropTypes.element.isRequired,
 };
 
 CustomButton.defaultProps = {};

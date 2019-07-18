@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { makeStyles } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import Button from '../button/Button';
 import Select from '../select/Select';
@@ -7,7 +8,20 @@ import CheckBox from '../checkbox/Checkbox';
 import InputGroup from '../inputGroup/InputGroup';
 import customClasses from './Filter.module.css';
 
+const useClasses = makeStyles({
+  withPhotosRoot: {
+    alignSelf: 'flex-start',
+    marginLeft: '29px',
+  },
+  showBtn: {
+    background: '#086574',
+    color: '#fff',
+    marginRight: '140px',
+  },
+});
+
 const Filter = ({}) => {
+  const classes = useClasses();
   const [price, setPrice] = useState({ from: 0, to: 0 });
   const [days, setDays] = useState({ from: 0, to: 0 });
   const [values, setValues] = useState({
@@ -87,13 +101,16 @@ const Filter = ({}) => {
           {
             placeholder: 'from',
             name: 'daysFrom',
-            value: days.From,
+            value: days.from,
             onDaysChange,
           },
           { placeholder: 'to', name: 'daysTo', value: days.to, onDaysChange },
         ]}
       />
-      <CheckBox label='with photos' />
+      <CheckBox
+        classes={{ root: classes.withPhotosRoot }}
+        label='with photos'
+      />
       <CheckBoxGroup
         items={[
           { label: 'last 5 days', name: 'last_5_Days' },
@@ -102,8 +119,8 @@ const Filter = ({}) => {
           { label: 'all ads', name: 'allAds' },
         ]}
       />
-      <div>
-        <Button>Show</Button>
+      <div className={customClasses.btnGroup}>
+        <Button addClasses={{ contained: classes.showBtn }}>Show</Button>
         <Button>Clear</Button>
       </div>
     </aside>

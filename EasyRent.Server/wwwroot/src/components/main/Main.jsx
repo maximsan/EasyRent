@@ -24,18 +24,22 @@ const Main = () => {
     const fetchImages = async () => {
       const { data } = await instance({
         method: 'get',
-        url: `photos/?client_id=${process.env.ACCESS_KEY}`,
+        url: `photos/?per_page=10&client_id=${process.env.REACT_APP_PHOTO_ACCESS_KEY}`,
       });
       setImages(data);
     };
     fetchImages();
   }, []);
 
+  const masonryOptions = {
+    transitionDuration: 0,
+  };
+
   return (
     <Grid container classes={{ root: classes.root }}>
       <Header />
       <Filter />
-      <Masonry images={images} />
+      <Masonry options={masonryOptions} images={images} />
     </Grid>
   );
 };

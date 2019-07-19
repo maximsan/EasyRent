@@ -5,11 +5,14 @@ import './index.css';
 import App from './App';
 import store from './store';
 import * as serviceWorker from './serviceWorker';
+import ErrorBoundary from './components/ErrorBoundary';
 // import { createBrowserHistory } from 'history';
 
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <ErrorBoundary>
+      <App />
+    </ErrorBoundary>
   </Provider>,
   document.getElementById('root'),
 );

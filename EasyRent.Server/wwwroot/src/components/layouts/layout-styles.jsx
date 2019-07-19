@@ -6,7 +6,7 @@ const LayoutStyles = makeStyles({
     alignItems: 'center',
     justifyContent: 'center',
     flex: '1',
-    height: '100%',
+    // height: '100%',
     position: 'relative',
     background: '#E8F6F8',
   },

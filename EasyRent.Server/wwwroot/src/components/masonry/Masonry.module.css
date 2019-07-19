@@ -1,0 +1,16 @@
+.Img {
+  height: 140px;
+  min-width: 100px;
+  display: block;
+  float: left;
+  list-style: none;
+  margin: 0 5px 5px 0;
+  background-color: black;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+.ImgContainer {
+  max-height: 140px;
+  margin-top: 20px;
+}

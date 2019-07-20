@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Container, ContainerItem } from './styled';
+import { Container, Item, ImagesDiv } from './styled';
 import Header from '../header/Header';
 import Filter from '../filter/Filter';
 import Images from '../masonry/Images';
@@ -35,9 +35,9 @@ const Main = () => {
     <Container>
       <Header />
       <Filter />
-      <ContainerItem>
+      <ImagesDiv>
         <Images images={images} />
-      </ContainerItem>
+      </ImagesDiv>
     </Container>
   );
 };

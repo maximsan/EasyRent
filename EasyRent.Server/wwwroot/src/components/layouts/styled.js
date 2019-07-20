@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const LayoutDiv = styled.div`
   max-width: 100%;
-  height: auto;
+  height: 100%;
   position: relative;
   display: flex;
   align-items: center;

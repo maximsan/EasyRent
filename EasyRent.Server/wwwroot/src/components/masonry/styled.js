@@ -21,15 +21,15 @@ export const Col = styled.div`
 export const ImgDiv = styled.img`
   height: auto;
   min-width: 100px;
-  width: 240px;
+  width: 250px;
   list-style: none;
   margin: 0 5px 5px 0;
   background-color: black;
   background-position: center center;
   background-repeat: no-repeat;
+  border-radius: 4px;
 `;
 
-export const container = styled.div`
-  max-height: 140px;
+export const ImagesDiv = styled.div`
   margin-top: 20px;
 `;

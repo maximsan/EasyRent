@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import Masonry from './MasonryComponent';
-import { ImgDiv } from './styled';
+import { ImgDiv, ImagesDiv } from './styled';
 
 const Images = ({ images }) => {
   const imgElements =

@@ -1,15 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Switch, Route } from 'react-router-dom';
-import { CSSTransition, TransitionGroup } from 'react-transition-group';
-import useLayoutStyles from './layout-styles';
+import { LayoutDiv } from './styled';
 import SignInUpForm from '../SignInUpForm';
 import Home from '../home/Home';
 
 const PublicLayout = () => {
-  const classes = useLayoutStyles();
   return (
-    <div className={classes.main}>
+    <LayoutDiv>
       {/* <Route
         render={({ location }) => (
           <TransitionGroup className={classes.page}>
@@ -27,7 +25,7 @@ const PublicLayout = () => {
         <Route path='/signup' exact component={SignInUpForm} />
         <Route path='/home' exact component={Home} />
       </Switch>
-    </div>
+    </LayoutDiv>
   );
 };
 

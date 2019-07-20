@@ -148,7 +148,7 @@ const SignFormLayout = ({
 };
 
 SignFormLayout.propTypes = {
-  header: PropTypes.string.isRequired,
+  header: PropTypes.string,
   hint: PropTypes.string,
   onHandleChange: PropTypes.func,
   value: PropTypes.any,
@@ -157,6 +157,7 @@ SignFormLayout.propTypes = {
 SignFormLayout.defaultProps = {
   header: '',
   hint: '',
+  onHandleChange: () => {},
 };
 
 export default SignFormLayout;

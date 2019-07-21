@@ -2,8 +2,8 @@ import React from 'react';
 import { Switch, Route, BrowserRouter, Animate } from 'react-router-dom';
 // import SignUp from './components/sign-up/SignUp';
 // import Layout from './components/Layout';
-import PublicLayout from './components/layouts/PublicLayout';
-import PrivateLayout from './components/layouts/PrivateLayout';
+import PublicLayout from './layouts/PublicLayout';
+import PrivateLayout from './layouts/PrivateLayout';
 import PrivateRoute from './components/PrivateRoute';
 
 const App = React.memo(() => (

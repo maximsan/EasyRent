@@ -1,15 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { Grid, makeStyles } from '@material-ui/core';
 import axios from 'axios';
-import Header from '../header/Header';
-import Filter from '../filter/Filter';
-import Masonry from '../masonry/Masonry';
-
-const useClasses = makeStyles({
-  root: {
-    minHeight: '100%',
-  },
-});
+import { Container, ContentSection, MainSection } from './styled';
+import Header from '../../components/header/Header';
+import Filter from '../../components/filter/Filter';
+import Images from '../../components/masonry/Images';
+import Footer from '../../components/footer/Footer';
 
 // Set config defaults when creating the instance
 const instance = axios.create({
@@ -17,7 +12,6 @@ const instance = axios.create({
 });
 
 const Main = () => {
-  const classes = useClasses();
   const [images, setImages] = useState(null);
 
   useEffect(() => {
@@ -31,16 +25,17 @@ const Main = () => {
     fetchImages();
   }, []);
 
-  const masonryOptions = {
-    transitionDuration: 0,
-  };
-
   return (
-    <Grid container classes={{ root: classes.root }}>
+    <>
       <Header />
-      <Filter />
-      <Masonry options={masonryOptions} images={images} />
-    </Grid>
+      <MainSection>
+        <Filter />
+        <ContentSection>
+          <Images images={images} />
+        </ContentSection>
+      </MainSection>
+      <Footer />
+    </>
   );
 };
 

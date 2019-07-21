@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Container, Row, BodyCestion, Item, MainSection } from './styled';
+import { Container, ContentSection, MainSection } from './styled';
 import Header from '../../components/header/Header';
 import Filter from '../../components/filter/Filter';
 import Images from '../../components/masonry/Images';
@@ -26,18 +26,16 @@ const Main = () => {
   }, []);
 
   return (
-    <Container>
-      <Row>
-        <Header />
-        <BodyCestion>
-          <Filter />
-          <MainSection>
-            <Images images={images} />
-          </MainSection>
-        </BodyCestion>
-        <Footer />
-      </Row>
-    </Container>
+    <>
+      <Header />
+      <MainSection>
+        <Filter />
+        <ContentSection>
+          <Images images={images} />
+        </ContentSection>
+      </MainSection>
+      <Footer />
+    </>
   );
 };
 

@@ -8,27 +8,16 @@ export const Container = styled.div`
   margin-left: auto;
 `;
 
-export const Row = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  margin-right: -15px;
-  margin-left: -15px;
-`;
-
-export const BodyCestion = styled.div`
+export const MainSection = styled.main`
   display: flex;
   flex-wrap: nowrap;
+  position: relative;
+  margin-top: 100px;
 `;
 
-export const MainSection = styled.main`
-  position: relative;
-  max-width: 800px;
+export const ContentSection = styled.section`
   width: 800px;
+  position: relative;
   margin-top: 20px;
   overflow-y: scroll;
-`;
-
-export const Item = styled.div`
-  margin: 0;
-  padding: 0;
 `;

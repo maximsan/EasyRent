@@ -1,3 +1,10 @@
 import styled from 'styled-components';
 
-export const Footer = styled.footer``;
+export const Footer = styled.footer`
+  width: 100%;
+  min-height: 4rem;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin: 30px 0px 20px 0px;
+`;

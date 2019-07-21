@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Switch, Route } from 'react-router-dom';
 import { LayoutDiv } from './styled';
-import SignInUpForm from '../SignInUpForm';
-import Home from '../home/Home';
+import SignInUpForm from '../pages/sign-in-up/SignInUpForm';
+import Home from '../components/home/Home';
 
 const PublicLayout = () => {
   return (

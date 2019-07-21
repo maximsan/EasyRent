@@ -1,15 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Container, Item, ImagesDiv } from './styled';
-import Header from '../header/Header';
-import Filter from '../filter/Filter';
-import Images from '../masonry/Images';
-
-// const useClasses = makeStyles({
-//   root: {
-//     minHeight: '100%',
-//   },
-// });
+import { Container, Row, BodyCestion, Item, MainSection } from './styled';
+import Header from '../../components/header/Header';
+import Filter from '../../components/filter/Filter';
+import Images from '../../components/masonry/Images';
+import Footer from '../../components/footer/Footer';
 
 // Set config defaults when creating the instance
 const instance = axios.create({
@@ -17,7 +12,6 @@ const instance = axios.create({
 });
 
 const Main = () => {
-  // const classes = useClasses();
   const [images, setImages] = useState(null);
 
   useEffect(() => {
@@ -33,11 +27,16 @@ const Main = () => {
 
   return (
     <Container>
-      <Header />
-      <Filter />
-      <ImagesDiv>
-        <Images images={images} />
-      </ImagesDiv>
+      <Row>
+        <Header />
+        <BodyCestion>
+          <Filter />
+          <MainSection>
+            <Images images={images} />
+          </MainSection>
+        </BodyCestion>
+        <Footer />
+      </Row>
     </Container>
   );
 };

@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Switch, Route } from 'react-router-dom';
 import { LayoutDiv } from './styled';
-import Home from '../home/Home';
-import Main from '../main/Main';
+import Home from '../components/home/Home';
+import Main from '../pages/main/Main';
 
 const PrivateLayout = () => {
   return (

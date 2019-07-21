@@ -1,12 +1,14 @@
 import React from 'react';
+import PaymentIcon from '../icons/PaymentIcon';
+import { Footer } from './styled';
 
-const Footer = () => {
+const FooterComponent = () => {
   return (
-    <footer>
-      <div>Make a donation</div>
+    <Footer>
+      <PaymentIcon />
       <div>Contact with us</div>
-    </footer>
+    </Footer>
   );
 };
 
-export default Footer;
+export default FooterComponent;

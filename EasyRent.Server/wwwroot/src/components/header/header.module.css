@@ -1,6 +1,6 @@
 .header {
   width: 100%;
-  min-height: 10vh;
+  min-height: 4rem;
   align-self: flex-start;
   display: flex;
   align-items: center;

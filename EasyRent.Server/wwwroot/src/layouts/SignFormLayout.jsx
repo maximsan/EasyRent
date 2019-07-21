@@ -6,15 +6,14 @@ import {
   LockOutlined,
   PersonOutlined,
 } from '@material-ui/icons';
-
-import Email from '../email/Email';
-import Password from '../password/Password';
-import TextInput from '../text-input/TextInput';
-import Button from '../button/Button';
-import FacebookIcon from '../icons/cosialIcons/FacebookIcon';
-import GoogleIcon from '../icons/cosialIcons/GoogleIcon';
-import TelegramIcon from '../icons/cosialIcons/TelegramIcon';
-import useSignInClasses from '../sign-in/signin-styles';
+import Email from '../components/email/Email';
+import Password from '../components/password/Password';
+import TextInput from '../components/text-input/TextInput';
+import Button from '../components/button/Button';
+import FacebookIcon from '../components/icons/cosialIcons/FacebookIcon';
+import GoogleIcon from '../components/icons/cosialIcons/GoogleIcon';
+import TelegramIcon from '../components/icons/cosialIcons/TelegramIcon';
+import useSignInClasses from '../pages/sign-in/signin-styles';
 
 const SignFormLayout = ({
   gridClasses,

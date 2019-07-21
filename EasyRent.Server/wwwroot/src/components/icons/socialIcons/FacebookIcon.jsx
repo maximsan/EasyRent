@@ -6,7 +6,6 @@ import customClasses from '../icon.module.css';
 const FacebookIcon = () => {
   return (
     <Icon
-      classNameSVG=''
       className={customClasses.fabRoot}
       href=''
       size='medium'

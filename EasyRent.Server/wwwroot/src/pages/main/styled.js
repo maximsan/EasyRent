@@ -9,7 +9,9 @@ export const Container = styled.div`
 `;
 
 export const MainSection = styled.main`
+  width: 100vw;
   display: flex;
+  justify-content: flex-start;
   flex-wrap: nowrap;
   position: relative;
   margin-top: 100px;

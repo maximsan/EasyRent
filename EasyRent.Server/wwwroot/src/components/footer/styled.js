@@ -8,3 +8,9 @@ export const Footer = styled.footer`
   align-items: center;
   margin: 30px 0px 20px 0px;
 `;
+
+export const SocilIcons = styled.div`
+  display: flex;
+  justify-content: space-around;
+  margin-top: 0.5rem;
+`;

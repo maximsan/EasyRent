@@ -3,9 +3,10 @@ import GeoLocationIcon from '../icons/GeoLocationIcon';
 import customClasses from './header.module.css';
 import Search from '../search/Search';
 
-const Header = () => {
+const Header = ({ children }) => {
   return (
     <header className={customClasses.header}>
+      {children}
       <div>
         <img src={{}} alt='' />
         <span>Easy Rent</span>

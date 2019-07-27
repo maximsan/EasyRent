@@ -4,6 +4,7 @@ import { Switch, Route } from 'react-router-dom';
 import { LayoutDiv } from './styled';
 import SignInUpForm from '../pages/sign-in-up/SignInUpForm';
 import Home from '../components/home/Home';
+import SideBar from '../components/side-bar/SideBar';
 
 const PublicLayout = () => {
   return (
@@ -24,6 +25,7 @@ const PublicLayout = () => {
         <Route path='/signin' exact component={SignInUpForm} />
         <Route path='/signup' exact component={SignInUpForm} />
         <Route path='/home' exact component={Home} />
+        <Route path='/side-bar' exact component={SideBar} />
       </Switch>
     </LayoutDiv>
   );

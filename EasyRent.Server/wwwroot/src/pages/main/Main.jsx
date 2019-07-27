@@ -5,6 +5,7 @@ import Header from '../../components/header/Header';
 import Filter from '../../components/filter/Filter';
 import Images from '../../components/masonry/Images';
 import Footer from '../../components/footer/Footer';
+import SideBar from '../../components/side-bar/SideBar';
 
 // Set config defaults when creating the instance
 const instance = axios.create({
@@ -29,7 +30,9 @@ const Main = () => {
     <>
       <Header />
       <MainSection>
-        <Filter />
+        {/* <SideBar>
+          <Filter />
+        </SideBar> */}
         <ContentSection>
           <Images images={images} />
         </ContentSection>

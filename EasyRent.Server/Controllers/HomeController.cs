@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace EasyRent.Server.Controllers
 {
+    [Route("api/[controller]")]
     public class HomeController : BaseController
     {
         private readonly List<string> list = new List<string>
@@ -17,15 +18,7 @@ namespace EasyRent.Server.Controllers
 
         public HomeController(UnitOfWork unitOfWork, IMapper mapper) : base(unitOfWork, mapper) { }
 
-        //[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        //public IActionResult Error()
-        //{
-        //    return View(new ErrorViewModel
-        //    {
-        //        RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier
-        //    });
-        //}
-
+        [HttpGet("[action]")]
         public IActionResult Index()
         {
             return Json(new JsonResponseTemplate(nameof(HomeController), string.Empty));

@@ -4,19 +4,23 @@ using AutoMapper;
 using EasyRent.Data;
 using EasyRent.Data.Entities;
 using EasyRent.Server.Common;
-using EasyRent.Server.Common.Validators;
 using EasyRent.Server.Models;
+using FluentValidation;
 using FluentValidation.Results;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using SignInResult = Microsoft.AspNetCore.Identity.SignInResult;
 
 namespace EasyRent.Server.Controllers
 {
+    [Produces("application/json")]
+    [Route("[controller]")]
     public class AccountController : BaseController
     {
         protected readonly SignInManager<User> SignInManager;
 
-        public AccountController(SignInManager<User> signInManager, UnitOfWork unitOfWork, IMapper mapper) : base(unitOfWork, mapper)
+        public AccountController(SignInManager<User> signInManager, UnitOfWork unitOfWork, IMapper mapper) : base(
+            unitOfWork, mapper)
         {
             SignInManager = signInManager;
         }
@@ -24,35 +28,73 @@ namespace EasyRent.Server.Controllers
         [HttpPost("sign-in")]
         public async Task<IActionResult> SignIn(SignInModel model)
         {
-            SignInValidator modelValidator = GetService<SignInValidator>();
+            ValidationResult validationResult = GetService<IValidator<SignInModel>>()
+                .Validate(model);
 
-            if (!modelValidator.Validate(model).IsValid)
+            string secureErrorMessage = "Invalid email or password";
+
+            SetJsonResponseType();
+
+            if (!validationResult.IsValid)
             {
-                return Json(new JsonResponseTemplate(false, "Invalid email or password"));
+                return Json(new JsonResponseTemplate(false, secureErrorMessage));
             }
 
             User user = await SignInManager.UserManager.FindByEmailAsync(model.Email);
 
-            return user is null
-                ? Json(new JsonResponseTemplate(false, string.Empty))
-                : Json(new JsonResponseTemplate(
-                           await SignInManager.CheckPasswordSignInAsync(user, model.Password, false), string.Empty));
+            if (user != null)
+            {
+                bool canSignin = await SignInManager.CanSignInAsync(user);
+
+                if (canSignin)
+                {
+                    SignInResult isValidPassword =
+                        await SignInManager.CheckPasswordSignInAsync(user, model.Password, false);
+
+                    if (isValidPassword.Succeeded)
+                    {
+                        await SignInManager.SignInAsync(user, false);
+
+                        return Json(new JsonResponseTemplate(true, string.Empty));
+                    }
+                }
+            }
+
+            return Json(new JsonResponseTemplate(false, secureErrorMessage));
+        }
+
+        [Route("sign-out")]
+        public async Task<IActionResult> SignOut(int? id)
+        {
+            if (!id.HasValue)
+            {
+                return Json(new JsonResponseTemplate(false, "Bad request. Try again."));
+            }
+
+            await SignInManager.SignOutAsync();
+
+            return Json(new JsonResponseTemplate(true, string.Empty));
         }
 
         [HttpPost("sign-up")]
-        public async Task<IActionResult> SignUp(SignUpModel model)
+        public async Task<IActionResult> SignUp([FromBody] SignUpModel model)
         {
-            SignUpValidator modelValidator = GetService<SignUpValidator>();
-            ValidationResult validatorResponse = modelValidator.Validate(model);
+            ValidationResult validatorResponse = GetService<IValidator<SignUpModel>>()
+                .Validate(model);
 
             if (!validatorResponse.IsValid)
             {
                 return Json(new JsonResponseTemplate(false, validatorResponse.Errors.Select(q => q.ErrorMessage)));
             }
 
-            var newUser = Mapper.Map<User>(model);
+            User newUser = Mapper.Map<User>(model);
 
-            var creatingResult = await SignInManager.UserManager.CreateAsync(newUser);
+            IdentityResult creatingResult = await SignInManager.UserManager.CreateAsync(newUser);
+
+            if (creatingResult.Succeeded)
+            {
+                await SignInManager.UserManager.AddPasswordAsync(newUser, model.Password);
+            }
 
             return creatingResult.Succeeded
                 ? Json(new JsonResponseTemplate(true, string.Empty))

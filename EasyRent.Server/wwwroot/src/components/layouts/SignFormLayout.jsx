@@ -27,7 +27,7 @@ const SignFormLayout = ({
 }) => {
   const classes = useSignInClasses();
 
-  const { name, email, password, confirmPassword } = value;
+  const { userName, email, password, confirmPassword } = value;
 
   return (
     <div className={classes.rootMainLayout}>
@@ -61,8 +61,8 @@ const SignFormLayout = ({
               id='name'
               labelText='Name'
               variant='filled'
-              value={name}
-              onChange={onChange('name')}
+              value={userName}
+              onChange={onChange('userName')}
               required
               hasError={false}
               startIcon={

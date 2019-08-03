@@ -263,3 +263,5 @@ paket-files/
 __pycache__/
 *.pyc
 /logger
+/EasyRent.Server/logger
+EasyRent.Server/Properties/PublishProfiles/FolderProfile.pubxml

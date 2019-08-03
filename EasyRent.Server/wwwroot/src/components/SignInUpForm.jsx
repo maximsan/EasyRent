@@ -13,7 +13,7 @@ const SignInUpForm = () => {
     email: '',
     password: '',
     confirmPassword: '',
-    name: '',
+    userName: '',
   });
 
   const dispatch = useDispatch();
@@ -45,9 +45,10 @@ const SignInUpForm = () => {
   const onSignUpSubmit = (props) => {
     dispatch(
       signUp({
-        name: values.name,
+        userName: values.userName,
         email: values.email,
         password: values.password,
+        confirmPassword: values.confirmPassword,
       }),
     );
   };

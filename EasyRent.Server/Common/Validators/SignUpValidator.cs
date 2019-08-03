@@ -1,11 +1,14 @@
-﻿using EasyRent.Server.Models;
+﻿using EasyRent.Data.Entities;
+using EasyRent.Server.Common.Extentions;
+using EasyRent.Server.Models;
 using FluentValidation;
+using Microsoft.AspNetCore.Identity;
 
 namespace EasyRent.Server.Common.Validators
 {
     public class SignUpValidator : AbstractValidator<SignUpModel>
     {
-        public SignUpValidator()
+        public SignUpValidator(UserManager<User> userManager)
         {
             RuleFor(q => q.Email)
                 .EmailAddress()
@@ -25,7 +28,8 @@ namespace EasyRent.Server.Common.Validators
                 .NotEmpty()
                 .WithMessage("Login cannot be empty.")
                 .NotNull()
-                .WithMessage("Login cannot be empty.");
+                .WithMessage("Login cannot be empty.")
+                .UserExists(userManager);
 
             RuleFor(q => q.Password)
                 .NotNull()

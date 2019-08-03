@@ -3,10 +3,13 @@ using EasyRent.Data;
 using EasyRent.Data.Entities;
 using EasyRent.Data.Repositories;
 using EasyRent.Server.Common.Extentions;
+using EasyRent.Server.Common.IdentityServer;
 using EasyRent.Server.Common.Validators;
 using EasyRent.Server.Models;
 using FluentValidation;
 using FluentValidation.AspNetCore;
+using IdentityServer4.AccessTokenValidation;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -50,13 +53,12 @@ namespace EasyRent.Server
             app.UseSpaStaticFiles();
 
             app.UseCookiePolicy();
+
             app.UseAuthentication();
+            //app.UseIdentityServer(); //TODO: Need to implement IS4. It still doesn't work.
 
             app.UseMvc(routes =>
             {
-                routes.MapRoute("Home", "{controller=Home}/{action=Index}/{id?}");
-                routes.MapRoute("Account", "{controller=Account}/{action}");
-
                 routes.MapSpaFallbackRoute("spa-fallback", new
                 {
                     controller = "Home",
@@ -73,6 +75,8 @@ namespace EasyRent.Server
                     spa.UseReactDevelopmentServer("start");
                 }
             });
+
+            app.UseCors(builder => builder.AllowAnyOrigin()); //TODO: Web API still gets any requests. We have to change it in the future.
         }
 
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -85,7 +89,11 @@ namespace EasyRent.Server
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            services.AddCors();
+
             InitDatabaseConfigurations(services);
+
+            InitIdentityServer(services);
 
             services.AddMvc()
                     .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
@@ -109,7 +117,8 @@ namespace EasyRent.Server
 
             services.AddDefaultIdentity<User>()
                     .AddDefaultUI(UIFramework.Bootstrap4)
-                    .AddEntityFrameworkStores<ApplicationDbContext>();
+                    .AddEntityFrameworkStores<ApplicationDbContext>()
+                    .AddDefaultTokenProviders();
         }
 
         private void InitDependencies(IServiceCollection services)
@@ -133,6 +142,32 @@ namespace EasyRent.Server
                 config.CreateMap<SignInModel, User>();
                 config.CreateMap<SignUpModel, User>();
             }, typeof(Startup));
+        }
+
+        private void InitIdentityServer(IServiceCollection services)
+        {
+            services.AddIdentityServer(configs =>
+                    {
+                        configs.Endpoints.EnableJwtRequestUri = true;
+
+                        configs.Authentication.CookieAuthenticationScheme =
+                            IdentityServerAuthenticationDefaults.AuthenticationScheme;
+
+                        configs.UserInteraction.LoginUrl = "/signin";
+                        configs.UserInteraction.LogoutUrl = "/account/signout";
+                    })
+                    .AddDeveloperSigningCredential()
+                    .AddInMemoryPersistedGrants()
+                    .AddInMemoryIdentityResources(Config.GetIdentityResources())
+                    .AddInMemoryApiResources(Config.GetApisApiResources())
+                    .AddInMemoryClients(Config.GeClients())
+                    .AddAspNetIdentity<User>();
+
+            services.AddAuthentication(configs =>
+            {
+                configs.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                configs.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            });
         }
     }
 }

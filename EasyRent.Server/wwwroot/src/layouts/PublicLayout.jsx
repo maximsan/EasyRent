@@ -1,15 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Switch, Route } from 'react-router-dom';
-import { CSSTransition, TransitionGroup } from 'react-transition-group';
-import useLayoutStyles from './layout-styles';
-import SignInUpForm from '../SignInUpForm';
-import Home from '../home/Home';
+import { LayoutDiv } from './styled';
+import SignInUpForm from '../pages/sign-in-up/SignInUpForm';
+import Home from '../components/home/Home';
+import SideBar from '../components/side-bar/SideBar';
 
 const PublicLayout = () => {
-  const classes = useLayoutStyles();
   return (
-    <div className={classes.main}>
+    <LayoutDiv>
       {/* <Route
         render={({ location }) => (
           <TransitionGroup className={classes.page}>
@@ -26,8 +25,9 @@ const PublicLayout = () => {
         <Route path='/signin' exact component={SignInUpForm} />
         <Route path='/signup' exact component={SignInUpForm} />
         <Route path='/home' exact component={Home} />
+        <Route path='/side-bar' exact component={SideBar} />
       </Switch>
-    </div>
+    </LayoutDiv>
   );
 };
 

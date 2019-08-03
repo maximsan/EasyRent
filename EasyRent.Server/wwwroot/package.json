@@ -5,17 +5,20 @@
   "dependencies": {
     "@material-ui/core": "^4.1.1",
     "@material-ui/icons": "^4.2.0",
+    "clsx": "^1.0.4",
     "node-sass": "^4.12.0",
     "prop-types": "^15.7.2",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-helmet": "^5.2.1",
+    "react-masonry-component": "^6.2.1",
     "react-redux": "^7.1.0",
     "react-router-dom": "^5.0.1",
     "react-scripts": "3.0.1",
     "react-transition-group": "^4.2.0",
     "redux": "^4.0.1",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "styled-components": "^5.0.0-beta.8"
   },
   "scripts": {
     "start": "rimraf ./build && react-scripts start",
@@ -57,7 +60,7 @@
     "eslint-plugin-react": "7.11.0",
     "husky": "^2.4.1",
     "lint-staged": "^8.2.1",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.15",
     "prettier": "^1.18.2",
     "pretty-quick": "^1.11.1",
     "redux-saga": "^1.0.3",

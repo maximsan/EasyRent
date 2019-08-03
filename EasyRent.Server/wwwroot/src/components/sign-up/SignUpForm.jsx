@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import SignFormLayout from '../layouts/SignFormLayout';
+import SignFormLayout from '../../layouts/SignFormLayout';
 import SignUpOverlay from './SignUpOverlay';
 
 const SignUpForm = ({ value, onChange, onSubmit, className }) => {

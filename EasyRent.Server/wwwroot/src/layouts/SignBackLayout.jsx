@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Grid, Paper } from '@material-ui/core';
-import useSignInClasses from '../sign-in/signin-styles';
+import useSignInClasses from '../pages/sign-in/signin-styles';
 
-import Button from '../button/Button';
+import Button from '../components/button/Button';
 
 const SignBackLayout = ({
   gridClasses,

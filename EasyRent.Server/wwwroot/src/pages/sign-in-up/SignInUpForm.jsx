@@ -1,11 +1,11 @@
 import React, { useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { connect, useDispatch } from 'react-redux';
-import { signIn, signUp } from '../reducers/signInReducer';
-import SignInForm from './sign-in/SignInForm';
-import SignInOverlay from './sign-in/SignInOverlay';
-import SignUpForm from './sign-up/SignUpForm';
-import SignUpOverlay from './sign-up/SignUpOverlay';
+import { signIn, signUp } from '../../reducers/signInReducer';
+import SignInForm from '../sign-in/SignInForm';
+import SignInOverlay from '../sign-in/SignInOverlay';
+import SignUpForm from '../../components/sign-up/SignUpForm';
+import SignUpOverlay from '../../components/sign-up/SignUpOverlay';
 import classes from './SignInUp.module.css';
 
 const SignInUpForm = () => {

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Grid, Paper } from '@material-ui/core';
-import SignBackLayout from '../layouts/SignBackLayout';
+import SignBackLayout from '../../layouts/SignBackLayout';
 
 const SignUpOverlay = ({
   header,

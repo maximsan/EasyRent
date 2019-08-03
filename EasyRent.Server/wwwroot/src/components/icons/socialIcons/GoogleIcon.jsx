@@ -1,16 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Icon from './Icon';
-import { makeStyles } from '@material-ui/core/styles';
-import useIconClasses from './Icon-styles';
+import Icon from '../Icon';
+import customClasses from '../icon.module.css';
 
 const GoogleIcon = () => {
-  const classes = useIconClasses();
-
   return (
     <Icon
-      // classNameSVG={classes.fontSizeLarge}
-      classes={{ root: classes.fabRoot }}
+      className={customClasses.fabRoot}
       href=''
       size='medium'
       fontSize='large'
@@ -21,8 +17,6 @@ const GoogleIcon = () => {
     </Icon>
   );
 };
-
-const useClasses = makeStyles((theme) => ({}));
 
 GoogleIcon.defaultTypes = {};
 

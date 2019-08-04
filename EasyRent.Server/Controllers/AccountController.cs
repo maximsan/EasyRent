@@ -4,12 +4,12 @@ using AutoMapper;
 using EasyRent.Data;
 using EasyRent.Data.Entities;
 using EasyRent.Server.Common;
+using EasyRent.Server.Common.Constants;
 using EasyRent.Server.Models;
 using FluentValidation;
 using FluentValidation.Results;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using SignInResult = Microsoft.AspNetCore.Identity.SignInResult;
 
 namespace EasyRent.Server.Controllers
 {
@@ -31,36 +31,16 @@ namespace EasyRent.Server.Controllers
             ValidationResult validationResult = GetService<IValidator<SignInModel>>()
                 .Validate(model);
 
-            string secureErrorMessage = "Invalid email or password";
-
-            SetJsonResponseType();
-
             if (!validationResult.IsValid)
             {
-                return Json(new JsonResponseTemplate(false, secureErrorMessage));
+                return Json(new JsonResponseTemplate(false, ErrorMessages.SignInError));
             }
 
             User user = await SignInManager.UserManager.FindByEmailAsync(model.Email);
 
-            if (user != null)
-            {
-                bool canSignin = await SignInManager.CanSignInAsync(user);
+            await SignInManager.SignInAsync(user, false);
 
-                if (canSignin)
-                {
-                    SignInResult isValidPassword =
-                        await SignInManager.CheckPasswordSignInAsync(user, model.Password, false);
-
-                    if (isValidPassword.Succeeded)
-                    {
-                        await SignInManager.SignInAsync(user, false);
-
-                        return Json(new JsonResponseTemplate(true, string.Empty));
-                    }
-                }
-            }
-
-            return Json(new JsonResponseTemplate(false, secureErrorMessage));
+            return Json(new JsonResponseTemplate(true, string.Empty));
         }
 
         [Route("sign-out")]

@@ -3,6 +3,7 @@ using EasyRent.Server.Common.Extentions;
 using EasyRent.Server.Models;
 using FluentValidation;
 using Microsoft.AspNetCore.Identity;
+using EasyRent.Server.Common.Constants;
 
 namespace EasyRent.Server.Common.Validators
 {
@@ -10,34 +11,34 @@ namespace EasyRent.Server.Common.Validators
     {
         public SignUpValidator(UserManager<User> userManager)
         {
-            RuleFor(q => q.Email)
+            RuleFor(q => q.Email).Cascade(CascadeMode.StopOnFirstFailure)
                 .EmailAddress()
-                .WithMessage("Invalid email")
+                .WithMessage(ErrorMessages.InvalidEmailFormat)
                 .NotEmpty()
-                .WithMessage("Email cannot be empty.")
+                .WithMessage(ErrorMessages.EmailRequired)
                 .NotNull()
-                .WithMessage("Email cannot be empty.");
+                .WithMessage(ErrorMessages.EmailRequired);
 
-            RuleFor(q => q.Password)
+            RuleFor(q => q.Password).Cascade(CascadeMode.StopOnFirstFailure)
                 .NotNull()
-                .WithMessage("Password cannot be empty.")
+                .WithMessage(ErrorMessages.PasswordRequired)
                 .NotEmpty()
-                .WithMessage("Password cannot be empty.");
+                .WithMessage(ErrorMessages.PasswordRequired);
 
-            RuleFor(q => q.UserName)
+            RuleFor(q => q.UserName).Cascade(CascadeMode.StopOnFirstFailure)
                 .NotEmpty()
-                .WithMessage("Login cannot be empty.")
+                .WithMessage(ErrorMessages.UserNameRequired)
                 .NotNull()
-                .WithMessage("Login cannot be empty.")
-                .UserExists(userManager);
+                .WithMessage(ErrorMessages.UserNameRequired)
+                .UserNotMustExist(userManager);
 
-            RuleFor(q => q.Password)
+            RuleFor(q => q.Password).Cascade(CascadeMode.StopOnFirstFailure)
                 .NotNull()
-                .WithMessage("Password cannot be empty.")
+                .WithMessage(ErrorMessages.PasswordRequired)
                 .NotEmpty()
-                .WithMessage("Password cannot be empty.");
+                .WithMessage(ErrorMessages.PasswordRequired);
 
-            RuleFor(q => q.ConfirmPassword)
+            RuleFor(q => q.ConfirmPassword).Cascade(CascadeMode.StopOnFirstFailure)
                 .NotEmpty()
                 .NotNull()
                 .Equal(q => q.Password);

@@ -12,6 +12,7 @@ export const RootDiv = styled.div`
 
 export const MainDiv = styled.div`
   position: fixed;
+  padding: 10px 0px;
   top: ${(props) => props.top};
   bottom: ${(props) => props.bottom};
   left: ${(props) => props.left};
@@ -20,8 +21,8 @@ export const MainDiv = styled.div`
   height: 100%;
   display: flex;
   flex: 1 0 auto;
-  flex-direction: column;
+  flex-direction: row;
   outline: none;
-  overflow-y: auto;
   -webkit-overflow-scrolling: touch;
+  border: 1.5px solid black;
 `;

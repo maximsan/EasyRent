@@ -1,11 +1,11 @@
 import React from 'react';
 import { DockedDiv, RootDiv, MainDiv } from './styled';
 
-const Drawer = ({ children, open }) => {
+const Drawer = ({ children, className, open }) => {
   return (
-    <DockedDiv>
+    <DockedDiv className={className}>
       <RootDiv>
-        <MainDiv top='80px' left='60px' open={open}>
+        <MainDiv top='80px' open={open}>
           {children}
         </MainDiv>
       </RootDiv>

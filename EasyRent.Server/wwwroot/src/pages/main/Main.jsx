@@ -30,9 +30,9 @@ const Main = () => {
     <>
       <Header />
       <MainSection>
-        {/* <SideBar>
+        <SideBar>
           <Filter />
-        </SideBar> */}
+        </SideBar>
         <ContentSection>
           <Images images={images} />
         </ContentSection>

@@ -10,12 +10,16 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import Filter from '../filter/Filter';
 import Divider from '../divider/Divider';
 import Drawer from '../drawer/Drawer';
+import Button from '../button/ContainedButton';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
     left: 60,
     top: 80,
     visibility: 'visible',
+  },
+  chevronBtn: {
+    alignSelf: 'flex-start',
   },
 }));
 
@@ -34,8 +38,10 @@ const SideBar = ({ children }) => {
   return (
     <Drawer open={open}>
       <Filter />
-      <Divider width='2px' height='100%' position='absolute' />
-      <ChevronRightIcon />
+      {/* <Divider width='2px' height='100%' position='absolute' /> */}
+      <Button addClasses={{ root: classes.chevronBtn }}>
+        <ChevronRightIcon />
+      </Button>
     </Drawer>
   );
 };

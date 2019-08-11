@@ -11,13 +11,14 @@ namespace EasyRent.Server.Common.Validators
     {
         public SignUpValidator(UserManager<User> userManager)
         {
-            RuleFor(q => q.Email).Cascade(CascadeMode.StopOnFirstFailure)
-                .EmailAddress()
-                .WithMessage(ErrorMessages.InvalidEmailFormat)
+            RuleFor(q => q.Email)
+                .Cascade(CascadeMode.StopOnFirstFailure)
                 .NotEmpty()
                 .WithMessage(ErrorMessages.EmailRequired)
                 .NotNull()
-                .WithMessage(ErrorMessages.EmailRequired);
+                .WithMessage(ErrorMessages.EmailRequired)
+                .EmailAddress()
+                .WithMessage(ErrorMessages.InvalidEmailFormat);
 
             RuleFor(q => q.Password).Cascade(CascadeMode.StopOnFirstFailure)
                 .NotNull()

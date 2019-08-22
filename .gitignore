@@ -265,3 +265,5 @@ __pycache__/
 /logger
 /EasyRent.Server/logger
 EasyRent.Server/Properties/PublishProfiles/FolderProfile.pubxml
+/.vscode/tasks.json
+/.vscode/launch.json

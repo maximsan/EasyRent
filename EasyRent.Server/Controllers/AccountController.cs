@@ -38,9 +38,14 @@ namespace EasyRent.Server.Controllers
 
             User user = await SignInManager.UserManager.FindByEmailAsync(model.Email);
 
-            await SignInManager.SignInAsync(user, false);
+            if (await SignInManager.CanSignInAsync(user))
+            {
+                await SignInManager.SignInAsync(user, false);
 
-            return Json(new JsonResponseTemplate(true, string.Empty));
+                return Json(new JsonResponseTemplate(true, string.Empty));
+            }
+
+            return Json(new JsonResponseTemplate(false, ErrorMessages.SignInError));
         }
 
         [Route("sign-out")]

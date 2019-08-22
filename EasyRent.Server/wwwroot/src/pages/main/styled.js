@@ -9,6 +9,8 @@ export const Container = styled.div`
 `;
 
 export const MainSection = styled.main`
+  min-height: 80vh;
+  height: 100%;
   width: 100vw;
   display: flex;
   justify-content: flex-start;
@@ -18,8 +20,10 @@ export const MainSection = styled.main`
 `;
 
 export const ContentSection = styled.section`
-  width: 800px;
   position: relative;
+  width: 800px;
+  min-width: 70vw;
+  margin-left: 60px;
   margin-top: 20px;
   overflow-y: scroll;
 `;

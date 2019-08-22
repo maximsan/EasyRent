@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const DockedDiv = styled.div`
+export const DockedAside = styled.aside`
   flex: 0 0 auto;
 `;
 
@@ -11,7 +11,7 @@ export const RootDiv = styled.div`
 `;
 
 export const MainDiv = styled.div`
-  position: fixed;
+  position: relative;
   padding: 10px 0px;
   top: ${(props) => props.top};
   bottom: ${(props) => props.bottom};
@@ -24,5 +24,7 @@ export const MainDiv = styled.div`
   flex-direction: row;
   outline: none;
   -webkit-overflow-scrolling: touch;
-  border: 1.5px solid black;
+  -webkit-box-shadow: 4px -4px 4px -1px rgba(0, 0, 0, 0.6);
+  -moz-box-shadow: 4px -4px 4px -1px rgba(0, 0, 0, 0.6);
+  box-shadow: 4px -4px 4px -1px rgba(0, 0, 0, 0.6);
 `;

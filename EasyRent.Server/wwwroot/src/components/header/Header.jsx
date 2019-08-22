@@ -23,9 +23,6 @@ const Header = ({ children }) => {
         <span>Choose your place</span>
       </div>
       <Link to='/signin'>Sign In / Sign Out</Link>
-      <Switch>
-        <Route path='/signin' exact component={SignInUpForm} />
-      </Switch>
     </header>
   );
 };

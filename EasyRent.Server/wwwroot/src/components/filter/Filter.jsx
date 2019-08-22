@@ -58,7 +58,7 @@ const Filter = ({}) => {
   };
 
   return (
-    <aside className={customClasses.filter}>
+    <div className={customClasses.filter}>
       <Select name='category' value={values.category} onChange={onSelectChange}>
         Select a category
       </Select>
@@ -123,7 +123,7 @@ const Filter = ({}) => {
         <Button addClasses={{ contained: classes.showBtn }}>Show</Button>
         <Button>Clear</Button>
       </div>
-    </aside>
+    </div>
   );
 };
 

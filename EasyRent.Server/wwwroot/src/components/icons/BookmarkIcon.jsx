@@ -6,7 +6,6 @@ import customClasses from './icon.module.css';
 const BookmarkIcon = () => {
   return (
     <Icon
-      className={customClasses.fabRoot}
       href=''
       size='medium'
       fontSize='large'

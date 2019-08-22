@@ -6,7 +6,6 @@ import customClasses from '../icon.module.css';
 const FacebookIcon = () => {
   return (
     <Icon
-      className={customClasses.fabRoot}
       href=''
       size='medium'
       titleAccess='Log in via Facebook'

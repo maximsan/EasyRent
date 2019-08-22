@@ -10,7 +10,7 @@ const BookmarkIcon = () => {
       href=''
       size='medium'
       fontSize='large'
-      titleAccess='Go to bookmarks'
+      titleAccess='Add bookmark'
       viewBox='0 0 24 24'
     >
       <path fill='none' d='M0 0h24v24H0V0z' />

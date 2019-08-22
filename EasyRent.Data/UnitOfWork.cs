@@ -53,8 +53,7 @@ namespace EasyRent.Data
             {
                 if (!disposed)
                 {
-                    // UserManager.Dispose();
-                    AddressRepository.Dispose();
+                    dbContext.Dispose();
                 }
 
                 disposed = true;

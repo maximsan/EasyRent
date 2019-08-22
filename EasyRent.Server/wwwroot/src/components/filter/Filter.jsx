@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core';
 import PropTypes from 'prop-types';
-import Button from '../button/Button';
+import Button from '../button/ContainedButton';
 import Select from '../select/Select';
 import CheckBoxGroup from '../checkbox/CheckBoxGroup';
 import CheckBox from '../checkbox/Checkbox';
@@ -58,7 +58,7 @@ const Filter = ({}) => {
   };
 
   return (
-    <aside className={customClasses.filter}>
+    <div className={customClasses.filter}>
       <Select name='category' value={values.category} onChange={onSelectChange}>
         Select a category
       </Select>
@@ -123,7 +123,7 @@ const Filter = ({}) => {
         <Button addClasses={{ contained: classes.showBtn }}>Show</Button>
         <Button>Clear</Button>
       </div>
-    </aside>
+    </div>
   );
 };
 

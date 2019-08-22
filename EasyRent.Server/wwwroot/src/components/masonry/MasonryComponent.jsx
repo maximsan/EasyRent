@@ -16,7 +16,7 @@ const Masonry = ({ children, gap, minWidth = 300 }) => {
     if (!children) return;
 
     children.forEach((child, i) => {
-      cols[i % numCols].push(child);
+      cols.length && cols[i % numCols].push(child);
     });
   };
 

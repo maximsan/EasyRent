@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles, Select, FormControl, MenuItem } from '@material-ui/core';
-import customClasses from './Select.module.css';
 
 const useClasses = makeStyles({
   root: {
@@ -11,7 +10,14 @@ const useClasses = makeStyles({
   },
 });
 
-const CustomSelect = ({ items, value, onChange, name, children }) => {
+const CustomSelect = ({
+  items,
+  value,
+  onChange,
+  name,
+  children,
+  placeholder,
+}) => {
   const classes = useClasses();
 
   return (

@@ -3,18 +3,18 @@ import PropTypes from 'prop-types';
 import { Button } from '@material-ui/core';
 import classes from './button.module.css';
 
-const CustomButton = ({ children, addClasses, ...rest }) => {
+const DefaultButton = ({ children, extraClasses, ...rest }) => {
   return (
-    <Button {...rest} classes={{ ...addClasses }} variant='contained'>
+    <Button {...rest} classes={{ ...extraClasses, ...classes }}>
       {children}
     </Button>
   );
 };
 
-CustomButton.propTypes = {
+DefaultButton.propTypes = {
   children: PropTypes.element.isRequired,
 };
 
-CustomButton.defaultProps = {};
+DefaultButton.defaultProps = {};
 
-export default CustomButton;
+export default DefaultButton;

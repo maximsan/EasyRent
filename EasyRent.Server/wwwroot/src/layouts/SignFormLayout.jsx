@@ -9,10 +9,10 @@ import {
 import Email from '../components/email/Email';
 import Password from '../components/password/Password';
 import TextInput from '../components/text-input/TextInput';
-import Button from '../components/button/Button';
-import FacebookIcon from '../components/icons/cosialIcons/FacebookIcon';
-import GoogleIcon from '../components/icons/cosialIcons/GoogleIcon';
-import TelegramIcon from '../components/icons/cosialIcons/TelegramIcon';
+import Button from '../components/button/ContainedButton';
+import FacebookIcon from '../components/icons/socialIcons/FacebookIcon';
+import GoogleIcon from '../components/icons/socialIcons/GoogleIcon';
+import TelegramIcon from '../components/icons/socialIcons/TelegramIcon';
 import useSignInClasses from '../pages/sign-in/signin-styles';
 
 const SignFormLayout = ({
@@ -26,7 +26,7 @@ const SignFormLayout = ({
 }) => {
   const classes = useSignInClasses();
 
-  const { name, email, password, confirmPassword } = value;
+  const { userName, email, password, confirmPassword } = value;
 
   return (
     <div className={classes.rootMainLayout}>
@@ -60,8 +60,8 @@ const SignFormLayout = ({
               id='name'
               labelText='Name'
               variant='filled'
-              value={name}
-              onChange={onChange('name')}
+              value={userName}
+              onChange={onChange('userName')}
               required
               hasError={false}
               startIcon={

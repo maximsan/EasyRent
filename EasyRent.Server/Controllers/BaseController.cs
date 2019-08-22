@@ -20,5 +20,16 @@ namespace EasyRent.Server.Controllers
         {
             return HttpContext.RequestServices.GetService<T>();
         }
+
+        protected void SetJsonResponseType()
+        {
+            Response.ContentType = "application/json";
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            UnitOfWork.Dispose();
+            base.Dispose(disposing);
+        }
     }
 }

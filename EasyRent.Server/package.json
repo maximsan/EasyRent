@@ -2,6 +2,7 @@
   "name": "myproject",
   "version": "1.0.0",
   "devDependencies": {
-    "node-sass": "^4.12.0"
+    "node-sass": "^4.12.0",
+    "styled-components": "^5.0.0-beta.8"
   }
 }

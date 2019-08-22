@@ -12,7 +12,7 @@ export const signIn = (data) => (dispatch, getState) => {
 
   const request = {
     method: 'POST',
-    url: `${process.env.REACT_APP_BASE_URL}/account/sign-in`,
+    url: `account/sign-in`, //${process.env.REACT_APP_BASE_URL}/ - node.js and iis use different ports.
     data,
   };
 
@@ -32,22 +32,30 @@ export const signIn = (data) => (dispatch, getState) => {
 };
 
 export const signUp = (data) => (dispatch, getState) => {
-  const { email, password, name } = data;
+  const { email, password, userName, confirmPassword } = data;
 
-  if (_.isEmpty(data) || email === '' || password === '' || name === '') {
+  if (
+    _.isEmpty(data) ||
+    email === '' ||
+    password === '' ||
+    userName === '' ||
+    confirmPassword === '' ||
+    confirmPassword !== password
+  ) {
     return;
   }
 
   const request = {
     method: 'POST',
-    url: `${process.env.REACT_APP_BASE_URL}/account/sign-up`,
+    url: `account/sign-up`, //${process.env.REACT_APP_BASE_URL}/ - node.js and iis use different ports.
     data,
   };
 
   // dispatch(startRequest);
 
   const handleSuccess = (response) => {
-    window.location.pathname = 'main';
+    debugger;
+    //window.location.pathname = 'main';
     // dispatch(receiveRequest);
   };
   const handleError = (response) => {

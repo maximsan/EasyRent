@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Fab, SvgIcon, makeStyles } from '@material-ui/core';
+import { SvgIcon, makeStyles } from '@material-ui/core';
 import customClasses from './icon.module.css';
 
 const useClasses = makeStyles({

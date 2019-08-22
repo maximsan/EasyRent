@@ -2,6 +2,7 @@
   height: 42px;
   min-width: 380px;
   max-width: 460px;
+  width: 400px;
   flex-basis: 400px;
   flex-grow: 1;
   flex-shrink: 1;

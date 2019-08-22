@@ -17,7 +17,7 @@ export const MainDiv = styled.div`
   bottom: ${(props) => props.bottom};
   left: ${(props) => props.left};
   right: ${(props) => props.right};
-  z-index: 1200;
+  z-index: 101;
   height: 100%;
   display: flex;
   flex: 1 0 auto;

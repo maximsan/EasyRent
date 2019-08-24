@@ -1,7 +1,7 @@
 import React from 'react';
 import PaymentIcon from '../icons/PaymentIcon';
-import GithubIcon from '../icons/socialIcons/GuthubIcon';
-import GoogleIcon from '../icons/socialIcons/GoogleIcon';
+import GithubIcon from '../icons/social-icons/GithubIcon';
+import GoogleIcon from '../icons/social-icons/GoogleIcon';
 import { Footer, SocilIcons } from './styled';
 
 const FooterComponent = () => {

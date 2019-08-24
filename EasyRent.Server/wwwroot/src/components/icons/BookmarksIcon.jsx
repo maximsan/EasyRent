@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core';
 import BookmarksIcon from '@material-ui/icons/BookmarksOutlined';
-import FabIcon from './fab-icon/FabIcon';
+import FabIcon from './common/FabIcon';
 
 const useClasses = makeStyles((theme) => ({
   fabIconRoot: {

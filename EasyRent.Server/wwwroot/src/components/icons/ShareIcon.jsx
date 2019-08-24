@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Icon from './Icon';
-import customClasses from './icon.module.css';
+import styles from './common/icon.module.css';
 
 const ShareIcon = () => {
   return (
     <Icon
-      className={customClasses.fabRoot}
+      className={styles.fabRoot}
       href=''
       size='medium'
       fontSize='large'

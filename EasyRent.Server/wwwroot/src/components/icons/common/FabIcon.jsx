@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Fab, SvgIcon, makeStyles } from '@material-ui/core';
-import styles from '../icon/icon.module.css';
 
 const useClasses = makeStyles({
   fabIconRoot: {

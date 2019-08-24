@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import FabIcon from './fab-icon/FabIcon';
 import { makeStyles } from '@material-ui/core';
+import FabIcon from './common/FabIcon';
 
 const useClasses = makeStyles({
   fabIconRoot: {

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Icon from '../icon/Icon';
-import styles from '../icon/icon.module.css';
+import Icon from '../common/Icon';
+import styles from '../common/icon.module.css';
 
 const FacebookIcon = () => {
   return (

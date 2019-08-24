@@ -1,7 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core';
 import PropTypes from 'prop-types';
-import Icon from './common/Icon';
+import Icon from '../common/Icon';
 
 const useClasses = makeStyles({
   root: {
@@ -11,11 +11,11 @@ const useClasses = makeStyles({
 });
 
 const SearchIcon = () => {
-  const classes = useClasses();
+  const { root } = useClasses();
 
   return (
     <Icon
-      classes={{ root: classes.root }}
+      svgIconClasses={{ root }}
       href=''
       size='small'
       titleAccess='Search'

@@ -1,12 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Icon from './Icon';
-import styles from './common/icon.module.css';
+import { makeStyles } from '@material-ui/core';
+import Icon from '../common/Icon';
+
+const useClasses = makeStyles(() => ({
+  root: {
+    cursor: 'pointer',
+  },
+}));
 
 const ShareIcon = () => {
+  const { root } = useClasses();
+
   return (
     <Icon
-      className={styles.fabRoot}
+      svgIconClasses={{ root }}
       href=''
       size='medium'
       fontSize='large'

@@ -1,5 +1,5 @@
 import React from 'react';
-import PaymentIcon from '../icons/PaymentIcon';
+import PaymentIcon from '../icons/payment-icon/PaymentIcon';
 import GithubIcon from '../icons/social-icons/GithubIcon';
 import GoogleIcon from '../icons/social-icons/GoogleIcon';
 import { Footer, SocilIcons } from './styled';

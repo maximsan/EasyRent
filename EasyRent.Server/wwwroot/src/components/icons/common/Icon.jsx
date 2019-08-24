@@ -3,12 +3,6 @@ import PropTypes from 'prop-types';
 import { SvgIcon, makeStyles } from '@material-ui/core';
 import styles from './icon.module.css';
 
-const useClasses = makeStyles({
-  root: {
-    color: '#020f11',
-  },
-});
-
 const Icon = ({
   size,
   variant,
@@ -17,14 +11,12 @@ const Icon = ({
   titleAccess,
   fontSize,
   color,
-  classNameSVG,
   className,
+  classNameSVG,
   htmlColor,
-  classes,
+  svgIconClasses,
   ...rest
 }) => {
-  const iconClasses = useClasses();
-
   return (
     <SvgIcon
       {...rest}
@@ -33,7 +25,8 @@ const Icon = ({
       titleAccess={titleAccess}
       viewBox={viewBox}
       htmlColor={htmlColor}
-      classes={classes}
+      classes={svgIconClasses}
+      className={styles.svgIcon}
     >
       {children}
     </SvgIcon>

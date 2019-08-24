@@ -1,12 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Icon from './common/Icon';
-import styles from './common/icon.module.css';
+import Icon from '../common/Icon';
 
 const PaymentIcon = () => {
   return (
     <Icon
-      className={styles.fabRoot}
       href=''
       size='medium'
       fontSize='large'

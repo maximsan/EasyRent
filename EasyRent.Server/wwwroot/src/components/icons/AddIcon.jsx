@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import AddIcon from '@material-ui/icons/Add';
 import { makeStyles } from '@material-ui/core';
-import FabIcon from './FabIcon';
-import customClasses from './icon.module.css';
+import FabIcon from './fab-icon/FabIcon';
+import styles from './icon/icon.module.css';
 
 const useClasses = makeStyles((theme) => ({
   fabIconRoot: {
@@ -24,7 +24,7 @@ const CustomAddIcon = () => {
 
   return (
     <FabIcon
-      classes={{ root: classes.fabIconRoot }}
+      fabClasses={{ root: classes.fabIconRoot }}
       href=''
       size='medium'
       fontSize='large'

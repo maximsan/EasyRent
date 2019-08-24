@@ -1,7 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core';
 import PropTypes from 'prop-types';
-import Icon from './Icon';
+import Icon from './icon/Icon';
 
 const useClasses = makeStyles({
   root: {

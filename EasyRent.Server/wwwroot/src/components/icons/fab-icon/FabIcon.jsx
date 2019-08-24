@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Fab, SvgIcon, makeStyles } from '@material-ui/core';
-import customClasses from './icon.module.css';
+import styles from '../icon/icon.module.css';
 
 const useClasses = makeStyles({
   fabIconRoot: {
@@ -25,15 +25,15 @@ const FabIcon = ({
   classNameSVG,
   className,
   htmlColor,
-  classes,
+  fabClasses,
   svgIconClasses,
   ...rest
 }) => {
-  const iconClasses = useClasses();
+  const commonClasses = useClasses();
 
   return (
     <Fab
-      classes={{ root: iconClasses.fabIconRoot, ...classes }}
+      classes={{ root: commonClasses.fabIconRoot, ...fabClasses }}
       className={className}
       size={size}
       variant={variant}

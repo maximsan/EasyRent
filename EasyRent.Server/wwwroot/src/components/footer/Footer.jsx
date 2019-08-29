@@ -11,8 +11,8 @@ const FooterComponent = () => {
       <div>
         <span>Contact with us</span>
         <SocilIcons>
-          <GoogleIcon />
-          <GithubIcon />
+          <GoogleIcon fontSize='large' title='Connect via Google' />
+          <GithubIcon fontSize='large' title='Connect via Github' />
         </SocilIcons>
       </div>
     </Footer>

@@ -29,7 +29,7 @@ const Icon = ({
   );
 };
 
-Icon.defaultTypes = {
+Icon.defaultProps = {
   children: React.createElement('path'),
   viewBox: '',
   titleAccess: '',
@@ -46,7 +46,7 @@ Icon.propTypes = {
   fontSize: PropTypes.string,
   color: PropTypes.string,
   htmlColor: PropTypes.string,
-  svgIconClasses: PropTypes.object,
+  svgIconClasses: PropTypes.shape({}),
 };
 
 export default Icon;

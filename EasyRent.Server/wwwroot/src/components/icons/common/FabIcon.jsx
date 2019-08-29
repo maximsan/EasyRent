@@ -52,7 +52,7 @@ const FabIcon = ({
   );
 };
 
-FabIcon.defaultTypes = {
+FabIcon.defaultProps = {
   children: React.createElement('div'),
   size: '',
   variant: '',
@@ -64,7 +64,7 @@ FabIcon.defaultTypes = {
   color: '',
   htmlColor: '',
   classNameSVG: '',
-  svgIconClasses: PropTypes.object,
+  svgIconClasses: {},
 };
 
 FabIcon.propTypes = {
@@ -72,14 +72,14 @@ FabIcon.propTypes = {
   size: PropTypes.string,
   variant: PropTypes.string,
   className: PropTypes.string,
-  fabClasses: PropTypes.object,
+  fabClasses: PropTypes.shape({}),
   viewBox: PropTypes.string,
   titleAccess: PropTypes.string,
   fontSize: PropTypes.string,
   color: PropTypes.string,
   htmlColor: PropTypes.string,
   classNameSVG: PropTypes.string,
-  svgIconClasses: PropTypes.object,
+  svgIconClasses: PropTypes.shape({}),
 };
 
 export default FabIcon;

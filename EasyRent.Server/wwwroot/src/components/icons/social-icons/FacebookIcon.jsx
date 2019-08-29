@@ -2,11 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Icon from '../common/Icon';
 
-const FacebookIcon = ({ size, title, ...rest }) => {
+const FacebookIcon = ({ fontSize, title, ...rest }) => {
   return (
     <Icon
-      href=''
-      size={size}
+      fontSize={fontSize}
       titleAccess={title}
       viewBox='0 0 320 512'
       {...rest}
@@ -16,13 +15,14 @@ const FacebookIcon = ({ size, title, ...rest }) => {
   );
 };
 
-FacebookIcon.defaultTypes = {
+FacebookIcon.defaultProps = {
   size: 'small',
   title: '',
 };
 
 FacebookIcon.propTypes = {
   title: PropTypes.string,
+  size: PropTypes.string,
 };
 
 export default FacebookIcon;

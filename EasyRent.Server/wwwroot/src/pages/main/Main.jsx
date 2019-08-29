@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import SideBarContext from '../../context/SideBarContext';
 import axios from 'axios';
 import {
   Container,
@@ -16,6 +17,7 @@ import SideBar from '../../components/side-bar/SideBar';
 import AddIcon from '../../components/icons/AddIcon';
 import FavouritesIcon from '../../components/icons/FavouritesIcon';
 import BookmarksIcon from '../../components/icons/BookmarksIcon';
+import useToggle from '../../hooks/useToggle';
 
 // Set config defaults when creating the instance
 const instance = axios.create({
@@ -24,6 +26,7 @@ const instance = axios.create({
 
 const Main = () => {
   const [images, setImages] = useState(null);
+  const [isOpen, toggle] = useToggle();
 
   useEffect(() => {
     const fetchImages = async () => {
@@ -36,14 +39,20 @@ const Main = () => {
     fetchImages();
   }, []);
 
+  debugger;
   return (
     <>
       <Header />
       <MainSection>
-        <SideBar>
-          <Filter />
-        </SideBar>
-        <ContentSection>
+        <SideBarContext.Provider value={{ open: isOpen, toggle }}>
+          <SideBar>
+            <Filter />
+          </SideBar>
+        </SideBarContext.Provider>
+        <ContentSection
+          open={isOpen}
+          style={{ marginLeft: `${isOpen ? 540 : 60}` }}
+        >
           <Images images={images} />
         </ContentSection>
         <SideSection>
@@ -61,7 +70,7 @@ const Main = () => {
           </SideSectionItem>
         </SideSection>
       </MainSection>
-      <Footer />
+      <Footer open={isOpen} />
     </>
   );
 };

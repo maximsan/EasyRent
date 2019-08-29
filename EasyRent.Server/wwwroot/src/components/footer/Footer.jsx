@@ -4,9 +4,9 @@ import GithubIcon from '../icons/social-icons/GithubIcon';
 import GoogleIcon from '../icons/social-icons/GoogleIcon';
 import { Footer, SocilIcons } from './styled';
 
-const FooterComponent = () => {
+const FooterComponent = ({ open }) => {
   return (
-    <Footer>
+    <Footer open={open}>
       <PaymentIcon size='medium' fontSize='large' title='Make a donation' />
       <div>
         <span>Contact with us</span>

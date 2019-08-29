@@ -7,6 +7,7 @@ export const Footer = styled.footer`
   justify-content: space-around;
   align-items: center;
   margin: 30px 0px 20px 0px;
+  margin-left: ${({ open }) => (open ? `540` : `60`)}px;
 `;
 
 export const SocilIcons = styled.div`

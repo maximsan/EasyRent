@@ -23,7 +23,7 @@ export const ContentSection = styled.section`
   position: relative;
   width: 800px;
   min-width: 70vw;
-  margin-left: 60px;
+  margin-left: ${({ open }) => (open ? `540` : `60`)}px;
   margin-top: 20px;
   overflow-y: scroll;
 `;

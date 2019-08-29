@@ -10,9 +10,9 @@ import Email from '../components/email/Email';
 import Password from '../components/password/Password';
 import TextInput from '../components/text-input/TextInput';
 import Button from '../components/button/ContainedButton';
-import FacebookIcon from '../components/icons/socialIcons/FacebookIcon';
-import GoogleIcon from '../components/icons/socialIcons/GoogleIcon';
-import TelegramIcon from '../components/icons/socialIcons/TelegramIcon';
+import FacebookIcon from '../components/icons/social-icons/FacebookIcon';
+import GoogleIcon from '../components/icons/social-icons/GoogleIcon';
+import TelegramIcon from '../components/icons/social-icons/TelegramIcon';
 import useSignInClasses from '../pages/sign-in/signin-styles';
 
 const SignFormLayout = ({
@@ -42,13 +42,13 @@ const SignFormLayout = ({
         </Grid>
         <Grid container justify='center' className={classes.rowIcons}>
           <Grid item className={classes.facebookIcon}>
-            <FacebookIcon />
+            <FacebookIcon fontSize='large' title='Log in via Facebook' />
           </Grid>
           <Grid item className={classes.googleIcon}>
-            <GoogleIcon />
+            <GoogleIcon fontSize='large' title='Log in via Google' />
           </Grid>
           <Grid item>
-            <TelegramIcon />
+            <TelegramIcon fontSize='large' title='Log in via Telegram' />
           </Grid>
         </Grid>
         <Grid container justify='center' className={classes.leftHint}>

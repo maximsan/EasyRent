@@ -2,8 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core';
 import BookmarksIcon from '@material-ui/icons/BookmarksOutlined';
-import FabIcon from './FabIcon';
-import customClasses from './icon.module.css';
+import FabIcon from './common/FabIcon';
 
 const useClasses = makeStyles((theme) => ({
   fabIconRoot: {
@@ -19,24 +18,35 @@ const useClasses = makeStyles((theme) => ({
   },
 }));
 
-const CustomBookmarksIcon = () => {
+const CustomBookmarksIcon = ({ size, fontSize, title, variant, ...rest }) => {
   const classes = useClasses();
 
   return (
     <FabIcon
-      classes={{ root: classes.fabIconRoot }}
-      href=''
-      size='medium'
-      fontSize='medium'
-      titleAccess=''
+      fabClasses={{ root: classes.fabIconRoot }}
+      size={size}
+      fontSize={fontSize}
+      titleAccess={title}
+      variant={variant}
+      {...rest}
     >
       <BookmarksIcon />
     </FabIcon>
   );
 };
 
-CustomBookmarksIcon.defaultTypes = {};
+CustomBookmarksIcon.defaultProps = {
+  size: 'medium',
+  fontSize: 'medium',
+  title: 'Add bookmark',
+  variant: 'round',
+};
 
-CustomBookmarksIcon.propTypes = {};
+CustomBookmarksIcon.propTypes = {
+  size: PropTypes.string,
+  fontSize: PropTypes.string,
+  title: PropTypes.string,
+  variant: PropTypes.string,
+};
 
 export default CustomBookmarksIcon;

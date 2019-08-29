@@ -25,9 +25,9 @@ const Filter = ({}) => {
   const [price, setPrice] = useState({ from: 0, to: 0 });
   const [days, setDays] = useState({ from: 0, to: 0 });
   const [values, setValues] = useState({
-    category: null,
-    subCategory: null,
-    selectDistrict: null,
+    category: [],
+    subCategory: [],
+    district: [],
   });
 
   const onChange = (event) => {
@@ -69,11 +69,7 @@ const Filter = ({}) => {
       >
         Select sub category
       </Select>
-      <Select
-        name='district'
-        value={values.selectDistrict}
-        onChange={onSelectChange}
-      >
+      <Select name='district' value={values.district} onChange={onSelectChange}>
         Select district
       </Select>
       <hr />

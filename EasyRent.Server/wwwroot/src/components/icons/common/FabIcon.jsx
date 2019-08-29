@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Fab, SvgIcon, makeStyles } from '@material-ui/core';
-import customClasses from './icon.module.css';
 
 const useClasses = makeStyles({
   fabIconRoot: {
@@ -17,23 +16,23 @@ const useClasses = makeStyles({
 const FabIcon = ({
   size,
   variant,
-  children,
+  className,
+  fabClasses,
   viewBox,
   titleAccess,
   fontSize,
   color,
-  classNameSVG,
-  className,
   htmlColor,
-  classes,
+  classNameSVG,
   svgIconClasses,
+  children,
   ...rest
 }) => {
-  const iconClasses = useClasses();
+  const commonClasses = useClasses();
 
   return (
     <Fab
-      classes={{ root: iconClasses.fabIconRoot, ...classes }}
+      classes={{ root: commonClasses.fabIconRoot, ...fabClasses }}
       className={className}
       size={size}
       variant={variant}
@@ -53,10 +52,34 @@ const FabIcon = ({
   );
 };
 
-FabIcon.defaultTypes = {};
+FabIcon.defaultProps = {
+  children: React.createElement('div'),
+  size: '',
+  variant: '',
+  className: '',
+  fabClasses: '',
+  viewBox: '',
+  titleAccess: '',
+  fontSize: '',
+  color: '',
+  htmlColor: '',
+  classNameSVG: '',
+  svgIconClasses: {},
+};
 
 FabIcon.propTypes = {
-  icon: PropTypes.node,
+  children: PropTypes.node,
+  size: PropTypes.string,
+  variant: PropTypes.string,
+  className: PropTypes.string,
+  fabClasses: PropTypes.shape({}),
+  viewBox: PropTypes.string,
+  titleAccess: PropTypes.string,
+  fontSize: PropTypes.string,
+  color: PropTypes.string,
+  htmlColor: PropTypes.string,
+  classNameSVG: PropTypes.string,
+  svgIconClasses: PropTypes.shape({}),
 };
 
 export default FabIcon;

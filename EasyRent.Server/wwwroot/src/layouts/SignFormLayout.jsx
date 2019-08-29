@@ -42,7 +42,7 @@ const SignFormLayout = ({
         </Grid>
         <Grid container justify='center' className={classes.rowIcons}>
           <Grid item className={classes.facebookIcon}>
-            <FacebookIcon />
+            <FacebookIcon size='medium' title='Log in via Facebook' />
           </Grid>
           <Grid item className={classes.googleIcon}>
             <GoogleIcon />

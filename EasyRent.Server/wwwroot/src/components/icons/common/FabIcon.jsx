@@ -16,16 +16,16 @@ const useClasses = makeStyles({
 const FabIcon = ({
   size,
   variant,
-  children,
+  className,
+  fabClasses,
   viewBox,
   titleAccess,
   fontSize,
   color,
-  classNameSVG,
-  className,
   htmlColor,
-  fabClasses,
+  classNameSVG,
   svgIconClasses,
+  children,
   ...rest
 }) => {
   const commonClasses = useClasses();
@@ -52,10 +52,34 @@ const FabIcon = ({
   );
 };
 
-FabIcon.defaultTypes = {};
+FabIcon.defaultTypes = {
+  children: React.createElement('div'),
+  size: '',
+  variant: '',
+  className: '',
+  fabClasses: '',
+  viewBox: '',
+  titleAccess: '',
+  fontSize: '',
+  color: '',
+  htmlColor: '',
+  classNameSVG: '',
+  svgIconClasses: PropTypes.object,
+};
 
 FabIcon.propTypes = {
-  icon: PropTypes.node,
+  children: PropTypes.node,
+  size: PropTypes.string,
+  variant: PropTypes.string,
+  className: PropTypes.string,
+  fabClasses: PropTypes.object,
+  viewBox: PropTypes.string,
+  titleAccess: PropTypes.string,
+  fontSize: PropTypes.string,
+  color: PropTypes.string,
+  htmlColor: PropTypes.string,
+  classNameSVG: PropTypes.string,
+  svgIconClasses: PropTypes.object,
 };
 
 export default FabIcon;

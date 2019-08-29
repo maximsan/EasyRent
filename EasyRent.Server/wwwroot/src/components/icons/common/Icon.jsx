@@ -4,17 +4,13 @@ import { SvgIcon, makeStyles } from '@material-ui/core';
 import styles from './icon.module.css';
 
 const Icon = ({
-  size,
-  variant,
-  children,
   viewBox,
   titleAccess,
   fontSize,
   color,
-  className,
-  classNameSVG,
   htmlColor,
   svgIconClasses,
+  children,
   ...rest
 }) => {
   return (
@@ -33,10 +29,24 @@ const Icon = ({
   );
 };
 
-Icon.defaultTypes = {};
+Icon.defaultTypes = {
+  children: React.createElement('path'),
+  viewBox: '',
+  titleAccess: '',
+  fontSize: '',
+  color: '',
+  htmlColor: '',
+  svgIconClasses: {},
+};
 
 Icon.propTypes = {
-  icon: PropTypes.node,
+  children: PropTypes.node,
+  viewBox: PropTypes.string,
+  titleAccess: PropTypes.string,
+  fontSize: PropTypes.string,
+  color: PropTypes.string,
+  htmlColor: PropTypes.string,
+  svgIconClasses: PropTypes.object,
 };
 
 export default Icon;

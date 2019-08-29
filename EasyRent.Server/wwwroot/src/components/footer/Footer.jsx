@@ -7,7 +7,7 @@ import { Footer, SocilIcons } from './styled';
 const FooterComponent = () => {
   return (
     <Footer>
-      <PaymentIcon />
+      <PaymentIcon size='medium' fontSize='large' title='Make a donation' />
       <div>
         <span>Contact with us</span>
         <SocilIcons>

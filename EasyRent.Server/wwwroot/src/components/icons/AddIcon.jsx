@@ -18,25 +18,35 @@ const useClasses = makeStyles((theme) => ({
   },
 }));
 
-const CustomAddIcon = () => {
-  const classes = useClasses();
+const CustomAddIcon = ({ size, fontSize, title, variant, ...rest }) => {
+  const { fabIconRoot } = useClasses();
 
   return (
     <FabIcon
-      fabClasses={{ root: classes.fabIconRoot }}
-      href=''
-      size='medium'
-      fontSize='large'
-      titleAccess=''
-      variant='round'
+      fabClasses={{ root: fabIconRoot }}
+      size={size}
+      fontSize={fontSize}
+      titleAccess={title}
+      variant={variant}
+      {...rest}
     >
       <AddIcon />
     </FabIcon>
   );
 };
 
-CustomAddIcon.defaultTypes = {};
+CustomAddIcon.defaultProps = {
+  size: 'medium',
+  fontSize: 'large',
+  title: '',
+  variant: 'round',
+};
 
-CustomAddIcon.propTypes = {};
+CustomAddIcon.propTypes = {
+  size: PropTypes.string,
+  fontSize: PropTypes.string,
+  title: PropTypes.string,
+  variant: PropTypes.string,
+};
 
 export default CustomAddIcon;

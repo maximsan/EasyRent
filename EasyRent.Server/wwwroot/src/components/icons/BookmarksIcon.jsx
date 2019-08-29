@@ -18,24 +18,35 @@ const useClasses = makeStyles((theme) => ({
   },
 }));
 
-const CustomBookmarksIcon = () => {
+const CustomBookmarksIcon = ({ size, fontSize, title, variant, ...rest }) => {
   const classes = useClasses();
 
   return (
     <FabIcon
       fabClasses={{ root: classes.fabIconRoot }}
-      href=''
-      size='medium'
-      fontSize='medium'
-      titleAccess=''
+      size={size}
+      fontSize={fontSize}
+      titleAccess={title}
+      variant={variant}
+      {...rest}
     >
       <BookmarksIcon />
     </FabIcon>
   );
 };
 
-CustomBookmarksIcon.defaultTypes = {};
+CustomBookmarksIcon.defaultProps = {
+  size: 'medium',
+  fontSize: 'medium',
+  title: 'Add bookmark',
+  variant: 'round',
+};
 
-CustomBookmarksIcon.propTypes = {};
+CustomBookmarksIcon.propTypes = {
+  size: PropTypes.string,
+  fontSize: PropTypes.string,
+  title: PropTypes.string,
+  variant: PropTypes.string,
+};
 
 export default CustomBookmarksIcon;

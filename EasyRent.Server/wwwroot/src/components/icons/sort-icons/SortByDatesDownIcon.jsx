@@ -1,12 +1,21 @@
 import React from 'react';
+import { makeStyles } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import Icon from '../common/Icon';
 
-const SortByDatesDownIcon = ({ fontSize, title, ...rest }) => {
+const useClasses = makeStyles(() => ({
+  root: {},
+}));
+
+const SortByDatesDownIcon = ({ fontSize, title, placement, ...rest }) => {
+  const { root } = useClasses();
+
   return (
     <Icon
+      svgIconClasses={{ root }}
+      title={title}
+      placement={placement}
       fontSize={fontSize}
-      titleAccess={title}
       viewBox='0 0 320 512'
       {...rest}
     >

@@ -40,7 +40,6 @@ const Main = () => {
     fetchImages();
   }, []);
 
-  debugger;
   return (
     <>
       <Header />

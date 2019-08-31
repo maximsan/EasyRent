@@ -9,23 +9,22 @@ export const Container = styled.div`
 `;
 
 export const MainSection = styled.main`
-  min-height: 80vh;
+  min-height: 80%;
   height: 100%;
   width: 100vw;
   display: flex;
   justify-content: flex-start;
   flex-wrap: nowrap;
   position: relative;
-  margin-top: 100px;
+  margin: 100px 20px 120px 20px;
 `;
 
 export const ContentSection = styled.section`
   position: relative;
   width: 800px;
-  min-width: 70vw;
+  min-width: 70%;
   margin-left: ${({ open }) => (open ? `540` : `120`)}px;
   margin-top: 20px;
-  overflow-y: scroll;
 `;
 
 export const SideSection = styled.aside`

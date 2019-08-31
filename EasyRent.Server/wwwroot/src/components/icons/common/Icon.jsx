@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { SvgIcon, makeStyles } from '@material-ui/core';
+import { SvgIcon, makeStyles, Tooltip } from '@material-ui/core';
 import styles from './icon.module.css';
 
 const Icon = ({
@@ -11,21 +11,25 @@ const Icon = ({
   htmlColor,
   svgIconClasses,
   children,
+  title,
+  placement,
   ...rest
 }) => {
   return (
-    <SvgIcon
-      {...rest}
-      color={color}
-      fontSize={fontSize}
-      titleAccess={titleAccess}
-      viewBox={viewBox}
-      htmlColor={htmlColor}
-      classes={svgIconClasses}
-      className={styles.svgIcon}
-    >
-      {children}
-    </SvgIcon>
+    <Tooltip title={title || ''} placement={placement}>
+      <SvgIcon
+        {...rest}
+        color={color}
+        fontSize={fontSize}
+        titleAccess={titleAccess}
+        viewBox={viewBox}
+        htmlColor={htmlColor}
+        classes={svgIconClasses}
+        className={styles.svgIcon}
+      >
+        {children}
+      </SvgIcon>
+    </Tooltip>
   );
 };
 

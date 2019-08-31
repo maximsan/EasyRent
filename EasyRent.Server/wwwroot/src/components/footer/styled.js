@@ -10,8 +10,16 @@ export const Footer = styled.footer`
   margin-left: ${({ open }) => (open ? `540` : `60`)}px;
 `;
 
-export const SocilIcons = styled.div`
+export const SocilIconsDiv = styled.div`
   display: flex;
   justify-content: space-around;
   margin-top: 0.5rem;
+`;
+
+export const ConstactSpan = styled.span`
+  font-size: 0.7rem;
+  font-weight: 600;
+  word-spacing: 8px;
+  color: #196a39;
+  letter-spacing: 1px;
 `;

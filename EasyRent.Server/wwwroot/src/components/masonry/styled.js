@@ -8,6 +8,7 @@ export const MasonryDiv = styled.div`
   grid-gap: ${(props) => {
     return props.gap || `0.5rem`;
   }};
+  overflow-y: scroll;
 `;
 
 export const Col = styled.div`

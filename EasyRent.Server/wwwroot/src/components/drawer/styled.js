@@ -3,6 +3,7 @@ import styled from 'styled-components';
 export const DockedAside = styled.aside`
   flex: 0 0 auto;
   position: fixed;
+  margin-top: 20px;
 `;
 
 export const RootDiv = styled.div`

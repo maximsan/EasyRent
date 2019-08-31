@@ -10,8 +10,8 @@ import MenuIcon from '@material-ui/icons/Menu';
 import Filter from '../filter/Filter';
 import Divider from '../divider/Divider';
 import Drawer from '../drawer/Drawer';
-import Button from '../button/ContainedButton';
-import SideBarButton from '../button/SideBarButton';
+import Button from '../common/button/ContainedButton';
+import { SideBarButton } from '../common/button';
 
 const drawerWidth = 480;
 

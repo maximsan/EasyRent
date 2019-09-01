@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core';
 import PropTypes from 'prop-types';
-import Button from '../common/button/ContainedButton';
+import { ContainedButton } from '../common/button';
 import Select from '../select/Select';
 import CheckBoxGroup from '../checkbox/CheckBoxGroup';
 import CheckBox from '../checkbox/Checkbox';
@@ -14,9 +14,18 @@ const useClasses = makeStyles({
     marginLeft: '29px',
   },
   showBtn: {
+    boxSizing: 'border-box',
     background: '#086574',
     color: '#fff',
+    border: '2px solid #8EB9BF',
     marginRight: '140px',
+    transition: '0.4s all ease-in-out',
+    '&:hover': {
+      boxSizing: 'border-box',
+      color: '#020f11',
+      background: '#8EB9BF',
+      border: '2px solid #086574',
+    },
   },
 });
 
@@ -116,11 +125,17 @@ const Filter = ({}) => {
         ]}
       />
       <div className={customClasses.btnGroup}>
-        <Button addClasses={{ contained: classes.showBtn }}>Show</Button>
-        <Button>Clear</Button>
+        <ContainedButton extraClasses={{ contained: classes.showBtn }}>
+          Show
+        </ContainedButton>
+        <ContainedButton>Clear</ContainedButton>
       </div>
     </div>
   );
 };
+
+Filter.defaultProps = {};
+
+Filter.propTypes = {};
 
 export default Filter;

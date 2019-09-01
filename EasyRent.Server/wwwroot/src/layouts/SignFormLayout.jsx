@@ -9,7 +9,7 @@ import {
 import Email from '../components/email/Email';
 import Password from '../components/password/Password';
 import TextInput from '../components/text-input/TextInput';
-import Button from '../components/common/button/ContainedButton';
+import { ContainedButton } from '../components/common/button';
 import FacebookIcon from '../components/icons/social-icons/FacebookIcon';
 import GoogleIcon from '../components/icons/social-icons/GoogleIcon';
 import TelegramIcon from '../components/icons/social-icons/TelegramIcon';
@@ -134,16 +134,25 @@ const SignFormLayout = ({
           </Grid>
         )}
         <Grid container justify='center'>
-          <Button
-            addClasses={{ root: classes.btnLeftRoot, label: classes.btnLabel }}
+          <ContainedButton
+            extraClasses={{
+              root: classes.btnLeftRoot,
+              label: classes.btnLabel,
+            }}
             onClick={onHandleClick}
           >
             {isSignIn ? 'Sign In' : 'Sign Up'}
-          </Button>
+          </ContainedButton>
         </Grid>
       </Grid>
     </div>
   );
+};
+
+SignFormLayout.defaultProps = {
+  header: '',
+  hint: '',
+  onHandleChange: () => {},
 };
 
 SignFormLayout.propTypes = {
@@ -151,12 +160,6 @@ SignFormLayout.propTypes = {
   hint: PropTypes.string,
   onHandleChange: PropTypes.func,
   value: PropTypes.any,
-};
-
-SignFormLayout.defaultProps = {
-  header: '',
-  hint: '',
-  onHandleChange: () => {},
 };
 
 export default SignFormLayout;

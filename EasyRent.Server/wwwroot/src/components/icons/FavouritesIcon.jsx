@@ -38,7 +38,7 @@ const CustomFavouritesIcon = ({ size, fontSize, title, variant, ...rest }) => {
 
 CustomFavouritesIcon.defaultProps = {
   size: 'medium',
-  fontSize: 'medium',
+  fontSize: 'default',
   title: '',
   variant: 'round',
 };

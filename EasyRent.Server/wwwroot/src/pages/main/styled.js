@@ -47,4 +47,7 @@ export const ItemCaption = styled.div`
   line-height: 24px;
   font-weight: 500;
   font-size: 1.2rem;
+  color: #196a39;
+  letter-spacing: 1px;
+  text-transform: uppercase;
 `;

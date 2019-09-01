@@ -18,6 +18,7 @@ const SearchIcon = ({ title, fontSize, ...rest }) => {
       svgIconClasses={{ root }}
       titleAccess={title}
       viewBox='0 0 24 24'
+      fontSize={fontSize}
       {...rest}
     >
       <path fill='none' d='M0 0h24v24H0V0z' />
@@ -27,7 +28,7 @@ const SearchIcon = ({ title, fontSize, ...rest }) => {
 };
 
 SearchIcon.defaultProps = {
-  fontSize: '',
+  fontSize: 'default',
   title: '',
 };
 

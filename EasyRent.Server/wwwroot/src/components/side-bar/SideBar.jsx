@@ -13,7 +13,7 @@ import Drawer from '../drawer/Drawer';
 import Button from '../common/button/ContainedButton';
 import { SideBarButton } from '../common/button';
 
-const drawerWidth = 470;
+const drawerWidth = 490;
 
 const useStyles = makeStyles((theme) => ({
   paper: {

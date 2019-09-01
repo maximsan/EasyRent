@@ -1,9 +1,13 @@
 import styled from 'styled-components';
 
 export const DockedAside = styled.aside`
+  height: 100%;
   flex: 0 0 auto;
-  position: fixed;
-  margin-top: 20px;
+  position: absolute;
+  /* margin-top: 20px; */
+  /* left: 0; */
+  /* top: 120px; */
+  /* bottom: 100px; */
 `;
 
 export const RootDiv = styled.div`

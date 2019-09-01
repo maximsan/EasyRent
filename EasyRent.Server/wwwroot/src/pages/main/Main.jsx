@@ -49,10 +49,7 @@ const Main = () => {
             <Filter />
           </SideBar>
         </SideBarContext.Provider>
-        <ContentSection
-          open={isOpen}
-          style={{ marginLeft: `${isOpen ? 540 : 60}` }}
-        >
+        <ContentSection open={isOpen}>
           <SortBar />
           <Images images={images} />
         </ContentSection>
@@ -71,7 +68,7 @@ const Main = () => {
           </SideSectionItem>
         </SideSection>
       </MainSection>
-      <Footer open={isOpen} />
+      <Footer />
     </>
   );
 };

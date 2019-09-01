@@ -37,8 +37,8 @@ Icon.defaultProps = {
   children: React.createElement('path'),
   viewBox: '',
   titleAccess: '',
-  fontSize: '',
-  color: '',
+  fontSize: 'inherit',
+  color: 'inherit',
   htmlColor: '',
   svgIconClasses: {},
 };

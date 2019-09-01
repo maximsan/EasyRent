@@ -23,8 +23,7 @@ export const ContentSection = styled.section`
   position: relative;
   width: 800px;
   min-width: 70%;
-  margin-left: ${({ open }) => (open ? `540` : `120`)}px;
-  margin-top: 20px;
+  margin-left: ${({ open }) => (open ? `580` : `100`)}px;
 `;
 
 export const SideSection = styled.aside`

@@ -18,6 +18,7 @@ import AddIcon from '../../components/icons/AddIcon';
 import FavouritesIcon from '../../components/icons/FavouritesIcon';
 import BookmarksIcon from '../../components/icons/BookmarksIcon';
 import useToggle from '../../hooks/useToggle';
+import SortBar from '../../components/sort-bar/SortBar';
 
 // Set config defaults when creating the instance
 const instance = axios.create({
@@ -39,7 +40,6 @@ const Main = () => {
     fetchImages();
   }, []);
 
-  debugger;
   return (
     <>
       <Header />
@@ -49,10 +49,8 @@ const Main = () => {
             <Filter />
           </SideBar>
         </SideBarContext.Provider>
-        <ContentSection
-          open={isOpen}
-          style={{ marginLeft: `${isOpen ? 540 : 60}` }}
-        >
+        <ContentSection open={isOpen}>
+          <SortBar />
           <Images images={images} />
         </ContentSection>
         <SideSection>
@@ -70,7 +68,7 @@ const Main = () => {
           </SideSectionItem>
         </SideSection>
       </MainSection>
-      <Footer open={isOpen} />
+      <Footer />
     </>
   );
 };

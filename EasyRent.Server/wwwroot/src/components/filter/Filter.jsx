@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core';
 import PropTypes from 'prop-types';
-import Button from '../button/ContainedButton';
+import Button from '../common/button/ContainedButton';
 import Select from '../select/Select';
 import CheckBoxGroup from '../checkbox/CheckBoxGroup';
 import CheckBox from '../checkbox/Checkbox';

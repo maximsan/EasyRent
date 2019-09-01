@@ -20,9 +20,9 @@ const Header = ({ children }) => {
         <div className={customClasses.locationIcon}>
           <GeoLocationIcon />
         </div>
-        <span>Choose your place</span>
+        <span className={customClasses.locationLabel}>Choose your place</span>
       </div>
-      <Link to='/signin'>Sign In / Sign Out</Link>
+      {false && <Link to='/signin'>Sign In / Sign Out</Link>}
     </header>
   );
 };

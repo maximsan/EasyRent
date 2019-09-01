@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import DefaultButton from './DefautlButton';
+import DefaultButton from './DefaultButton';
 
 const ContainedButton = ({ children, addClasses, ...rest }) => {
   return (

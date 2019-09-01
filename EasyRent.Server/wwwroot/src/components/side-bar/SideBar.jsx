@@ -10,10 +10,10 @@ import MenuIcon from '@material-ui/icons/Menu';
 import Filter from '../filter/Filter';
 import Divider from '../divider/Divider';
 import Drawer from '../drawer/Drawer';
-import Button from '../button/ContainedButton';
-import SideBarButton from '../button/SideBarButton';
+import Button from '../common/button/ContainedButton';
+import { SideBarButton } from '../common/button';
 
-const drawerWidth = 480;
+const drawerWidth = 490;
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -24,6 +24,7 @@ const useStyles = makeStyles((theme) => ({
   },
   openBtn: {
     alignSelf: 'flex-start',
+    marginRight: '14px',
   },
   hideDrawer: {
     marginLeft: -drawerWidth,
@@ -54,8 +55,8 @@ const SideBar = ({ children, ...rest }) => {
 };
 
 SideBar.propTypes = {
-  isOpen: PropTypes.bool.isRequired,
-  toggle: PropTypes.func.isRequired,
+  // isOpen: PropTypes.bool.isRequired,
+  // toggle: PropTypes.func.isRequired,
   children: PropTypes.node.isRequired,
 };
 

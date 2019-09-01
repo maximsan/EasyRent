@@ -12,15 +12,24 @@
   align-items: center;
   justify-content: space-around;
   box-shadow: 0 6px 12px -6px rgba(0, 0, 0, 0.25);
-  background: #c2e4e8;
+  /* background: #c2e4e8; */
+  background: #a5d5c6;
 }
 
-.location {
+.header .location {
   display: flex;
   align-items: center;
 }
 
-.locationIcon {
+.header .location .locationIcon {
   display: inline-flex;
   margin-right: 1.25rem;
+}
+
+.header .location .locationLabel {
+  font-size: 1.1rem;
+  font-weight: 500;
+  word-spacing: 6px;
+  color: #196a39;
+  letter-spacing: 1px;
 }

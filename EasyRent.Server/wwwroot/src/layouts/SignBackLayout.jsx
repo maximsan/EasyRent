@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Grid, Paper } from '@material-ui/core';
 import useSignInClasses from '../pages/sign-in/signin-styles';
 
-import Button from '../components/button/ContainedButton';
+import Button from '../components/common/button/ContainedButton';
 
 const SignBackLayout = ({
   gridClasses,

@@ -1,6 +1,7 @@
 .filter {
   height: 100%;
-  /* min-height: 40vh; */
+  min-height: 680px;
+  height: 700px;
   width: 400px;
   display: flex;
   flex-flow: column nowrap;

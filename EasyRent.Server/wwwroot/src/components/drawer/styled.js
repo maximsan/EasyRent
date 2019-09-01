@@ -25,12 +25,16 @@ export const MainDiv = styled.div`
   right: ${(props) => props.right};
   z-index: 101;
   height: 100%;
+  min-height: 770px;
   display: flex;
   flex: 1 0 auto;
   flex-direction: row;
   outline: none;
   -webkit-overflow-scrolling: touch;
-  -webkit-box-shadow: 4px -4px 4px -1px rgba(0, 0, 0, 0.6);
-  -moz-box-shadow: 4px -4px 4px -1px rgba(0, 0, 0, 0.6);
-  box-shadow: 4px -4px 4px -1px rgba(0, 0, 0, 0.6);
+  -webkit-box-shadow: 0px -4px 8px -1px rgba(0, 0, 0, 0.6),
+    4px 0 8px -1px rgba(0, 0, 0, 0.6), 0 4px 8px -1px rgba(0, 0, 0, 0.6);
+  -moz-box-shadow: 0px -4px 8px -1px rgba(0, 0, 0, 0.6),
+    4px 0 8px -1px rgba(0, 0, 0, 0.6), 0 4px 8px -1px rgba(0, 0, 0, 0.6);
+  box-shadow: 0px -4px 8px -1px rgba(0, 0, 0, 0.6),
+    4px 0 8px -1px rgba(0, 0, 0, 0.6), 0 4px 8px -1px rgba(0, 0, 0, 0.6);
 `;

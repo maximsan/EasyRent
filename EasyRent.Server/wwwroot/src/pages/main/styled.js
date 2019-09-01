@@ -21,6 +21,7 @@ export const MainSection = styled.main`
 
 export const ContentSection = styled.section`
   position: relative;
+  height: 900px;
   width: 800px;
   min-width: 70%;
   margin-left: ${({ open }) => (open ? `580` : `100`)}px;

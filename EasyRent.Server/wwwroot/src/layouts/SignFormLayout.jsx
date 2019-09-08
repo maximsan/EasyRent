@@ -6,8 +6,8 @@ import {
   LockOutlined,
   PersonOutlined,
 } from '@material-ui/icons';
-import Email from '../components/email/Email';
-import Password from '../components/password/Password';
+import Email from '../components/common/email/Email';
+import Password from '../components/common/password/Password';
 import TextInput from '../components/text-input/TextInput';
 import { ContainedButton } from '../components/common/button';
 import FacebookIcon from '../components/icons/social-icons/FacebookIcon';

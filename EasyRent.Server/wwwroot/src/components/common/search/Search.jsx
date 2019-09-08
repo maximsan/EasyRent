@@ -1,7 +1,7 @@
 import React from 'react';
 import { InputBase, makeStyles } from '@material-ui/core';
-import StartIcon from '../icons/StartIcon';
-import SearchIcon from '../icons/search-icon/SearchIcon';
+import StartIcon from '../../icons/StartIcon';
+import SearchIcon from '../../icons/search-icon/SearchIcon';
 import styles from './search.module.css';
 
 const useClasses = makeStyles({
@@ -18,7 +18,6 @@ const useClasses = makeStyles({
     },
   },
   input: {
-    // color: 'red',
     '&::-webkit-search-decoration': {
       color: 'red',
       background: 'gold',

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import CheckBox from './Checkbox';
 import { makeStyles, FormGroup } from '@material-ui/core';
+import CheckBox from './Checkbox';
 
 const useClasses = makeStyles({
   formGroupRoot: {

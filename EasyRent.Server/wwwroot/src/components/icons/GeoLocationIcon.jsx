@@ -41,7 +41,7 @@ const GeoLocationIcon = ({ size, fontSize, title, variant, ...rest }) => {
 
 GeoLocationIcon.defaultProps = {
   size: 'medium',
-  fontSize: 'medium',
+  fontSize: 'default',
   title: '',
   variant: 'round',
 };

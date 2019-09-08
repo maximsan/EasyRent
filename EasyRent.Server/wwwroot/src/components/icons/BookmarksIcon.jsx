@@ -37,7 +37,7 @@ const CustomBookmarksIcon = ({ size, fontSize, title, variant, ...rest }) => {
 
 CustomBookmarksIcon.defaultProps = {
   size: 'medium',
-  fontSize: 'medium',
+  fontSize: 'default',
   title: 'Add bookmark',
   variant: 'round',
 };

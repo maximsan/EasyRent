@@ -13,7 +13,7 @@ import Drawer from '../drawer/Drawer';
 import Button from '../common/button/ContainedButton';
 import { SideBarButton } from '../common/button';
 
-const drawerWidth = 490;
+const drawerWidth = 476;
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -24,7 +24,10 @@ const useStyles = makeStyles((theme) => ({
   },
   openBtn: {
     alignSelf: 'flex-start',
-    marginRight: '14px',
+    marginRight: '6px',
+    '&:hover': {
+      background: 'rgba(142, 185, 191, 0.4)',
+    },
   },
   hideDrawer: {
     marginLeft: -drawerWidth,
@@ -42,6 +45,7 @@ const SideBar = ({ children, ...rest }) => {
     <Drawer
       open={open}
       className={open ? classes.showDrawer : classes.hideDrawer}
+      {...rest}
     >
       {children}
       {/* <Divider width='2px' height='100%' position='absolute' /> */}

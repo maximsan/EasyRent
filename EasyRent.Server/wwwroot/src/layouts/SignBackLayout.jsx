@@ -30,7 +30,7 @@ const SignBackLayout = ({
       </Grid>
       <Grid container justify='center'>
         <Button
-          addClasses={{ root: classes.btnRightRoot }}
+          extraClasses={{ root: classes.btnRightRoot }}
           onClick={onHandleClick}
         >
           {buttonName}

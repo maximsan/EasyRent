@@ -2,18 +2,21 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import DefaultButton from './DefaultButton';
 
-const ContainedButton = ({ children, addClasses, ...rest }) => {
+const ContainedButton = ({ children, extraClasses, ...rest }) => {
   return (
-    <DefaultButton {...rest} variant='contained'>
+    <DefaultButton extraClasses={extraClasses} {...rest} variant='contained'>
       {children}
     </DefaultButton>
   );
 };
 
-ContainedButton.propTypes = {
-  children: PropTypes.element.isRequired,
+ContainedButton.defaultProps = {
+  extraClasses: {},
 };
 
-ContainedButton.defaultProps = {};
+ContainedButton.propTypes = {
+  children: PropTypes.node.isRequired,
+  extraClasses: PropTypes.shape({}),
+};
 
 export default ContainedButton;

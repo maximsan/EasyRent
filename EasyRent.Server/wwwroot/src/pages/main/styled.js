@@ -9,26 +9,24 @@ export const Container = styled.div`
 `;
 
 export const MainSection = styled.main`
-  min-height: 80%;
-  height: 100%;
-  width: 100vw;
+  width: 100%;
   display: flex;
   justify-content: flex-start;
   flex-wrap: nowrap;
   position: relative;
-  margin: 100px 20px 120px 20px;
+  margin: 100px 20px 80px 0px;
 `;
 
 export const ContentSection = styled.section`
   position: relative;
-  height: 900px;
+  height: 1000px;
   width: 800px;
   min-width: 70%;
   margin-left: ${({ open }) => (open ? `580` : `100`)}px;
 `;
 
 export const SideSection = styled.aside`
-  min-width: 20vw;
+  min-width: 20%;
   display: flex;
   flex-flow: column nowrap;
   justify-content: space-evenly;
@@ -47,4 +45,7 @@ export const ItemCaption = styled.div`
   line-height: 24px;
   font-weight: 500;
   font-size: 1.2rem;
+  color: #196a39;
+  letter-spacing: 1px;
+  text-transform: uppercase;
 `;

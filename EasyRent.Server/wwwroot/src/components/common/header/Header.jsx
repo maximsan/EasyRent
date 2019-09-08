@@ -1,9 +1,8 @@
 import React from 'react';
-import GeoLocationIcon from '../icons/GeoLocationIcon';
+import { Link } from 'react-router-dom';
+import GeoLocationIcon from '../../icons/GeoLocationIcon';
 import customClasses from './header.module.css';
 import Search from '../search/Search';
-import { Switch, Route, Link } from 'react-router-dom';
-import SignInUpForm from '../../pages/sign-in-up/SignInUpForm';
 
 const Header = ({ children }) => {
   return (

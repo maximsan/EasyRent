@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Input from '../input/Input';
-import StartIcon from '../icons/StartIcon';
+import StartIcon from '../../icons/StartIcon';
 
 const Email = ({ startIcon, ...rest }) => {
   return (

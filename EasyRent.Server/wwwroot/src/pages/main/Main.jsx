@@ -10,7 +10,7 @@ import {
 } from './styled';
 import Header from '../../components/common/header/Header';
 import Filter from '../../components/filter/Filter';
-import Images from '../../components/common/masonry/Images';
+import ImagesSection from '../../components/common/masonry/MasonrySection';
 import Footer from '../../components/common/footer/Footer';
 import SideBar from '../../components/side-bar/SideBar';
 import AddIcon from '../../components/icons/AddIcon';
@@ -41,7 +41,7 @@ const Main = () => {
         </SideBarContext.Provider>
         <ContentSection open={isOpen}>
           <SortBar />
-          <Images images={images} />
+          <ImagesSection data={images} itemWidth={300} columnsCount={3} />
         </ContentSection>
         <SideSection>
           <SideSectionItem>

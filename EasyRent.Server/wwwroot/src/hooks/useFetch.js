@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
 
 const baseUrl = process.env.REACT_APP_BASE_URL;
@@ -10,16 +10,28 @@ const instance = axios.create({
 
 const useFetch = (method, url) => {
   const [fetchedData, setFetchedData] = useState(null);
+  const isFetched = useRef(false);
 
   useEffect(() => {
-    const fetchData = async () => {
-      const { data } = await instance({
-        method,
-        url,
-      });
-      setFetchedData(data);
-    };
+    // const data = window.localStorage.getItem('images');
 
+    // if (data) {
+    //   setFetchedData(JSON.parse(data));
+    //   return;
+    // }
+    let fetchData = null;
+
+    if (!isFetched.current) {
+      fetchData = async () => {
+        const { data } = await instance({
+          method,
+          url,
+        });
+        // window.localStorage.setItem('images', JSON.stringify(data));
+        isFetched.current = true;
+        setFetchedData(data);
+      };
+    }
     fetchData();
   }, [method, url]);
 

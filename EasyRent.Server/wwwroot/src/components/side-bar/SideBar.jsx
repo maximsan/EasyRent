@@ -13,7 +13,7 @@ import Drawer from '../drawer/Drawer';
 import Button from '../common/button/ContainedButton';
 import { SideBarButton } from '../common/button';
 
-const drawerWidth = 490;
+const drawerWidth = 476;
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -45,6 +45,7 @@ const SideBar = ({ children, ...rest }) => {
     <Drawer
       open={open}
       className={open ? classes.showDrawer : classes.hideDrawer}
+      {...rest}
     >
       {children}
       {/* <Divider width='2px' height='100%' position='absolute' /> */}

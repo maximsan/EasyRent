@@ -14,7 +14,7 @@ export const MainSection = styled.main`
   justify-content: flex-start;
   flex-wrap: nowrap;
   position: relative;
-  margin: 100px 20px 80px 20px;
+  margin: 100px 20px 80px 0px;
 `;
 
 export const ContentSection = styled.section`

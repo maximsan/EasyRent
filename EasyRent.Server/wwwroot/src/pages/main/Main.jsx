@@ -18,13 +18,13 @@ import FavouritesIcon from '../../components/icons/FavouritesIcon';
 import BookmarksIcon from '../../components/icons/BookmarksIcon';
 import { useToggle, useFetch } from '../../hooks';
 import SortBar from '../../components/sort-bar/SortBar';
-import { url } from '../../config';
+import { url, METHODS } from '../../config';
 
 const Main = () => {
   const [images, setImages] = useState(null);
   const [isOpen, toggle] = useToggle();
 
-  const [data] = useFetch('get', url);
+  const [data] = useFetch(METHODS.get, url);
 
   useEffect(() => {
     setImages(data);

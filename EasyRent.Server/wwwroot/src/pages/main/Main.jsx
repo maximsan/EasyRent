@@ -1,6 +1,5 @@
-import React, { useEffect, useState, useMemo } from 'react';
+import React, { useEffect, useState } from 'react';
 import SideBarContext from '../../context/SideBarContext';
-import axios from 'axios';
 import {
   Container,
   ContentSection,
@@ -19,8 +18,7 @@ import FavouritesIcon from '../../components/icons/FavouritesIcon';
 import BookmarksIcon from '../../components/icons/BookmarksIcon';
 import { useToggle, useFetch } from '../../hooks';
 import SortBar from '../../components/sort-bar/SortBar';
-
-const url = `photos/?per_page=10&client_id=${process.env.REACT_APP_PHOTO_ACCESS_KEY}`;
+import { url } from '../../config';
 
 const Main = () => {
   const [images, setImages] = useState(null);

@@ -5,10 +5,17 @@ import Header from '../../components/common/header/Header';
 import Footer from '../../components/common/footer/Footer';
 import Filter from '../../components/filter/Filter';
 import SideBar from '../../components/side-bar/SideBar';
-import SideLinksSection from '../../layouts/side-links-section/SideLinksSection';
 import { useToggle } from '../../hooks';
 import BigPhoto from '../../components/big-photo/BigPhoto';
-import { MainSection } from './styled';
+import {
+  MainSection,
+  SideSection,
+  SideSectionItem,
+  ItemCaption,
+} from './styled';
+import FavouritesIcon from '../../components/icons/FavouritesIcon';
+import BookmarksIcon from '../../components/icons/BookmarksIcon';
+import ThumbUpIcon from '../../components/icons/ThumbUpIcon';
 
 const Advertisement = () => {
   const [isOpen, toggle] = useToggle();
@@ -23,7 +30,20 @@ const Advertisement = () => {
           </SideBar>
         </SideBarContext.Provider>
         <BigPhoto />
-        <SideLinksSection />
+        <SideSection>
+          <SideSectionItem>
+            <BookmarksIcon />
+            <ItemCaption>Go to bookmarks</ItemCaption>
+          </SideSectionItem>
+          <SideSectionItem>
+            <FavouritesIcon />
+            <ItemCaption>Go to favourite ads</ItemCaption>
+          </SideSectionItem>
+          <SideSectionItem>
+            <ThumbUpIcon />
+            <ItemCaption>Like</ItemCaption>
+          </SideSectionItem>
+        </SideSection>
       </MainSection>
       <Footer />
     </>

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Switch, Route } from 'react-router-dom';
 import { LayoutDiv } from './styled';
-import Home from '../../components/home/Home';
+import Home from '../../pages/home/Home';
 import Main from '../../pages/main/Main';
 import Advertisement from '../../pages/ad/Ad';
 

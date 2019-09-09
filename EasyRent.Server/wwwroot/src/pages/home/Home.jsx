@@ -1,6 +1,6 @@
 import React from 'react';
 import { Switch, Route, Link } from 'react-router-dom';
-import Main from '../../pages/main/Main';
+import Main from '../main/Main';
 
 const Home = () => {
   return (

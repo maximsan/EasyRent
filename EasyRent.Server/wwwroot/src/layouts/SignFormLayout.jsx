@@ -8,7 +8,7 @@ import {
 } from '@material-ui/icons';
 import Email from '../components/common/email/Email';
 import Password from '../components/common/password/Password';
-import TextInput from '../components/text-input/TextInput';
+import TextInput from '../components/common/text-input/TextInput';
 import { ContainedButton } from '../components/common/button';
 import FacebookIcon from '../components/icons/social-icons/FacebookIcon';
 import GoogleIcon from '../components/icons/social-icons/GoogleIcon';

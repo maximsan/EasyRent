@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Input from '../common/input/Input';
-import StartIcon from '../icons/StartIcon';
+import Input from '../input/Input';
+import StartIcon from '../../icons/StartIcon';
 
 const TextInput = ({ startIcon, id, labelText, ...rest }) => {
   return (

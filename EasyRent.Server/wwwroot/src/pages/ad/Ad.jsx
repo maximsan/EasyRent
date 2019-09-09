@@ -16,6 +16,7 @@ import {
 import FavouritesIcon from '../../components/icons/FavouritesIcon';
 import BookmarksIcon from '../../components/icons/BookmarksIcon';
 import ThumbUpIcon from '../../components/icons/ThumbUpIcon';
+import Telegram from '../../components/icons/social-icons/TelegramIcon';
 
 const Advertisement = () => {
   const [isOpen, toggle] = useToggle();
@@ -42,6 +43,13 @@ const Advertisement = () => {
           <SideSectionItem>
             <ThumbUpIcon />
             <ItemCaption>Like</ItemCaption>
+          </SideSectionItem>
+          <SideSectionItem>
+            <div>
+              <Telegram />
+              Viber Mobile
+            </div>
+            <ItemCaption>Contact an advertiser</ItemCaption>
           </SideSectionItem>
         </SideSection>
       </MainSection>

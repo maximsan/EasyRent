@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import SideBarContext from '../../context/SideBarContext';
 import { Container, ContentSection, MainSection } from './styled';
 import Header from '../../components/common/header/Header';
@@ -10,8 +11,12 @@ import SideLinksSection from '../../layouts/side-links-section/SideLinksSection'
 import { useToggle, useFetch } from '../../hooks';
 import SortBar from '../../components/sort-bar/SortBar';
 import { url, METHODS } from '../../config';
+import AddIcon from '../../components/icons/AddIcon';
+import FavouritesIcon from '../../components/icons/FavouritesIcon';
+import BookmarksIcon from '../../components/icons/BookmarksIcon';
+import { SideSection, SideSectionItem, ItemCaption } from './styled';
 
-const Main = () => {
+const Main = (props) => {
   const [images, setImages] = useState(null);
   const [isOpen, toggle] = useToggle();
 
@@ -34,8 +39,24 @@ const Main = () => {
           <SortBar />
           <ImagesSection data={images} itemWidth={300} columnsCount={3} />
         </ContentSection>
-        <SideLinksSection />
+        <SideLinksSection {...props} />
       </MainSection>
+      <SideSection>
+        <SideSectionItem>
+          <Link to='/ad'>
+            <AddIcon />
+          </Link>
+          <ItemCaption>Place an ad</ItemCaption>
+        </SideSectionItem>
+        <SideSectionItem>
+          <BookmarksIcon />
+          <ItemCaption>Go to bookmarks</ItemCaption>
+        </SideSectionItem>
+        <SideSectionItem>
+          <FavouritesIcon />
+          <ItemCaption>Go to favourite ads</ItemCaption>
+        </SideSectionItem>
+      </SideSection>
       <Footer />
     </>
   );

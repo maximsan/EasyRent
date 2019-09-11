@@ -10,10 +10,16 @@ import SideBar from './components/side-bar/SideBar';
 const App = React.memo(() => (
   <BrowserRouter>
     <Switch>
-      <Route path='/signin' component={PublicLayout} />
-      <Route path='/signup' component={PublicLayout} />
-      <Route path='/home' component={PublicLayout} />
-      <Route path='/side-bar' component={SideBar} />
+      <Route
+        path={`${process.env.PUBLIC_URL}/signin`}
+        component={PublicLayout}
+      />
+      <Route
+        path={`${process.env.PUBLIC_URL}/signup`}
+        component={PublicLayout}
+      />
+      <Route path={`${process.env.PUBLIC_URL}/home`} component={PublicLayout} />
+      <Route path={`${process.env.PUBLIC_URL}/side-bar`} component={SideBar} />
       <PrivateRoute path='/' component={PrivateLayout} />
       {/* <Route path='/signup' component={SignUp} />
       <Route path='/reset-password' />

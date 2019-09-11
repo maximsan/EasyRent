@@ -2,14 +2,13 @@
 using EasyRent.Data;
 using EasyRent.Data.Entities;
 using EasyRent.Data.Repositories;
+using EasyRent.Server.Common.Constants;
 using EasyRent.Server.Common.Extentions;
 using EasyRent.Server.Common.IdentityServer;
 using EasyRent.Server.Common.Validators;
 using EasyRent.Server.Models;
 using FluentValidation;
 using FluentValidation.AspNetCore;
-using IdentityServer4.AccessTokenValidation;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -27,17 +26,19 @@ namespace EasyRent.Server
     public class Startup
     {
         public IConfiguration Configuration { get; }
+        public IHostingEnvironment Environment { get; }
 
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration, IHostingEnvironment environment)
         {
             Configuration = configuration;
+            Environment = environment;
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app, ILoggerFactory loggerFactory)
         {
             loggerFactory.AddFileLogger();
 
-            if (env.IsDevelopment())
+            if (Environment.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();
@@ -70,21 +71,19 @@ namespace EasyRent.Server
             {
                 spa.Options.SourcePath = "wwwroot";
 
-                if (env.IsDevelopment())
+                if (Environment.IsDevelopment())
                 {
                     spa.UseReactDevelopmentServer("start");
                 }
             });
 
-            app.UseCors(builder => builder.AllowAnyOrigin()); //TODO: Web API still gets any requests. We have to change it in the future.
+            app.UseCors(CommonConstants.ApiName); //TODO: Web API still gets any requests. We have to change it in the future.
         }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.Configure<CookiePolicyOptions>(options =>
             {
-                // This lambda determines whether user consent for non-essential cookies is needed for a given request.
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
@@ -93,14 +92,16 @@ namespace EasyRent.Server
 
             InitDatabaseConfigurations(services);
 
-            InitIdentityServer(services);
-
-            services.AddMvc()
+            services.AddMvcCore()
+                    .AddJsonFormatters()
                     .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
                     .AddFluentValidation(config =>
                     {
                         config.RunDefaultMvcValidationAfterFluentValidationExecutes = true;
-                    });
+                    })
+                    .AddAuthorization();
+
+            InitIdentityServer(services);
 
             services.AddSpaStaticFiles(config =>
             {
@@ -112,10 +113,24 @@ namespace EasyRent.Server
 
         private void InitDatabaseConfigurations(IServiceCollection services)
         {
-            services.AddDbContext<ApplicationDbContext>(
-                options => options.UseNpgsql(Configuration.GetConnectionString("MainDatabase")));
+            services.AddDbContext<ApplicationDbContext>(options =>
+            {
+                options.UseNpgsql(Configuration.GetConnectionString("MainDatabase"));
+            });
 
-            services.AddDefaultIdentity<User>()
+            services.AddDefaultIdentity<User>(config =>
+                    {
+                        config.User.RequireUniqueEmail = true;
+
+                        config.Password = new PasswordOptions
+                        {
+                            RequireDigit = false,
+                            RequireLowercase = false,
+                            RequireNonAlphanumeric = false,
+                            RequireUppercase = false,
+                            RequiredLength = 5
+                        };
+                    })
                     .AddDefaultUI(UIFramework.Bootstrap4)
                     .AddEntityFrameworkStores<ApplicationDbContext>()
                     .AddDefaultTokenProviders();
@@ -136,6 +151,7 @@ namespace EasyRent.Server
 
             services.AddTransient<IValidator<SignInModel>, SignInValidator>();
             services.AddTransient<IValidator<SignUpModel>, SignUpValidator>();
+            services.AddTransient<IValidator<ResetPasswordModel>, ResetPasswordValidator>();
 
             services.AddAutoMapper(config =>
             {
@@ -146,27 +162,51 @@ namespace EasyRent.Server
 
         private void InitIdentityServer(IServiceCollection services)
         {
-            services.AddIdentityServer(configs =>
+            //services.AddAuthentication(IdentityServerAuthenticationDefaults.AuthenticationScheme)
+            //        .AddIdentityServerAuthentication(options =>
+            //        {
+            //            options.ApiName = CommonConstants.ApiName;
+            //            options.Authority = "http://localhost:58027";
+            //            options.ApiSecret = "secret";
+            //            options.EnableCaching = true;
+            //            options.CacheDuration = TimeSpan.FromMinutes(20);
+            //        });
+
+            var builder = services.AddIdentityServer(options =>
                     {
-                        configs.Endpoints.EnableJwtRequestUri = true;
-
-                        configs.Authentication.CookieAuthenticationScheme =
-                            IdentityServerAuthenticationDefaults.AuthenticationScheme;
-
-                        configs.UserInteraction.LoginUrl = "/signin";
-                        configs.UserInteraction.LogoutUrl = "/account/signout";
+                        options.Events.RaiseErrorEvents = true;
+                        options.Events.RaiseFailureEvents = true;
+                        options.Events.RaiseInformationEvents = true;
+                        options.Events.RaiseSuccessEvents = true;
                     })
-                    .AddDeveloperSigningCredential()
-                    .AddInMemoryPersistedGrants()
+                    .AddInMemoryApiResources(Config.GetApiResources())
                     .AddInMemoryIdentityResources(Config.GetIdentityResources())
-                    .AddInMemoryApiResources(Config.GetApisApiResources())
-                    .AddInMemoryClients(Config.GeClients())
+                    .AddInMemoryClients(Config.GetClients())
                     .AddAspNetIdentity<User>();
 
-            services.AddAuthentication(configs =>
+            if (Environment.IsDevelopment())
             {
-                configs.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                configs.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                builder.AddDeveloperSigningCredential();
+            }
+            else
+            {
+                //TODO: Need configure key material.
+            }
+
+            services.AddAuthentication()
+                    .AddLocalApi(options =>
+                    {
+                        options.ExpectedScope = CommonConstants.ApiName;
+                    });
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy(CommonConstants.ApiName, policy =>
+                {
+                    policy.AllowAnyOrigin()
+                          .AllowAnyHeader()
+                          .AllowAnyMethod();
+                });
             });
         }
     }

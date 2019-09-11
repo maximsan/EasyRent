@@ -18,7 +18,8 @@ namespace EasyRent.Server.Common.Validators
                 .NotNull()
                 .WithMessage(ErrorMessages.EmailRequired)
                 .EmailAddress()
-                .WithMessage(ErrorMessages.InvalidEmailFormat);
+                .WithMessage(ErrorMessages.InvalidEmailFormat)
+                .UserNotMustExist(userManager);
 
             RuleFor(q => q.Password).Cascade(CascadeMode.StopOnFirstFailure)
                 .NotNull()

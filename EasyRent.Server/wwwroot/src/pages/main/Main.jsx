@@ -7,6 +7,8 @@ import Images from '../../components/masonry/Images';
 import Footer from '../../components/footer/Footer';
 import SideBar from '../../components/side-bar/SideBar';
 
+const MainPageRoute = `${process.env.PUBLIC_URL}/main`;
+
 // Set config defaults when creating the instance
 const instance = axios.create({
   baseURL: 'https://api.unsplash.com/',
@@ -43,3 +45,4 @@ const Main = () => {
 };
 
 export default Main;
+export { Main, MainPageRoute };

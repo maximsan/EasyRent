@@ -2,8 +2,8 @@ import React from 'react';
 import { Switch, Route, BrowserRouter, Animate } from 'react-router-dom';
 // import SignUp from './components/sign-up/SignUp';
 // import Layout from './components/Layout';
-import PublicLayout from './layouts/PublicLayout';
-import PrivateLayout from './layouts/PrivateLayout';
+import PublicLayout from './layouts/router-layouts/PublicLayout';
+import PrivateLayout from './layouts/router-layouts/PrivateLayout';
 import PrivateRoute from './components/PrivateRoute';
 import SideBar from './components/side-bar/SideBar';
 

@@ -10,7 +10,7 @@ const StartIcon = ({ icon, ...rest }) => {
   );
 };
 
-StartIcon.defaultTypes = {};
+StartIcon.defaultProps = {};
 
 StartIcon.propTypes = {
   icon: PropTypes.node.isRequired,

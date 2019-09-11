@@ -10,7 +10,7 @@ const EndIcon = ({ icon, ...rest }) => {
   );
 };
 
-EndIcon.defaultTypes = {};
+EndIcon.defaultProps = {};
 
 EndIcon.propTypes = {
   icon: PropTypes.node.isRequired,

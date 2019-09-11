@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Grid, Paper } from '@material-ui/core';
 import useSignInClasses from '../pages/sign-in/signin-styles';
 
-import Button from '../components/button/Button';
+import Button from '../components/common/button/ContainedButton';
 
 const SignBackLayout = ({
   gridClasses,
@@ -30,7 +30,7 @@ const SignBackLayout = ({
       </Grid>
       <Grid container justify='center'>
         <Button
-          addClasses={{ root: classes.btnRightRoot }}
+          extraClasses={{ root: classes.btnRightRoot }}
           onClick={onHandleClick}
         >
           {buttonName}

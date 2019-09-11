@@ -6,13 +6,13 @@ import {
   LockOutlined,
   PersonOutlined,
 } from '@material-ui/icons';
-import Email from '../components/email/Email';
-import Password from '../components/password/Password';
-import TextInput from '../components/text-input/TextInput';
-import Button from '../components/button/Button';
-import FacebookIcon from '../components/icons/socialIcons/FacebookIcon';
-import GoogleIcon from '../components/icons/socialIcons/GoogleIcon';
-import TelegramIcon from '../components/icons/socialIcons/TelegramIcon';
+import Email from '../components/common/email/Email';
+import Password from '../components/common/password/Password';
+import TextInput from '../components/common/text-input/TextInput';
+import { ContainedButton } from '../components/common/button';
+import FacebookIcon from '../components/icons/social-icons/FacebookIcon';
+import GoogleIcon from '../components/icons/social-icons/GoogleIcon';
+import TelegramIcon from '../components/icons/social-icons/TelegramIcon';
 import useSignInClasses from '../pages/sign-in/signin-styles';
 
 const SignFormLayout = ({
@@ -42,13 +42,13 @@ const SignFormLayout = ({
         </Grid>
         <Grid container justify='center' className={classes.rowIcons}>
           <Grid item className={classes.facebookIcon}>
-            <FacebookIcon />
+            <FacebookIcon fontSize='large' title='Log in via Facebook' />
           </Grid>
           <Grid item className={classes.googleIcon}>
-            <GoogleIcon />
+            <GoogleIcon fontSize='large' title='Log in via Google' />
           </Grid>
           <Grid item>
-            <TelegramIcon />
+            <TelegramIcon fontSize='large' title='Log in via Telegram' />
           </Grid>
         </Grid>
         <Grid container justify='center' className={classes.leftHint}>
@@ -134,16 +134,25 @@ const SignFormLayout = ({
           </Grid>
         )}
         <Grid container justify='center'>
-          <Button
-            addClasses={{ root: classes.btnLeftRoot, label: classes.btnLabel }}
+          <ContainedButton
+            extraClasses={{
+              root: classes.btnLeftRoot,
+              label: classes.btnLabel,
+            }}
             onClick={onHandleClick}
           >
             {isSignIn ? 'Sign In' : 'Sign Up'}
-          </Button>
+          </ContainedButton>
         </Grid>
       </Grid>
     </div>
   );
+};
+
+SignFormLayout.defaultProps = {
+  header: '',
+  hint: '',
+  onHandleChange: () => {},
 };
 
 SignFormLayout.propTypes = {
@@ -151,12 +160,6 @@ SignFormLayout.propTypes = {
   hint: PropTypes.string,
   onHandleChange: PropTypes.func,
   value: PropTypes.any,
-};
-
-SignFormLayout.defaultProps = {
-  header: '',
-  hint: '',
-  onHandleChange: () => {},
 };
 
 export default SignFormLayout;

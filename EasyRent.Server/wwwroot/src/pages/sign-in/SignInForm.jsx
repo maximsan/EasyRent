@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Paper } from '@material-ui/core';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import SignFormLayout from '../../layouts/SignFormLayout';
-import SignInOverlay from './SignInOverlay';
 
 const SignInForm = ({ value, onChange, onSubmit, isSignIn, className }) => {
   return (

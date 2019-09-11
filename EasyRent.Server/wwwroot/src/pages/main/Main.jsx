@@ -23,11 +23,6 @@ import {
 
 const MainPageRoute = `${process.env.PUBLIC_URL}/main`;
 
-// Set config defaults when creating the instance
-const instance = axios.create({
-  baseURL: 'https://api.unsplash.com/',
-});
-
 const Main = () => {
   const [images, setImages] = useState(null);
   const [isOpen, toggle] = useToggle();

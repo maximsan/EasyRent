@@ -10,6 +10,18 @@ const theme = createMuiTheme({
         backgroundColor: '#086574',
       },
     },
+    MuiIconButton: {
+      colorPrimary: {
+        color: '#086574',
+      },
+    },
+    MuiCheckbox: {
+      colorPrimary: {
+        '&$checked': {
+          color: '#086574',
+        },
+      },
+    },
   },
 });
 

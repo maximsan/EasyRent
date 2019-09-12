@@ -40,10 +40,12 @@ namespace EasyRent.Server.Common.Validators
                 .NotEmpty()
                 .WithMessage(ErrorMessages.PasswordRequired);
 
-            RuleFor(q => q.ConfirmPassword).Cascade(CascadeMode.StopOnFirstFailure)
+            RuleFor(q => q.ConfirmPassword)
+                .Cascade(CascadeMode.StopOnFirstFailure)
                 .NotEmpty()
                 .NotNull()
-                .Equal(q => q.Password);
+                .Equal(q => q.Password)
+                .WithMessage(ErrorMessages.ConfirmPasswordInvalid);
         }
     }
 }

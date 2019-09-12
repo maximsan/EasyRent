@@ -32,18 +32,17 @@ namespace EasyRent.Server.Controllers
         {
             if (string.IsNullOrWhiteSpace(email))
             {
-                return Json(new JsonResponseTemplate(false, "Email cannot be empty"));
+                return Json(new JsonResponseTemplate(false, ErrorMessages.EmailRequired));
             }
 
             User user = SignInManager.UserManager.FindByUserNameOrEmail(email);
 
             if (user is null)
             {
-                return Json(new JsonResponseTemplate(false, "User doesn't exist"));
+                return Json(new JsonResponseTemplate(false, ErrorMessages.UserNotExist));
             }
 
-            return Json(new JsonResponseTemplate(await SignInManager.UserManager.GeneratePasswordResetTokenAsync(user),
-                                                 string.Empty));
+            return Json(new JsonResponseTemplate(await SignInManager.UserManager.GeneratePasswordResetTokenAsync(user), string.Empty));
         }
 
         [HttpPost("reset-password")]
@@ -51,7 +50,7 @@ namespace EasyRent.Server.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return Json(new JsonResponseTemplate(false, ErrorMessages.InvalidEmailFormat));
+                return Json(new JsonResponseTemplate(false, GetModelStateErrors()));
             }
 
             User user = SignInManager.UserManager.FindByUserNameOrEmail(resetPassword.Email);
@@ -96,9 +95,7 @@ namespace EasyRent.Server.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return Json(new JsonResponseTemplate(false, ModelState.Values.SelectMany(
-                                                         q => q.Errors.Select(w => w.ErrorMessage)
-                                                               .Where(w => !w.IsNullOrEmpty()))));
+                return Json(new JsonResponseTemplate(false, GetModelStateErrors()));
             }
 
             User newUser = Mapper.Map<User>(model);
@@ -114,16 +111,16 @@ namespace EasyRent.Server.Controllers
         [HttpPost("check-password")]
         public async Task<IActionResult> CheckPassword([FromBody] ResetPasswordModel checkPassword)
         {
-            if (string.IsNullOrWhiteSpace(checkPassword.Email) || string.IsNullOrWhiteSpace(checkPassword.Password))
+            if (!ModelState.IsValid)
             {
-                return Json(new JsonResponseTemplate(false, "Email/password cannot be empty"));
+                return Json(new JsonResponseTemplate(false, GetModelStateErrors()));
             }
 
             var user = await SignInManager.UserManager.FindByEmailAsync(checkPassword.Email);
 
             if (user is null)
             {
-                return Json(new JsonResponseTemplate(false, "User doesn't exist"));
+                return Json(new JsonResponseTemplate(false, ErrorMessages.UserNotExist));
             }
 
             var result = await SignInManager.UserManager.CheckPasswordAsync(user, checkPassword.Password);

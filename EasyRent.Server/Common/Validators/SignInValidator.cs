@@ -25,8 +25,7 @@ namespace EasyRent.Server.Common.Validators
                 .NotNull()
                 .WithMessage(ErrorMessages.PasswordRequired)
                 .NotEmpty()
-                .WithMessage(ErrorMessages.PasswordRequired)
-                .WithMessage(ErrorMessages.InvalidPassword);
+                .WithMessage(ErrorMessages.PasswordRequired);
         }
     }
 }

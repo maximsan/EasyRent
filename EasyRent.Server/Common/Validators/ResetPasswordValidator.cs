@@ -20,6 +20,13 @@ namespace EasyRent.Server.Common.Validators
                 .EmailAddress()
                 .WithMessage(ErrorMessages.InvalidEmailFormat)
                 .UserMustExist(signInManager.UserManager);
+
+            RuleFor(q => q.Password)
+                .Cascade(CascadeMode.StopOnFirstFailure)
+                .NotNull()
+                .WithMessage(ErrorMessages.PasswordRequired)
+                .NotEmpty()
+                .WithMessage(ErrorMessages.PasswordRequired);
         }
     }
 }

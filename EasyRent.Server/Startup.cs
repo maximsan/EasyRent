@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System;
+using AutoMapper;
 using EasyRent.Data;
 using EasyRent.Data.Entities;
 using EasyRent.Data.Repositories;
@@ -9,6 +10,7 @@ using EasyRent.Server.Common.Validators;
 using EasyRent.Server.Models;
 using FluentValidation;
 using FluentValidation.AspNetCore;
+using IdentityServer4.AccessTokenValidation;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -163,15 +165,15 @@ namespace EasyRent.Server
 
         private void InitIdentityServer(IServiceCollection services)
         {
-            //services.AddAuthentication(IdentityServerAuthenticationDefaults.AuthenticationScheme)
-            //        .AddIdentityServerAuthentication(options =>
-            //        {
-            //            options.ApiName = CommonConstants.ApiName;
-            //            options.Authority = "http://localhost:58027";
-            //            options.ApiSecret = "secret";
-            //            options.EnableCaching = true;
-            //            options.CacheDuration = TimeSpan.FromMinutes(20);
-            //        });
+            services.AddAuthentication(IdentityServerAuthenticationDefaults.AuthenticationScheme)
+                   .AddIdentityServerAuthentication(options =>
+                   {
+                       options.ApiName = CommonConstants.ApiName;
+                       options.Authority = "http://localhost:5001/account/sign-in";
+                       options.ApiSecret = "secret";
+                       options.EnableCaching = true;
+                       options.CacheDuration = TimeSpan.FromMinutes(20);
+                   });
 
             var builder = services.AddIdentityServer(options =>
                     {

@@ -5,6 +5,7 @@ using EasyRent.Data;
 using EasyRent.Data.Entities;
 using EasyRent.Server.Common;
 using EasyRent.Server.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EasyRent.Server.Controllers
@@ -30,6 +31,7 @@ namespace EasyRent.Server.Controllers
             return Json(new JsonResponseTemplate<IEnumerable<Ad>>(UnitOfWork.AdRepository.GetAll().Where(q => q.Title.Contains(title)), string.Empty));
         }
 
+        [Authorize]
         [HttpPost("[action]")]
         public IActionResult AddProduct([FromBody] ProductModel productModel)
         {

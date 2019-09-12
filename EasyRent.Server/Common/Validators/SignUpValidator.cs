@@ -18,7 +18,8 @@ namespace EasyRent.Server.Common.Validators
                 .NotNull()
                 .WithMessage(ErrorMessages.EmailRequired)
                 .EmailAddress()
-                .WithMessage(ErrorMessages.InvalidEmailFormat);
+                .WithMessage(ErrorMessages.InvalidEmailFormat)
+                .UserNotMustExist(userManager);
 
             RuleFor(q => q.Password).Cascade(CascadeMode.StopOnFirstFailure)
                 .NotNull()
@@ -39,10 +40,12 @@ namespace EasyRent.Server.Common.Validators
                 .NotEmpty()
                 .WithMessage(ErrorMessages.PasswordRequired);
 
-            RuleFor(q => q.ConfirmPassword).Cascade(CascadeMode.StopOnFirstFailure)
+            RuleFor(q => q.ConfirmPassword)
+                .Cascade(CascadeMode.StopOnFirstFailure)
                 .NotEmpty()
                 .NotNull()
-                .Equal(q => q.Password);
+                .Equal(q => q.Password)
+                .WithMessage(ErrorMessages.ConfirmPasswordInvalid);
         }
     }
 }

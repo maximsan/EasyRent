@@ -21,7 +21,9 @@ import {
   ItemCaption,
 } from './styled';
 
-const Main = (props) => {
+const MainPageRoute = `${process.env.PUBLIC_URL}/main`;
+
+const Main = () => {
   const [images, setImages] = useState(null);
   const [isOpen, toggle] = useToggle();
 
@@ -67,3 +69,4 @@ const Main = (props) => {
 };
 
 export default Main;
+export { Main, MainPageRoute };

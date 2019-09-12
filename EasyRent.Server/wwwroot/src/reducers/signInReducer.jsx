@@ -12,14 +12,15 @@ export const signIn = (data) => (dispatch, getState) => {
 
   const request = {
     method: 'POST',
-    url: `account/sign-in`, //${process.env.REACT_APP_BASE_URL}/ - node.js and iis use different ports.
+    url: `${process.env.PUBLIC_URL}/account/sign-in`,
     data,
   };
 
   // dispatch(startRequest);
 
   const handleSuccess = (response) => {
-    window.location.pathname = 'main';
+    debugger;
+    //window.location.pathname = 'main';
     // dispatch(receiveRequest);
   };
   const handleError = (response) => {
@@ -47,7 +48,7 @@ export const signUp = (data) => (dispatch, getState) => {
 
   const request = {
     method: 'POST',
-    url: `account/sign-up`, //${process.env.REACT_APP_BASE_URL}/ - node.js and iis use different ports.
+    url: `${process.env.PUBLIC_URL}account/sign-up`,
     data,
   };
 

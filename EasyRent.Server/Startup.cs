@@ -77,7 +77,7 @@ namespace EasyRent.Server
                 }
             });
 
-            app.UseCors(CommonConstants.ApiName); //TODO: Web API still gets any requests. We have to change it in the future.
+            app.UseCors(q => q.AllowAnyOrigin()); //TODO: Web API still gets any requests. We have to change it in the future.
         }
 
         public void ConfigureServices(IServiceCollection services)
@@ -157,6 +157,7 @@ namespace EasyRent.Server
             {
                 config.CreateMap<SignInModel, User>();
                 config.CreateMap<SignUpModel, User>();
+                config.CreateMap<ProductModel, Ad>();
             }, typeof(Startup));
         }
 

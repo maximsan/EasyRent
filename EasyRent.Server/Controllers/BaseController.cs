@@ -1,5 +1,8 @@
-﻿using AutoMapper;
+﻿using System.Collections.Generic;
+using System.Linq;
+using AutoMapper;
 using EasyRent.Data;
+using IdentityServer4.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -30,6 +33,12 @@ namespace EasyRent.Server.Controllers
         {
             UnitOfWork.Dispose();
             base.Dispose(disposing);
+        }
+
+        protected IEnumerable<string> GetModelStateErrors()
+        {
+            return ModelState.Values.SelectMany(q => q.Errors.Select(w => w.ErrorMessage)
+                                                               .Where(w => !w.IsNullOrEmpty()));
         }
     }
 }

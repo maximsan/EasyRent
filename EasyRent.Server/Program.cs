@@ -15,7 +15,6 @@ namespace EasyRent.Server
         {
             IWebHost host = CreateWebHostBuilder(args)
                 .Build();
-
             host.Run();
         }
     }

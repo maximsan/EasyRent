@@ -7,11 +7,12 @@ using Microsoft.AspNetCore.Identity;
 
 namespace EasyRent.Server.Common.Validators
 {
-    public class SignInValidator : AbstractValidator<SignInModel>
+    public class ResetPasswordValidator : AbstractValidator<ResetPasswordModel>
     {
-        public SignInValidator(SignInManager<User> signInManager)
+        public ResetPasswordValidator(SignInManager<User> signInManager)
         {
-            RuleFor(q => q.Email).Cascade(CascadeMode.StopOnFirstFailure)
+            RuleFor(q => q.Email)
+                .Cascade(CascadeMode.StopOnFirstFailure)
                 .NotEmpty()
                 .WithMessage(ErrorMessages.EmailRequired)
                 .NotNull()

@@ -1,18 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { styled } from '@material-ui/styles';
 import { Button } from '@material-ui/core';
-import styles from './button.module.css';
+
+const StyledButton = styled(Button)({
+  color: '#020f11',
+});
 
 const DefaultButton = ({ children, extraClasses, variant, ...rest }) => {
   return (
-    <Button
-      {...rest}
-      className={styles.DefaultButton}
-      variant={variant}
-      classes={{ ...extraClasses }}
-    >
+    <StyledButton {...rest} variant={variant} classes={{ ...extraClasses }}>
       {children}
-    </Button>
+    </StyledButton>
   );
 };
 

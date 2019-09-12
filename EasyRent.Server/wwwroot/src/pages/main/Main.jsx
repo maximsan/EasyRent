@@ -1,5 +1,17 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import SideBarContext from '../../context/SideBarContext';
+import Header from '../../components/common/header/Header';
+import Filter from '../../components/filter/Filter';
+import ImagesSection from '../../components/common/masonry/MasonrySection';
+import Footer from '../../components/common/footer/Footer';
+import SideBar from '../../components/side-bar/SideBar';
+import { useToggle, useFetch } from '../../hooks';
+import SortBar from '../../components/sort-bar/SortBar';
+import { url, METHODS } from '../../config';
+import AddIcon from '../../components/icons/AddIcon';
+import FavouritesIcon from '../../components/icons/FavouritesIcon';
+import BookmarksIcon from '../../components/icons/BookmarksIcon';
 import {
   Container,
   ContentSection,
@@ -8,17 +20,8 @@ import {
   SideSectionItem,
   ItemCaption,
 } from './styled';
-import Header from '../../components/common/header/Header';
-import Filter from '../../components/filter/Filter';
-import ImagesSection from '../../components/common/masonry/MasonrySection';
-import Footer from '../../components/common/footer/Footer';
-import SideBar from '../../components/side-bar/SideBar';
-import AddIcon from '../../components/icons/AddIcon';
-import FavouritesIcon from '../../components/icons/FavouritesIcon';
-import BookmarksIcon from '../../components/icons/BookmarksIcon';
-import { useToggle, useFetch } from '../../hooks';
-import SortBar from '../../components/sort-bar/SortBar';
-import { url, METHODS } from '../../config';
+
+const MainPageRoute = `${process.env.PUBLIC_URL}/main`;
 
 const Main = () => {
   const [images, setImages] = useState(null);
@@ -45,7 +48,9 @@ const Main = () => {
         </ContentSection>
         <SideSection>
           <SideSectionItem>
-            <AddIcon />
+            <Link to='/ad'>
+              <AddIcon />
+            </Link>
             <ItemCaption>Place an ad</ItemCaption>
           </SideSectionItem>
           <SideSectionItem>
@@ -64,3 +69,4 @@ const Main = () => {
 };
 
 export default Main;
+export { Main, MainPageRoute };

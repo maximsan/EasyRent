@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Switch, Route } from 'react-router-dom';
 import { LayoutDiv } from './styled';
-import SignInUpForm from '../pages/sign-in-up/SignInUpForm';
-import Home from '../components/home/Home';
-import SideBar from '../components/side-bar/SideBar';
+import SignInUpForm from '../../pages/sign-in-up/SignInUpForm';
+import Home from '../../pages/home/Home';
+import SideBar from '../../components/side-bar/SideBar';
 
 const PublicLayout = () => {
   return (

@@ -5,11 +5,13 @@ using EasyRent.Data;
 using EasyRent.Data.Entities;
 using EasyRent.Server.Common;
 using EasyRent.Server.Common.Constants;
+using EasyRent.Server.Common.Extentions;
 using EasyRent.Server.Models;
-using FluentValidation;
-using FluentValidation.Results;
+using IdentityServer4.Extensions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.ResponseCaching.Internal;
+using SignInResult = Microsoft.AspNetCore.Identity.SignInResult;
 
 namespace EasyRent.Server.Controllers
 {
@@ -25,27 +27,54 @@ namespace EasyRent.Server.Controllers
             SignInManager = signInManager;
         }
 
-        [HttpPost("sign-in")]
-        public async Task<IActionResult> SignIn(SignInModel model)
+        [HttpPost("reset-password-token")]
+        public async Task<IActionResult> ResetPasswordToken([FromBody] string email)
         {
-            ValidationResult validationResult = GetService<IValidator<SignInModel>>()
-                .Validate(model);
+            if (string.IsNullOrWhiteSpace(email))
+            {
+                return Json(new JsonResponseTemplate(false, ErrorMessages.EmailRequired));
+            }
 
-            if (!validationResult.IsValid)
+            User user = SignInManager.UserManager.FindByUserNameOrEmail(email);
+
+            if (user is null)
+            {
+                return Json(new JsonResponseTemplate(false, ErrorMessages.UserNotExist));
+            }
+
+            return Json(new JsonResponseTemplate(await SignInManager.UserManager.GeneratePasswordResetTokenAsync(user), string.Empty));
+        }
+
+        [HttpPost("reset-password")]
+        public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordModel resetPassword)
+        {
+            if (!ModelState.IsValid)
+            {
+                return Json(new JsonResponseTemplate(false, GetModelStateErrors()));
+            }
+
+            User user = SignInManager.UserManager.FindByUserNameOrEmail(resetPassword.Email);
+
+            IdentityResult result =
+                await SignInManager.UserManager.ResetPasswordAsync(user, resetPassword.Key, resetPassword.Password);
+
+            return Json(new JsonResponseTemplate(result.Succeeded, result.Errors.Select(q => q.Description)));
+        }
+
+        [HttpPost("sign-in")]
+        public async Task<IActionResult> SignIn([FromBody] SignInModel model)
+        {
+            if (!ModelState.IsValid)
             {
                 return Json(new JsonResponseTemplate(false, ErrorMessages.SignInError));
             }
 
-            User user = await SignInManager.UserManager.FindByEmailAsync(model.Email);
+            var user = await SignInManager.UserManager.FindByEmailAsync(model.Email);
 
-            if (await SignInManager.CanSignInAsync(user))
-            {
-                await SignInManager.SignInAsync(user, false);
+            SignInResult trySignIn = await SignInManager.PasswordSignInAsync(user, model.Password, false, false);
 
-                return Json(new JsonResponseTemplate(true, string.Empty));
-            }
-
-            return Json(new JsonResponseTemplate(false, ErrorMessages.SignInError));
+            return Json(new JsonResponseTemplate(trySignIn.Succeeded,
+                                                 trySignIn.Succeeded ? string.Empty : ErrorMessages.SignInError));
         }
 
         [Route("sign-out")]
@@ -64,26 +93,39 @@ namespace EasyRent.Server.Controllers
         [HttpPost("sign-up")]
         public async Task<IActionResult> SignUp([FromBody] SignUpModel model)
         {
-            ValidationResult validatorResponse = GetService<IValidator<SignUpModel>>()
-                .Validate(model);
-
-            if (!validatorResponse.IsValid)
+            if (!ModelState.IsValid)
             {
-                return Json(new JsonResponseTemplate(false, validatorResponse.Errors.Select(q => q.ErrorMessage)));
+                return Json(new JsonResponseTemplate(false, GetModelStateErrors()));
             }
 
             User newUser = Mapper.Map<User>(model);
 
-            IdentityResult creatingResult = await SignInManager.UserManager.CreateAsync(newUser);
+            IdentityResult creatingResult = await SignInManager.UserManager.CreateAsync(newUser, model.Password);
 
-            if (creatingResult.Succeeded)
+            return Json(new JsonResponseTemplate(creatingResult.Succeeded,
+                                                 creatingResult.Succeeded
+                                                     ? Enumerable.Empty<string>()
+                                                     : creatingResult.Errors.Select(q => q.Description)));
+        }
+
+        [HttpPost("check-password")]
+        public async Task<IActionResult> CheckPassword([FromBody] ResetPasswordModel checkPassword)
+        {
+            if (!ModelState.IsValid)
             {
-                await SignInManager.UserManager.AddPasswordAsync(newUser, model.Password);
+                return Json(new JsonResponseTemplate(false, GetModelStateErrors()));
             }
 
-            return creatingResult.Succeeded
-                ? Json(new JsonResponseTemplate(true, string.Empty))
-                : Json(new JsonResponseTemplate(false, creatingResult.Errors.Select(q => q.Description)));
+            var user = await SignInManager.UserManager.FindByEmailAsync(checkPassword.Email);
+
+            if (user is null)
+            {
+                return Json(new JsonResponseTemplate(false, ErrorMessages.UserNotExist));
+            }
+
+            var result = await SignInManager.UserManager.CheckPasswordAsync(user, checkPassword.Password);
+
+            return Json(new JsonResponseTemplate(result, string.Empty));
         }
     }
 }

@@ -1,44 +1,82 @@
 ﻿using System.Collections.Generic;
 using IdentityServer4;
 using IdentityServer4.Models;
+using Microsoft.Extensions.Configuration;
+using EasyRent.Server.Common.Constants;
 
 namespace EasyRent.Server.Common.IdentityServer
 {
     public class Config
     {
-        public static IEnumerable<Client> GeClients()
+        public static IEnumerable<Client> GetClients()
         {
             return new List<Client>
             {
                 new Client
                 {
-                    AccessTokenType = AccessTokenType.Jwt,
-                    AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
-                    AllowedScopes = new List<string>
+                    ClientId = "spa",
+                    ClientName = "SPA",
+
+                    RequireClientSecret = false,
+                    RequireConsent = false,
+
+                    AllowedGrantTypes = GrantTypes.Code,
+                    AllowedScopes =
                     {
                         IdentityServerConstants.StandardScopes.OpenId,
-                        IdentityServerConstants.StandardScopes.Profile,
                         IdentityServerConstants.StandardScopes.Email,
-                        IdentityServerConstants.StandardScopes.Address,
-                        "ApiResource"
+                        IdentityServerConstants.StandardScopes.Profile,
+                        CommonConstants.ApiName
                     },
-                    ClientId = "react",
-                    ClientName = "ReactClient",
-                    ClientSecrets = new List<Secret>
+
+                    AllowOfflineAccess = true,
+                    RefreshTokenUsage = TokenUsage.ReUse
+                },
+                new Client
+                {
+                    ClientId = "mvc",
+                    ClientName = "MVC Client",
+                    AllowedGrantTypes = GrantTypes.Hybrid,
+
+                    ClientSecrets =
                     {
                         new Secret("secret".Sha256())
                     },
-                    RequireClientSecret = false,
-                    RequirePkce = true
+                    AllowedScopes =
+                    {
+                        IdentityServerConstants.StandardScopes.OpenId,
+                        IdentityServerConstants.StandardScopes.Profile,
+                        CommonConstants.ApiName
+                    },
+
+                    AllowOfflineAccess = true
+                },
+                new Client
+                {
+                    ClientId = "client",
+
+                    AllowedGrantTypes = GrantTypes.ClientCredentials,
+
+                    // secret for authentication
+                    ClientSecrets =
+                    {
+                        new Secret("secret".Sha256())
+                    },
+
+                    // scopes that client has access to
+                    AllowedScopes =
+                    {
+                        CommonConstants.ApiName
+                    },
                 }
             };
         }
 
-        public static IEnumerable<ApiResource> GetApisApiResources()
+        public static IEnumerable<ApiResource> GetApiResources()
         {
             return new List<ApiResource>
             {
-                new ApiResource("ApiResource", "Rent API Resource")
+                new ApiResource(CommonConstants.ApiName, "Rent API Resource")
             };
         }
 

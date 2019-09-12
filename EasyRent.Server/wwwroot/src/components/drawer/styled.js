@@ -24,8 +24,8 @@ export const MainDiv = styled.div`
   left: ${(props) => props.left};
   right: ${(props) => props.right};
   z-index: 101;
-  height: 100%;
-  min-height: 770px;
+  /* height: 100%; */
+  min-height: 1000px;
   display: flex;
   flex: 1 0 auto;
   flex-direction: row;

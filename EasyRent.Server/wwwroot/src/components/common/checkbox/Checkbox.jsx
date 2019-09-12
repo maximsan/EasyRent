@@ -6,7 +6,14 @@ const CustomCheckBox = ({ label, onChange, value, checked, classes }) => {
   return (
     <FormControlLabel
       classes={classes}
-      control={<Checkbox onChange={onChange} value={value} checked={checked} />}
+      control={
+        <Checkbox
+          color='primary'
+          onChange={onChange}
+          value={value}
+          checked={checked}
+        />
+      }
       label={label}
     />
   );

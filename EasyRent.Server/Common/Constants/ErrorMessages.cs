@@ -6,6 +6,7 @@
         public const string UserNotExist = "This user doesn't exist.";
         public const string UserExists = "This user already exists.";
         public const string PasswordRequired = "Password cannot be empty.";
+        public const string ConfirmPasswordInvalid = "Password and Confirm Password have to be equal";
         public const string EmailRequired = "Email cannot be empty.";
         public const string InvalidEmailFormat = "Invalid email.";
         public const string UserNameRequired = "User Name cannot be empty.";

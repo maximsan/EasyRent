@@ -5,12 +5,7 @@ import styles from './button.module.css';
 
 const DefaultButton = ({ children, extraClasses, variant, ...rest }) => {
   return (
-    <Button
-      {...rest}
-      className={styles.DefaultButton}
-      variant={variant}
-      classes={{ ...extraClasses }}
-    >
+    <Button {...rest} variant={variant} classes={{ ...extraClasses }}>
       {children}
     </Button>
   );

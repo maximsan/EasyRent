@@ -11,7 +11,7 @@ import customClasses from './Filter.module.css';
 const useClasses = makeStyles({
   withPhotosRoot: {
     alignSelf: 'flex-start',
-    marginLeft: '29px',
+    marginLeft: '18px',
   },
   showBtn: {
     boxSizing: 'border-box',
@@ -112,10 +112,12 @@ const Filter = ({}) => {
           { placeholder: 'to', name: 'daysTo', value: days.to, onDaysChange },
         ]}
       />
+
       <CheckBox
         classes={{ root: classes.withPhotosRoot }}
         label='with photos'
       />
+
       <CheckBoxGroup
         items={[
           { label: 'last 5 days', name: 'last_5_Days' },

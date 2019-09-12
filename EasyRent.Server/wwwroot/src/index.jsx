@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import MuiThemeProvider from '@material-ui/styles/MuiThemeProvider';
+import { ThemeProvider } from '@material-ui/styles';
 import App from './App';
 import store from './store';
 import * as serviceWorker from './serviceWorker';
@@ -12,13 +12,13 @@ import './index.css';
 // import { createBrowserHistory } from 'history';
 
 ReactDOM.render(
-  <MuiThemeProvider theme={theme}>
+  <ThemeProvider theme={theme}>
     <Provider store={store}>
       <ErrorBoundary>
         <App />
       </ErrorBoundary>
     </Provider>
-  </MuiThemeProvider>,
+  </ThemeProvider>,
   document.getElementById('root'),
 );
 

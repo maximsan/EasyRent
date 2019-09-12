@@ -1,9 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { IconButton } from '@material-ui/core';
 import SortDown from '../../icons/sort-icons/SortByDatesDownIcon';
 import SortUp from '../../icons/sort-icons/SortByDatesUpIcon';
-import DefaultButton from './DefaultButton';
 
 const SortButton = ({
   iconButtonClasses,

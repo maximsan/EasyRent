@@ -4,7 +4,7 @@ import { Switch, Route } from 'react-router-dom';
 import { LayoutDiv } from './styled';
 import SignInUpForm from '../../pages/sign-in-up/SignInUpForm';
 import Home from '../../pages/home/Home';
-import SideBar from '../../components/side-bar/SideBar';
+import SideBar from '../../components/common/side-bar/SideBar';
 
 const PublicLayout = () => {
   return (

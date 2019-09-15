@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import SideBarContext from '../../context/SideBarContext';
 import Header from '../../components/common/header/Header';
 import Footer from '../../components/common/footer/Footer';
-import Filter from '../../components/filter/Filter';
-import SideBar from '../../components/side-bar/SideBar';
+import Filter from '../../components/common/filter/Filter';
+import SideBar from '../../components/common/side-bar/SideBar';
 import { useToggle } from '../../hooks';
 import BigPhoto from '../../components/big-photo/BigPhoto';
 import {

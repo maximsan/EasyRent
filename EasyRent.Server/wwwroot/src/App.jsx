@@ -5,7 +5,6 @@ import { Switch, Route, BrowserRouter, Animate } from 'react-router-dom';
 import PublicLayout from './layouts/router-layouts/PublicLayout';
 import PrivateLayout from './layouts/router-layouts/PrivateLayout';
 import PrivateRoute from './components/PrivateRoute';
-import SideBar from './components/side-bar/SideBar';
 
 const App = React.memo(() => (
   <BrowserRouter>
@@ -19,7 +18,6 @@ const App = React.memo(() => (
         component={PublicLayout}
       />
       <Route path={`${process.env.PUBLIC_URL}/home`} component={PublicLayout} />
-      <Route path={`${process.env.PUBLIC_URL}/side-bar`} component={SideBar} />
       <PrivateRoute path='/' component={PrivateLayout} />
       {/* <Route path='/signup' component={SignUp} />
       <Route path='/reset-password' />

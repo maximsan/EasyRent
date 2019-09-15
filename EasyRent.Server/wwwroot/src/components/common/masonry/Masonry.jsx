@@ -4,10 +4,10 @@ import { MasonryDiv, ColumnDiv } from './styled';
 const Masonry = ({
   children,
   columnsCount,
-  gap,
   marginColumnY = 1,
   marginColumnX = 0.5,
   width = 300,
+  gap,
 }) => {
   const [columns, setColumns] = useState([]);
   const [numOfColumns, setNumOfColumns] = useState(columnsCount);
@@ -46,7 +46,8 @@ const Masonry = ({
   const masonryDivWidth = numOfColumns * columnDivWidth;
 
   return (
-    // TODO: Need to improve: apply width to masonry accordingly to the count and size of the loading images
+    // TODO: Need to improve: apply width to masonry
+    // accordingly to the count and size of the loading images
 
     <MasonryDiv ref={ref} gap={gap} width={masonryDivWidth}>
       {Array(numOfColumns)

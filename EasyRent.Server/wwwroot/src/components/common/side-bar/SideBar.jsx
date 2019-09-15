@@ -1,17 +1,9 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
-import { CssBaseline, IconButton } from '@material-ui/core';
-import clsx from 'clsx';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
-import MenuIcon from '@material-ui/icons/Menu';
-import Filter from '../filter/Filter';
-import Divider from '../divider/Divider';
 import Drawer from '../drawer/Drawer';
-import Button from '../button/ContainedButton';
-import { SideBarButton } from '../button';
 import SideBarContext from '../../../context/SideBarContext';
+import { SideBarButton } from '../button';
 
 const drawerWidth = 476;
 

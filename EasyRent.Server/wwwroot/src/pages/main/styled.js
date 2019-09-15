@@ -17,6 +17,8 @@ export const MainSection = styled.main`
   margin: 100px 20px 80px 0px;
 `;
 
+export const SideBarSection = styled.aside``;
+
 export const ContentSection = styled.section`
   position: relative;
   height: 1000px;

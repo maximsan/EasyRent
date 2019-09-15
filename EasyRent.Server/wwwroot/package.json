@@ -20,7 +20,9 @@
     "react-transition-group": "^4.2.0",
     "redux": "^4.0.1",
     "redux-thunk": "^2.3.0",
-    "styled-components": "^5.0.0-beta.8"
+    "styled-components": "^5.0.0-beta.8",
+    "oidc-client": "1.8.2",
+    "browserify": "16.5.0"
   },
   "scripts": {
     "start": "rimraf ./build && react-scripts start",
@@ -30,7 +32,8 @@
     "lint": "eslint ./src/",
     "precommit": "pretty-quick --staged",
     "storybook": "start-storybook -p 9009 -s public",
-    "build-storybook": "build-storybook -s public"
+    "build-storybook": "build-storybook -s public",
+    "build-js": "browserify -r oidc-client -o src/oidc/bundle.js"
   },
   "eslintConfig": {
     "extends": "react-app"

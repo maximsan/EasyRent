@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core';
 import PropTypes from 'prop-types';
-import { ContainedButton } from '../common/button';
-import Select from '../common/select/Select';
-import CheckBoxGroup from '../common/checkbox/CheckBoxGroup';
-import CheckBox from '../common/checkbox/Checkbox';
-import InputGroup from '../common/inputGroup/InputGroup';
+import { ContainedButton } from '../button';
+import Select from '../select/Select';
+import CheckBoxGroup from '../checkbox/CheckBoxGroup';
+import CheckBox from '../checkbox/Checkbox';
+import InputGroup from '../inputGroup/InputGroup';
 import customClasses from './Filter.module.css';
 
 const useClasses = makeStyles({

@@ -24,16 +24,3 @@ export const ColumnDiv = styled.div`
     `${marginColumnY || 1}rem ${marginColumnX || 0}rem`};
   width: ${({ width }) => `${width}px`};
 `;
-
-export const ImageDiv = styled.img`
-  height: auto;
-  min-width: 100px;
-  width: ${({ width }) => `${width}px`};
-  list-style: none;
-  background: black center center no-repeat;
-  border-radius: 4px;
-`;
-
-export const ImagesDiv = styled.div`
-  margin-top: 20px;
-`;

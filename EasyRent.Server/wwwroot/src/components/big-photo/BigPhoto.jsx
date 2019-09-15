@@ -1,14 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Image, LocationLabel } from './styled';
+import { LocationLabel } from './styled';
+import Image from '../common/image/Image';
 import ShareIcon from '../icons/share-icon/ShareIcon';
 
-const BigPhoto = ({ size, location }) => {
+const BigPhoto = ({ location, width, height }) => {
   return (
     <>
-      <Image />
-      <LocationLabel>{location}</LocationLabel>
+      <Image width={width} height={height} />
       <ShareIcon />
+      <LocationLabel>{location}</LocationLabel>
     </>
   );
 };

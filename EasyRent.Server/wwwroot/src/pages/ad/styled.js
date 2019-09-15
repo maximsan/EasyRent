@@ -9,6 +9,17 @@ export const MainSection = styled.main`
   margin: 100px 20px 80px 0px;
 `;
 
+export const AdSection = styled.section`
+  position: relative;
+  height: 1000px;
+  width: 800px;
+  min-width: 70%;
+  margin-left: ${({ open }) => (open ? `580` : `100`)}px;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+`;
+
 export const SideSection = styled.aside`
   min-width: 20%;
   display: flex;
@@ -17,7 +28,7 @@ export const SideSection = styled.aside`
   align-items: center;
 `;
 
-export const SideSectionItem = styled.div`
+export const SideSectionItem = styled.section`
   display: flex;
   flex-flow: column;
   align-items: center;
@@ -32,4 +43,42 @@ export const ItemCaption = styled.div`
   color: #196a39;
   letter-spacing: 1px;
   text-transform: uppercase;
+`;
+
+export const AdPreviewPhotoSection = styled.section`
+  height: 100%;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+`;
+
+export const AdBigPhotoSection = styled.section`
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-flow: column nowrap;
+  margin-left: ${({ ml }) => `${ml}px`};
+  margin-right: ${({ mr }) => `${mr}px`};
+`;
+
+export const AdSideSection = styled.section`
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const AdSideSectionLabel = styled.div`
+  height: ${({ height }) => (height ? `${height}px` : '100%')};
+`;
+
+export const AdSideSectionItem = styled.div`
+  height: ${({ height }) => (height ? `${height}px` : '100%')};
+  width: ${({ width }) => (width ? `${width}px` : `100%`)};
+  border: 1.5px solid #086574;
+  border-radius: 10px;
+  margin-bottom: ${({ mb }) => `${mb}px`};
 `;

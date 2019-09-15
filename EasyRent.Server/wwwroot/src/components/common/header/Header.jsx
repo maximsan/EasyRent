@@ -24,9 +24,6 @@ const Header = ({ children }) => {
       <div>
         <Link to={`${process.env.PUBLIC_URL}/signin`}>Sign In / Sign Out</Link>
       </div>
-      {/* <Switch>
-        <Route path='/signin' exact component={SignInUpForm} />
-      </Switch> */}
     </header>
   );
 };

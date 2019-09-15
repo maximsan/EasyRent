@@ -58,7 +58,7 @@ namespace EasyRent.Server
             app.UseCookiePolicy();
 
             app.UseAuthentication();
-            //app.UseIdentityServer(); //TODO: Need to implement IS4. It still doesn't work.
+            // app.UseIdentityServer(); //TODO: Need to implement IS4. It still doesn't work.
 
             app.UseMvc(routes =>
             {
@@ -165,42 +165,37 @@ namespace EasyRent.Server
 
         private void InitIdentityServer(IServiceCollection services)
         {
-            services.AddAuthentication(IdentityServerAuthenticationDefaults.AuthenticationScheme)
+            services.AddAuthentication("Bearer")
                    .AddIdentityServerAuthentication(options =>
                    {
                        options.ApiName = CommonConstants.ApiName;
-                       options.Authority = "http://localhost:5001/account/sign-in";
-                       options.ApiSecret = "secret";
+                       options.Authority = "http://localhost:5001";
+                    //    options.ApiSecret = "secret";
                        options.EnableCaching = true;
+                       options.RequireHttpsMetadata = false;
                        options.CacheDuration = TimeSpan.FromMinutes(20);
                    });
 
-            var builder = services.AddIdentityServer(options =>
-                    {
-                        options.Events.RaiseErrorEvents = true;
-                        options.Events.RaiseFailureEvents = true;
-                        options.Events.RaiseInformationEvents = true;
-                        options.Events.RaiseSuccessEvents = true;
-                    })
-                    .AddInMemoryApiResources(Config.GetApiResources())
-                    .AddInMemoryIdentityResources(Config.GetIdentityResources())
-                    .AddInMemoryClients(Config.GetClients())
-                    .AddAspNetIdentity<User>();
+            // var builder = services.AddIdentityServer(options =>
+            //         {
+            //             options.Events.RaiseErrorEvents = true;
+            //             options.Events.RaiseFailureEvents = true;
+            //             options.Events.RaiseInformationEvents = true;
+            //             options.Events.RaiseSuccessEvents = true;
+            //         })
+            //         .AddInMemoryApiResources(Config.GetApiResources())
+            //         .AddInMemoryIdentityResources(Config.GetIdentityResources())
+            //         .AddInMemoryClients(Config.GetClients())
+            //         .AddAspNetIdentity<User>();
 
-            if (Environment.IsDevelopment())
-            {
-                builder.AddDeveloperSigningCredential();
-            }
-            else
-            {
-                //TODO: Need configure key material.
-            }
-
-            services.AddAuthentication()
-                    .AddLocalApi(options =>
-                    {
-                        options.ExpectedScope = CommonConstants.ApiName;
-                    });
+            // if (Environment.IsDevelopment())
+            // {
+            //     builder.AddDeveloperSigningCredential();
+            // }
+            // else
+            // {
+            //     //TODO: Need configure key material.
+            // }
 
             services.AddCors(options =>
             {

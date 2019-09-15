@@ -5,7 +5,7 @@ import { ThemeProvider } from '@material-ui/styles';
 import App from './App';
 import store from './store';
 import * as serviceWorker from './serviceWorker';
-import ErrorBoundary from './components/ErrorBoundary';
+import ErrorBoundary from './components/helpers/ErrorBoundary';
 
 import theme from './themes/theme';
 import './index.css';

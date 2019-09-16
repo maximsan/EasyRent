@@ -1,10 +1,11 @@
 ﻿using System.Threading.Tasks;
 using EasyRent.Data.Entities;
-using EasyRent.Server.Common.Constants;
+using EasyRent.Common.Constants;
 using FluentValidation;
 using Microsoft.AspNetCore.Identity;
+using EasyRent.Common.Extentions;
 
-namespace EasyRent.Server.Common.Extentions
+namespace EasyRent.Common.Extentions
 {
     public static class ValidatorExtentions
     {

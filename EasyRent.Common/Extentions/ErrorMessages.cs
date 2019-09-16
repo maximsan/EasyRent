@@ -1,4 +1,4 @@
-﻿namespace EasyRent.Server.Common.Constants
+﻿namespace EasyRent.Common.Constants
 {
     public static class ErrorMessages
     {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace EasyRent.Server.Models
+namespace EasyRent.Common.Models
 {
     public class ResetPasswordModel
     {

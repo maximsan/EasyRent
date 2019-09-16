@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using IdentityServer4;
 using IdentityServer4.Models;
+using IdentityServer4.Test;
 using Microsoft.Extensions.Configuration;
 
 namespace EasyRent.IdentityServer
@@ -16,17 +17,16 @@ namespace EasyRent.IdentityServer
                 {
                     ClientId = "client",
                     RequireClientSecret = false,
-                    AccessTokenType = AccessTokenType.Jwt,
                     AccessTokenLifetime = 3600,
                     IdentityTokenLifetime = 3600,
                     AllowedGrantTypes = GrantTypes.Implicit,
                     AllowAccessTokensViaBrowser = true,
                     AlwaysIncludeUserClaimsInIdToken = true,
                     PostLogoutRedirectUris = new string[]{
-                        "http://localhost:5001"
+                        "http://localhost:5001/signin"
                     },
                     RedirectUris = new string[]{
-                        "http://localhost:5001/index.html"
+                        "http://localhost:5001/src/oidc/callback.html"
                     },
                     AllowedCorsOrigins = new string[]{
                         "http://localhost:5001"
@@ -35,7 +35,6 @@ namespace EasyRent.IdentityServer
                     AllowedScopes =
                     {
                         IdentityServerConstants.StandardScopes.OpenId,
-                        IdentityServerConstants.StandardScopes.Email,
                         IdentityServerConstants.StandardScopes.Profile,
                         "api"
                     },
@@ -48,7 +47,7 @@ namespace EasyRent.IdentityServer
         {
             return new List<ApiResource>
             {
-                new ApiResource("api", "Rent API Resource", new[] {"name", "role"})
+                new ApiResource("api", "Rent API Resource")
             };
         }
 
@@ -57,9 +56,17 @@ namespace EasyRent.IdentityServer
             return new List<IdentityResource>
             {
                 new IdentityResources.OpenId(),
-                new IdentityResources.Profile(),
-                new IdentityResources.Email()
+                new IdentityResources.Profile()
             };
         }
+
+        // public static IEnumerable<TestUser> GetTestusers(){
+        //     return new List<TestUser>{
+        //         new TestUser{
+        //             SubjectId = "5BE86359-073C-434B-AD2D-A3932222DABE",
+
+        //         }
+        //     }
+        // }
     }
 }

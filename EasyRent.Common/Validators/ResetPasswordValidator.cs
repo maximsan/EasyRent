@@ -1,11 +1,11 @@
 ﻿using EasyRent.Data.Entities;
-using EasyRent.Server.Common.Constants;
-using EasyRent.Server.Common.Extentions;
-using EasyRent.Server.Models;
+using EasyRent.Common.Constants;
+using EasyRent.Common.Extentions;
+using EasyRent.Common.Models;
 using FluentValidation;
 using Microsoft.AspNetCore.Identity;
 
-namespace EasyRent.Server.Common.Validators
+namespace EasyRent.Common.Validators
 {
     public class ResetPasswordValidator : AbstractValidator<ResetPasswordModel>
     {

@@ -3,10 +3,10 @@ using System.Threading.Tasks;
 using AutoMapper;
 using EasyRent.Data;
 using EasyRent.Data.Entities;
-using EasyRent.Server.Common;
-using EasyRent.Server.Common.Constants;
-using EasyRent.Server.Common.Extentions;
-using EasyRent.Server.Models;
+using EasyRent.Common;
+using EasyRent.Common.Constants;
+using EasyRent.Common.Extentions;
+using EasyRent.Common.Models;
 using IdentityServer4.Extensions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -21,8 +21,7 @@ namespace EasyRent.Server.Controllers
     {
         protected readonly SignInManager<User> SignInManager;
 
-        public AccountController(SignInManager<User> signInManager, UnitOfWork unitOfWork, IMapper mapper) : base(
-            unitOfWork, mapper)
+        public AccountController(SignInManager<User> signInManager, IMapper mapper) : base(mapper)
         {
             SignInManager = signInManager;
         }

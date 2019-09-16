@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using AutoMapper;
+using EasyRent.Common.Models;
 using EasyRent.Data;
-using EasyRent.Server.Common;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EasyRent.Server.Controllers

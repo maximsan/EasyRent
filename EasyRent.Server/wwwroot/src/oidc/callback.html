@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title></title>
+  </head>
+
+  <body>
+    <script src="bundle.js"></script>
+    <script>
+      new Oidc.UserManager({
+        response_mode: 'query',
+      })
+        .signinRedirectCallback()
+        .then(function() {
+          window.location = '../signin';
+        })
+        .catch(function(e) {
+          console.error(e);
+        });
+    </script>
+  </body>
+</html>

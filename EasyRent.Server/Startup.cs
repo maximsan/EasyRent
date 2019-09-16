@@ -1,19 +1,14 @@
-﻿using System;
-using AutoMapper;
+﻿using AutoMapper;
 using EasyRent.Common.Extentions;
-using EasyRent.Common.Logger;
+using EasyRent.Common.Models;
+using EasyRent.Common.Validators;
 using EasyRent.Data;
 using EasyRent.Data.Entities;
 using EasyRent.Data.Repositories;
 using EasyRent.Server.Common.Constants;
-using EasyRent.Server.Common.Extentions;
-using EasyRent.Server.Common.Validators;
 using EasyRent.Server.Models;
 using FluentValidation;
 using FluentValidation.AspNetCore;
-using IdentityServer4.Configuration;
-using Microsoft.AspNetCore;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -60,15 +55,15 @@ namespace EasyRent.Server
 
             app.UseCookiePolicy();
 
+            app.UseAuthentication();
             app.UseCors("default"); //TODO: Web API still gets any requests. We have to change it in the future.
-            app.UseIdentityServer();
 
             app.UseMvc(routes =>
             {
                 routes.MapSpaFallbackRoute("spa-fallback", new
                 {
                     controller = "Home",
-                        action = "Index"
+                    action = "Index"
                 });
             });
 
@@ -81,7 +76,6 @@ namespace EasyRent.Server
                     spa.UseReactDevelopmentServer("start");
                 }
             });
-
         }
 
         public void ConfigureServices(IServiceCollection services)
@@ -110,12 +104,15 @@ namespace EasyRent.Server
                 });
 
             services.AddAuthentication()
-                .AddIdentityServerAuthentication(options =>
-                {
-                    options.ApiName = CommonConstants.ApiName;
-                    options.Authority = "http://localhost:5002";
-                    options.RequireHttpsMetadata = false;
-                });
+            .AddIdentityServerAuthentication(configs =>
+            {
+                configs.ApiName = CommonConstants.ApiName;
+                configs.Authority = "http://localhost:5002";
+                configs.RequireHttpsMetadata = false;
+                configs.SaveToken = true;
+                configs.RoleClaimType = "role";
+                configs.NameClaimType = "username";
+            });
 
             services.AddCors(options =>
             {

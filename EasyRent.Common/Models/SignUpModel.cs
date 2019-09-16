@@ -1,4 +1,4 @@
-﻿namespace EasyRent.Server.Models
+﻿namespace EasyRent.Common.Models
 {
     public class SignUpModel
     {

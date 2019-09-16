@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace EasyRent.Server.Common
+namespace EasyRent.Common.Models
 {
     public class JsonResponseTemplate<TResponse> : JsonResponseTemplate
     {

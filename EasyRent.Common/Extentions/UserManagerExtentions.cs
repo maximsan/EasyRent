@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using EasyRent.Data.Entities;
 using Microsoft.AspNetCore.Identity;
 
-namespace EasyRent.Server.Common.Extentions
+namespace EasyRent.Common.Extentions
 {
     public static class UserManagerExtentions
     {

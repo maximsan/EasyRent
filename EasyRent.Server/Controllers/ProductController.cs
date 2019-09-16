@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
+using EasyRent.Common.Models;
 using EasyRent.Data;
 using EasyRent.Data.Entities;
-using EasyRent.Server.Common;
 using EasyRent.Server.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

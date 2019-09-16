@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.Extensions.Logging;
 
-namespace EasyRent.Server.Common.Logger
+namespace EasyRent.Common.Logger
 {
     public class FileLoggerProvider : ILoggerProvider
     {

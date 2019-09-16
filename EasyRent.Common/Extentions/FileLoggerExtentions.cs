@@ -1,7 +1,7 @@
-﻿using EasyRent.Server.Common.Logger;
+﻿using EasyRent.Common.Logger;
 using Microsoft.Extensions.Logging;
 
-namespace EasyRent.Server.Common.Extentions
+namespace EasyRent.Common.Extentions
 {
     public static class FileLoggerExtentions
     {

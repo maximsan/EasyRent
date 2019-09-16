@@ -1,16 +1,19 @@
 ﻿using System;
 using AutoMapper;
+using EasyRent.Common.Extentions;
+using EasyRent.Common.Logger;
 using EasyRent.Data;
 using EasyRent.Data.Entities;
 using EasyRent.Data.Repositories;
 using EasyRent.Server.Common.Constants;
 using EasyRent.Server.Common.Extentions;
-using EasyRent.Server.Common.IdentityServer;
 using EasyRent.Server.Common.Validators;
 using EasyRent.Server.Models;
 using FluentValidation;
 using FluentValidation.AspNetCore;
-using IdentityServer4.AccessTokenValidation;
+using IdentityServer4.Configuration;
+using Microsoft.AspNetCore;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -57,15 +60,15 @@ namespace EasyRent.Server
 
             app.UseCookiePolicy();
 
-            app.UseAuthentication();
-            // app.UseIdentityServer(); //TODO: Need to implement IS4. It still doesn't work.
+            app.UseCors("default"); //TODO: Web API still gets any requests. We have to change it in the future.
+            app.UseIdentityServer();
 
             app.UseMvc(routes =>
             {
                 routes.MapSpaFallbackRoute("spa-fallback", new
                 {
                     controller = "Home",
-                    action = "Index"
+                        action = "Index"
                 });
             });
 
@@ -79,7 +82,6 @@ namespace EasyRent.Server
                 }
             });
 
-            app.UseCors(q => q.AllowAnyOrigin()); //TODO: Web API still gets any requests. We have to change it in the future.
         }
 
         public void ConfigureServices(IServiceCollection services)
@@ -90,20 +92,40 @@ namespace EasyRent.Server
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            services.AddCors();
-
             InitDatabaseConfigurations(services);
 
             services.AddMvcCore()
-                    .AddJsonFormatters()
-                    .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
-                    .AddFluentValidation(config =>
+                .AddJsonFormatters()
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
+                .AddFluentValidation(config =>
+                {
+                    config.RunDefaultMvcValidationAfterFluentValidationExecutes = true;
+                })
+                .AddAuthorization(options =>
+                {
+                    options.AddPolicy("AdminsOnly", policy =>
                     {
-                        config.RunDefaultMvcValidationAfterFluentValidationExecutes = true;
-                    })
-                    .AddAuthorization();
+                        policy.RequireClaim("role", "admin");
+                    });
+                });
 
-            InitIdentityServer(services);
+            services.AddAuthentication()
+                .AddIdentityServerAuthentication(options =>
+                {
+                    options.ApiName = CommonConstants.ApiName;
+                    options.Authority = "http://localhost:5002";
+                    options.RequireHttpsMetadata = false;
+                });
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy("default", policy =>
+                {
+                    policy.AllowAnyOrigin()
+                        .AllowAnyHeader()
+                        .AllowAnyMethod();
+                });
+            });
 
             services.AddSpaStaticFiles(config =>
             {
@@ -121,21 +143,21 @@ namespace EasyRent.Server
             });
 
             services.AddDefaultIdentity<User>(config =>
-                    {
-                        config.User.RequireUniqueEmail = true;
+                {
+                    config.User.RequireUniqueEmail = true;
 
-                        config.Password = new PasswordOptions
-                        {
-                            RequireDigit = false,
-                            RequireLowercase = false,
-                            RequireNonAlphanumeric = false,
-                            RequireUppercase = false,
-                            RequiredLength = 5
-                        };
-                    })
-                    .AddDefaultUI(UIFramework.Bootstrap4)
-                    .AddEntityFrameworkStores<ApplicationDbContext>()
-                    .AddDefaultTokenProviders();
+                    config.Password = new PasswordOptions
+                    {
+                        RequireDigit = false,
+                        RequireLowercase = false,
+                        RequireNonAlphanumeric = false,
+                        RequireUppercase = false,
+                        RequiredLength = 5
+                    };
+                })
+                .AddDefaultUI(UIFramework.Bootstrap4)
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultTokenProviders();
         }
 
         private void InitDependencies(IServiceCollection services)
@@ -161,51 +183,6 @@ namespace EasyRent.Server
                 config.CreateMap<SignUpModel, User>();
                 config.CreateMap<ProductModel, Ad>();
             }, typeof(Startup));
-        }
-
-        private void InitIdentityServer(IServiceCollection services)
-        {
-            services.AddAuthentication("Bearer")
-                   .AddIdentityServerAuthentication(options =>
-                   {
-                       options.ApiName = CommonConstants.ApiName;
-                       options.Authority = "http://localhost:5001";
-                    //    options.ApiSecret = "secret";
-                       options.EnableCaching = true;
-                       options.RequireHttpsMetadata = false;
-                       options.CacheDuration = TimeSpan.FromMinutes(20);
-                   });
-
-            // var builder = services.AddIdentityServer(options =>
-            //         {
-            //             options.Events.RaiseErrorEvents = true;
-            //             options.Events.RaiseFailureEvents = true;
-            //             options.Events.RaiseInformationEvents = true;
-            //             options.Events.RaiseSuccessEvents = true;
-            //         })
-            //         .AddInMemoryApiResources(Config.GetApiResources())
-            //         .AddInMemoryIdentityResources(Config.GetIdentityResources())
-            //         .AddInMemoryClients(Config.GetClients())
-            //         .AddAspNetIdentity<User>();
-
-            // if (Environment.IsDevelopment())
-            // {
-            //     builder.AddDeveloperSigningCredential();
-            // }
-            // else
-            // {
-            //     //TODO: Need configure key material.
-            // }
-
-            services.AddCors(options =>
-            {
-                options.AddPolicy(CommonConstants.ApiName, policy =>
-                {
-                    policy.AllowAnyOrigin()
-                          .AllowAnyHeader()
-                          .AllowAnyMethod();
-                });
-            });
         }
     }
 }

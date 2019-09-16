@@ -2,10 +2,16 @@ import axios from 'axios';
 import _ from 'lodash';
 import { SIGN_IN, SIGN_UP } from './actionTypes';
 // import Utils from '../utils';
+// import
 
 const config = {
   authority: process.env.PUBLIC_URL,
-  client_id: process.env.APP_NAME,
+  client_id: process.env.CLIENT_NAME,
+  scope: process.env.API_NAME,
+  webAuthResponseType: 'id_token token',
+  grantType: 'password',
+  loadUserInfo: false,
+  login: process.env.PUBLIC_URL + '/account/sign-in',
 };
 
 export const signIn = (data) => (dispatch, getState) => {

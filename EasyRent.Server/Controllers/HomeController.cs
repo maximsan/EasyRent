@@ -19,9 +19,6 @@ namespace EasyRent.Server.Controllers
         public HomeController(UnitOfWork unitOfWork, IMapper mapper) : base(unitOfWork, mapper) { }
 
         [HttpGet("[action]")]
-        public IActionResult Index()
-        {
-            return Json(new JsonResponseTemplate(nameof(HomeController), string.Empty));
-        }
+        public IActionResult Index() => Json(new JsonResponseTemplate(nameof(HomeController), string.Empty));
     }
 }

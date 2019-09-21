@@ -49,7 +49,9 @@ namespace EasyRent.Common.Extentions
             });
         }
 
-        public static bool ValidatePassword(this string password, string userNameOrEmail, UserManager<User> userManager)
+        public static bool ValidatePassword(this string password,
+                                            string userNameOrEmail,
+                                            UserManager<User> userManager)
         {
             if (userManager is null)
             {

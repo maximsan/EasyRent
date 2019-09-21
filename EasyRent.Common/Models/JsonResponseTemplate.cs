@@ -7,15 +7,11 @@ namespace EasyRent.Common.Models
     {
         public new TResponse Response { get; set; }
 
-        public JsonResponseTemplate(TResponse response, string errorMessage) : base(response, errorMessage)
-        {
-            Response = response;
-        }
+        public JsonResponseTemplate(TResponse response,
+                                    string errorMessage = "") : base(response, errorMessage) => Response = response;
 
-        public JsonResponseTemplate(TResponse response, List<string> errorMessages) : base(response, errorMessages)
-        {
-            Response = response;
-        }
+        public JsonResponseTemplate(TResponse response,
+                                    List<string> errorMessages) : base(response, errorMessages) => Response = response;
     }
 
     public class JsonResponseTemplate
@@ -24,7 +20,8 @@ namespace EasyRent.Common.Models
 
         public object Response { get; set; }
 
-        public JsonResponseTemplate(object response, string errorMessage)
+        public JsonResponseTemplate(object response,
+                                    string errorMessage = "")
         {
             ErrorMessages = new List<string>
             {
@@ -34,7 +31,8 @@ namespace EasyRent.Common.Models
             Response = response;
         }
 
-        public JsonResponseTemplate(object response, IEnumerable<string> errorMessages)
+        public JsonResponseTemplate(object response,
+                                    IEnumerable<string> errorMessages)
         {
             ErrorMessages = errorMessages.ToList();
 

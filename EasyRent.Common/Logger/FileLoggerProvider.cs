@@ -24,9 +24,6 @@ namespace EasyRent.Common.Logger
             }
         }
 
-        public ILogger CreateLogger(string categoryName)
-        {
-            return new FileLogger();
-        }
+        public ILogger CreateLogger(string categoryName) => new FileLogger();
     }
 }

@@ -35,15 +35,9 @@ namespace EasyRent.Common.Logger
             }
         }
 
-        public bool IsEnabled(LogLevel logLevel)
-        {
-            return true;
-        }
+        public bool IsEnabled(LogLevel logLevel) => true;
 
-        public IDisposable BeginScope<TState>(TState state)
-        {
-            return null;
-        }
+        public IDisposable BeginScope<TState>(TState state) => null;
 
         private void CreateCatalogIfNotExist()
         {
@@ -79,14 +73,8 @@ namespace EasyRent.Common.Logger
             }
         }
 
-        private static string GetFullCatalogPath()
-        {
-            return Path.Combine(Environment.CurrentDirectory, rootCatalog);
-        }
+        private static string GetFullCatalogPath() => Path.Combine(Environment.CurrentDirectory, rootCatalog);
 
-        private static string GetFullFilePath()
-        {
-            return Path.Combine(GetFullCatalogPath(), DateTime.Now.ToShortDateString() + ".txt");
-        }
+        private static string GetFullFilePath() => Path.Combine(GetFullCatalogPath(), DateTime.Now.ToShortDateString() + ".txt");
     }
 }

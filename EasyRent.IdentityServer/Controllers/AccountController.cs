@@ -21,10 +21,8 @@ namespace EasyRent.Server.Controllers
     {
         protected readonly SignInManager<User> SignInManager;
 
-        public AccountController(SignInManager<User> signInManager, IMapper mapper) : base(mapper)
-        {
-            SignInManager = signInManager;
-        }
+        public AccountController(SignInManager<User> signInManager,
+                                 IMapper mapper) : base(mapper) => SignInManager = signInManager;
 
         [HttpPost("reset-password-token")]
         public async Task<IActionResult> ResetPasswordToken([FromBody] string email)
@@ -49,7 +47,7 @@ namespace EasyRent.Server.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return Json(new JsonResponseTemplate(false, GetModelStateErrors()));
+                return Json(new JsonResponseTemplate(false, ModelStateErrors));
             }
 
             User user = SignInManager.UserManager.FindByUserNameOrEmail(resetPassword.Email);
@@ -94,7 +92,7 @@ namespace EasyRent.Server.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return Json(new JsonResponseTemplate(false, GetModelStateErrors()));
+                return Json(new JsonResponseTemplate(false, ModelStateErrors));
             }
 
             User newUser = Mapper.Map<User>(model);
@@ -112,7 +110,7 @@ namespace EasyRent.Server.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return Json(new JsonResponseTemplate(false, GetModelStateErrors()));
+                return Json(new JsonResponseTemplate(false, ModelStateErrors));
             }
 
             var user = await SignInManager.UserManager.FindByEmailAsync(checkPassword.Email);

@@ -19,15 +19,9 @@ namespace EasyRent.Server.Controllers
             Mapper = mapper;
         }
 
-        protected T GetService<T>()
-        {
-            return HttpContext.RequestServices.GetService<T>();
-        }
+        protected T GetService<T>() => HttpContext.RequestServices.GetService<T>();
 
-        protected void SetJsonResponseType()
-        {
-            Response.ContentType = "application/json";
-        }
+        protected void SetJsonResponseType() => Response.ContentType = "application/json";
 
         protected override void Dispose(bool disposing)
         {
@@ -35,10 +29,7 @@ namespace EasyRent.Server.Controllers
             base.Dispose(disposing);
         }
 
-        protected IEnumerable<string> GetModelStateErrors()
-        {
-            return ModelState.Values.SelectMany(q => q.Errors.Select(w => w.ErrorMessage)
-                                                               .Where(w => !w.IsNullOrEmpty()));
-        }
+        protected IEnumerable<string> GetModelStateErrors() => ModelState.Values.SelectMany(q => q.Errors.Select(w => w.ErrorMessage)
+                                                                                                         .Where(w => !w.IsNullOrEmpty()));
     }
 }

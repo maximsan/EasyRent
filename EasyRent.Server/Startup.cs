@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System.Globalization;
+using AutoMapper;
 using EasyRent.Common.Extentions;
 using EasyRent.Common.Models;
 using EasyRent.Common.Validators;
@@ -63,7 +64,7 @@ namespace EasyRent.Server
                 routes.MapSpaFallbackRoute("spa-fallback", new
                 {
                     controller = "Home",
-                    action = "Index"
+                        action = "Index"
                 });
             });
 
@@ -89,6 +90,10 @@ namespace EasyRent.Server
             InitDatabaseConfigurations(services);
 
             services.AddMvcCore()
+                .AddMvcOptions(options =>
+                {
+                    options.Filters.Add(typeof(GlobalizationExtensions));
+                })
                 .AddJsonFormatters()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
                 .AddFluentValidation(config =>
@@ -104,15 +109,15 @@ namespace EasyRent.Server
                 });
 
             services.AddAuthentication()
-            .AddIdentityServerAuthentication(configs =>
-            {
-                configs.ApiName = CommonConstants.ApiName;
-                configs.Authority = "http://localhost:5002";
-                configs.RequireHttpsMetadata = false;
-                configs.SaveToken = true;
-                configs.RoleClaimType = "role";
-                configs.NameClaimType = "username";
-            });
+                .AddIdentityServerAuthentication(configs =>
+                {
+                    configs.ApiName = CommonConstants.ApiName;
+                    configs.Authority = "http://localhost:5002";
+                    configs.RequireHttpsMetadata = false;
+                    configs.SaveToken = true;
+                    configs.RoleClaimType = "role";
+                    configs.NameClaimType = "username";
+                });
 
             services.AddCors(options =>
             {

@@ -17,10 +17,7 @@ namespace EasyRent.Server.Controllers
         public ProductController(UnitOfWork unitOfWork, IMapper mapper) : base(unitOfWork, mapper) { }
 
         [HttpPost]
-        public IActionResult GetProducts()
-        {
-            return Json(new JsonResponseTemplate<IEnumerable<Ad>>(UnitOfWork.AdRepository.GetAll(), string.Empty));
-        }
+        public IActionResult GetProducts() => Json(new JsonResponseTemplate<IEnumerable<Ad>>(UnitOfWork.AdRepository.GetAll(), string.Empty));
 
         [HttpPost("[action]")]
         public IActionResult GetProducts([FromBody] string title)

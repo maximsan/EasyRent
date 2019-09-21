@@ -12,25 +12,13 @@ namespace EasyRent.Server.Controllers
     {
         protected readonly IMapper Mapper;
 
-        public BaseController(IMapper mapper)
-        {
-            Mapper = mapper;
-        }
+        public BaseController(IMapper mapper) => Mapper = mapper;
 
-        protected T GetService<T>()
-        {
-            return HttpContext.RequestServices.GetService<T>();
-        }
+        protected T GetService<T>() => HttpContext.RequestServices.GetService<T>();
 
-        protected void SetJsonResponseType()
-        {
-            Response.ContentType = "application/json";
-        }
+        protected void SetJsonResponseType() => Response.ContentType = "application/json";
 
-        protected IEnumerable<string> GetModelStateErrors()
-        {
-            return ModelState.Values.SelectMany(q => q.Errors.Select(w => w.ErrorMessage)
-                                                               .Where(w => !w.IsNullOrEmpty()));
-        }
+        protected IEnumerable<string> ModelStateErrors => ModelState.Values.SelectMany(q => q.Errors.Select(w => w.ErrorMessage)
+                                                                                                    .Where(w => !w.IsNullOrEmpty()));
     }
 }

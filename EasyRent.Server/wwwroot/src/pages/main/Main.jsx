@@ -7,7 +7,7 @@ import ImagesSection from '../../components/common/masonry/MasonrySection';
 import Footer from '../../components/common/footer/Footer';
 import SideBar from '../../components/common/side-bar/SideBar';
 import { useToggle, useFetch } from '../../hooks';
-import SortBar from '../../components/sort-bar/SortBar';
+import SortBar from '../../components/common/sort-bar/SortBar';
 import { url, METHODS } from '../../config';
 import AddIcon from '../../components/icons/AddIcon';
 import FavouritesIcon from '../../components/icons/FavouritesIcon';

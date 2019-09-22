@@ -6,6 +6,12 @@ import SignInUpForm from '../../pages/sign-in-up/SignInUpForm';
 import Home from '../../pages/home/Home';
 import SideBar from '../../components/common/side-bar/SideBar';
 
+// import AuthCallback from '../../components/auth/AuthCallback';
+// import AuthLogout from '../../components/auth/AuthLogout';
+// import AuthLogoutCallback from '../../components/auth/AuthLogoutCallback';
+
+const PublicUrl = process.env.PUBLIC_URL;
+
 const PublicLayout = () => {
   return (
     <LayoutDiv>
@@ -22,10 +28,10 @@ const PublicLayout = () => {
         )} 
         />*/}
       <Switch>
-        <Route path='/signin' exact component={SignInUpForm} />
-        <Route path='/signup' exact component={SignInUpForm} />
-        <Route path='/home' exact component={Home} />
-        <Route path='/side-bar' exact component={SideBar} />
+        <Route path={`${PublicUrl}/signin`} exact component={SignInUpForm} />
+        <Route path={`${PublicUrl}/signup`} exact component={SignInUpForm} />
+        <Route path={`${PublicUrl}/home`} exact component={Home} />
+        <Route path={`${PublicUrl}/side-bar`} exact component={SideBar} />
       </Switch>
     </LayoutDiv>
   );

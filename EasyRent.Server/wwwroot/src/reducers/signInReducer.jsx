@@ -1,10 +1,8 @@
+import React from 'react';
 import axios from 'axios';
 import _ from 'lodash';
 import { SIGN_IN, SIGN_UP } from './actionTypes';
 import AuthCallback from '../components/auth/AuthCallback';
-import React from 'react';
-// import Utils from '../utils';
-// import
 
 export const signIn = (data) => (dispatch, getState) => {
   const { email, password, returnUrl } = data;

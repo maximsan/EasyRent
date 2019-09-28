@@ -1,7 +1,7 @@
 import React from 'react';
 import AuthConsumer from '../../context/AuthProvider';
 
-export const AuthCallback = () => {
+const AuthCallback = () => {
   return (
     <AuthConsumer>
       {({ signinRedirectCallback }) => {
@@ -11,6 +11,6 @@ export const AuthCallback = () => {
       }}
     </AuthConsumer>
   );
-};
+
 
 export default AuthCallback;

@@ -58,10 +58,11 @@ export default class OpenIdIdentityService {
   };
 
   getUser = async () => {
-    const user = await this.UserManager.getUser();
+    let user = await this.UserManager.getUser();
 
     if (!user) {
-      return await this.UserManager.signinRedirectCallback();
+      user = await this.UserManager.signinRedirectCallback();
+      return user;
     }
 
     return user;
@@ -90,7 +91,7 @@ export default class OpenIdIdentityService {
   };
 
   navigateToScreen = () => {
-    const redirectUri = !!localStorage.getItem('redirectUri')
+    const redirectUri = localStorage.getItem('redirectUri')
       ? localStorage.getItem('redirectUri')
       : '/en/dashboard';
     const language = '/' + redirectUri.split('/')[1];
@@ -104,8 +105,8 @@ export default class OpenIdIdentityService {
   }
 
   isAuthenticated = () => {
-    const access_token = localStorage.getItem('access_token');
-    return !!access_token;
+    const accessToken = localStorage.getItem('access_token');
+    return !!accessToken;
   };
 
   signinSilent = () => {

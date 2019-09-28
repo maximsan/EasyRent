@@ -1,7 +1,7 @@
 import React from 'react';
 import { AuthConsumer } from '../../context/AuthProvider';
 
-export const AuthLogout = () => {
+const AuthLogout = () => {
   <AuthConsumer>
     {(logout) => {
       logout();
@@ -9,3 +9,5 @@ export const AuthLogout = () => {
     }}
   </AuthConsumer>;
 };
+
+export default AuthLogout;

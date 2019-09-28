@@ -1,5 +1,4 @@
-﻿using System.Globalization;
-using AutoMapper;
+﻿using AutoMapper;
 using EasyRent.Common.Extentions;
 using EasyRent.Common.Models;
 using EasyRent.Common.Validators;
@@ -21,6 +20,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using EasyRent.Common.Filters;
 
 namespace EasyRent.Server
 {
@@ -92,7 +92,7 @@ namespace EasyRent.Server
             services.AddMvcCore()
                 .AddMvcOptions(options =>
                 {
-                    options.Filters.Add(typeof(GlobalizationExtensions));
+                    options.Filters.Add(typeof(GlobalExceptionFilter));
                 })
                 .AddJsonFormatters()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)

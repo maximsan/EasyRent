@@ -81,23 +81,6 @@ namespace EasyRent.IdentityServer
                     options.Events.RaiseInformationEvents = true;
                     options.Events.RaiseSuccessEvents = true;
                     options.UserInteraction.LoginUrl = "http://localhost:5001/signin";
-                    // options.Endpoints = new EndpointsOptions
-                    // {
-                    //     EnableAuthorizeEndpoint = true,
-                    //     EnableTokenEndpoint = false,
-                    //     EnableCheckSessionEndpoint = true,
-                    //     EnableEndSessionEndpoint = true,
-                    //     EnableUserInfoEndpoint = true,
-                    //     EnableDiscoveryEndpoint = true,
-                    //     EnableIntrospectionEndpoint = false,
-                    //     EnableTokenRevocationEndpoint = false,
-                    //     EnableDeviceAuthorizationEndpoint = false,
-                    //     EnableJwtRequestUri = true
-                    // };
-                    // options.Authentication = new AuthenticationOptions
-                    // {
-                    //     CookieLifetime = TimeSpan.FromDays(1)
-                    // };
                 })
                 .AddInMemoryApiResources(Config.GetApiResources())
                 .AddInMemoryIdentityResources(Config.GetIdentityResources())

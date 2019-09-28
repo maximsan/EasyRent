@@ -1,11 +1,16 @@
 import React from 'react';
-import { AuthConsumer } from '../../context/AuthProvider';
+import AuthConsumer from '../../context/AuthProvider';
 
 export const AuthCallback = () => {
-  <AuthConsumer>
-    {({ signinRedirectCallback }) => {
-      signinRedirectCallback();
-      return <span>loading...</span>;
-    }}
-  </AuthConsumer>;
+  return (
+    <AuthConsumer>
+      {({ signinRedirectCallback }) => {
+        signinRedirectCallback().then(() => {
+          window.location = '/main';
+        });
+      }}
+    </AuthConsumer>
+  );
 };
+
+export default AuthCallback;

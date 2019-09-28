@@ -29,7 +29,13 @@ const SignInUpForm = () => {
   };
 
   const onSignInSubmit = (props) => {
-    dispatch(signIn({ email: values.email, password: values.password }));
+    dispatch(
+      signIn({
+        email: values.email,
+        password: values.password,
+        returnUrl: new URL(window.location.href).searchParams.get('ReturnUrl'),
+      }),
+    );
   };
 
   const onHandleSignUpClick = (props) => {

@@ -1,50 +1,28 @@
 import { UserManager, Log, WebStorageStateStore } from 'oidc-client';
 
-const IdentityServerUrl = process.env.IDENTITY_SERVER_URL;
-const PublicUrl = process.env.PUBLIC_URL;
+const IdentityServerUrl = 'http://localhost:5002';
+const PublicUrl = 'http://localhost:5001';
 
 export default class OpenIdIdentityService {
   UserManager;
   accessToken;
   config = {
     authority: IdentityServerUrl,
-    client_id: process.env.CLIENT_NAME,
-    scope: `openid profile ${process.env.API_NAME}`,
+    client_id: 'client',
+    scope: `openid profile api`,
     response_type: 'id_token token',
     loadUserInfo: true,
-    redirect_uri: `${PublicUrl}/src/oidc/callback.html`,
+    redirect_uri: `${PublicUrl}/singin`,
     // login: `${process.env.PUBLIC_URL}/signin`,
     post_logout_redirect_uri: `${PublicUrl}/signin`,
     checkSessionInterval: 30000,
+    userStore: new WebStorageStateStore({
+      store: window.localStorage,
+    }),
   };
 
-  // metadata = {
-  //   //issuer: "https://identityserver",
-  //   jwks_uri: IdentityServerUrl + "/.well-known/openid-configuration/jwks",
-  //   authorization_endpoint: IdentityServerUrl + "/connect/authorize",
-  //   token_endpoint: IdentityServerUrl + "/connect/token",
-  //   userinfo_endpoint: IdentityServerUrl + "/connect/userinfo",
-  //   end_session_endpoint: IdentityServerUrl + "/connect/endsession",
-  //   check_session_iframe: IdentityServerUrl + "/connect/checksession",
-  //   revocation_endpoint: IdentityServerUrl + "/connect/revocation",
-  //   introspection_endpoint: IdentityServerUrl + "/connect/introspect"
-  // };
-
   constructor() {
-    this.UserManager = new UserManager({
-      // metadata: this.metadata,
-      userStore: new WebStorageStateStore({
-        store: window.localStorage,
-      }),
-      authority: this.config.authority,
-      client_id: this.config.client_id,
-      scope: this.config.scope,
-      response_type: this.config.response_type,
-      loadUserInfo: this.config.loadUserInfo,
-      redirect_uri: this.config.redirect_uri,
-      post_logout_redirect_uri: this.config.post_logout_redirect_uri,
-      checkSessionInterval: this.config.checkSessionInterval,
-    });
+    this.UserManager = new UserManager(this.config);
 
     Log.logger = console;
     Log.level = 4;

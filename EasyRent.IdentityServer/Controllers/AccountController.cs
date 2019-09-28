@@ -1,17 +1,23 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using EasyRent.Data;
-using EasyRent.Data.Entities;
 using EasyRent.Common;
 using EasyRent.Common.Constants;
 using EasyRent.Common.Extentions;
 using EasyRent.Common.Models;
-using IdentityServer4.Extensions;
+using EasyRent.Data;
+using EasyRent.Data.Entities;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.ResponseCaching.Internal;
 using SignInResult = Microsoft.AspNetCore.Identity.SignInResult;
+using System.Collections.Generic;
+using System.Security.Claims;
+using IdentityServer4.Events;
+using IdentityServer4.Extensions;
+using IdentityServer4.Models;
+using IdentityServer4.Services;
+using IdentityServer4.Stores;
 
 namespace EasyRent.Server.Controllers
 {
@@ -19,10 +25,24 @@ namespace EasyRent.Server.Controllers
     [Route("[controller]")]
     public class AccountController : BaseController
     {
+        private readonly IIdentityServerInteractionService Interaction;
+        private readonly IClientStore ClientStore;
+        private readonly IAuthenticationSchemeProvider SchemeProvider;
+        private readonly IEventService Events;
         protected readonly SignInManager<User> SignInManager;
 
         public AccountController(SignInManager<User> signInManager,
-                                 IMapper mapper) : base(mapper) => SignInManager = signInManager;
+            IMapper mapper, IIdentityServerInteractionService interaction,
+            IClientStore clientStore,
+            IAuthenticationSchemeProvider schemeProvider,
+            IEventService events) : base(mapper)
+        {
+            Interaction = interaction;
+            ClientStore = clientStore;
+            SchemeProvider = schemeProvider;
+            Events = events;
+            SignInManager = signInManager;
+        }
 
         [HttpPost("reset-password-token")]
         public async Task<IActionResult> ResetPasswordToken([FromBody] string email)
@@ -59,19 +79,36 @@ namespace EasyRent.Server.Controllers
         }
 
         [HttpPost("sign-in")]
-        public async Task<IActionResult> SignIn([FromBody] SignInModel model)
+        public async Task<IActionResult> SignIn([FromBody] SignInModel model, [FromQuery] string ReturnUrl)
         {
             if (!ModelState.IsValid)
             {
                 return Json(new JsonResponseTemplate(false, ErrorMessages.SignInError));
             }
 
+            AuthorizationRequest context = await Interaction.GetAuthorizationContextAsync(ReturnUrl);
+
             var user = await SignInManager.UserManager.FindByEmailAsync(model.Email);
 
             SignInResult trySignIn = await SignInManager.PasswordSignInAsync(user, model.Password, false, false);
 
+            if (trySignIn.Succeeded)
+            {
+                await Events.RaiseAsync(new UserLoginSuccessEvent(user.UserName, user.Id, user.UserName));
+
+                if (context != null)
+                {
+                    return Redirect(ReturnUrl);
+                }
+
+                if (Url.IsLocalUrl(ReturnUrl))
+                {
+                    return Redirect(ReturnUrl);
+                }
+            }
+
             return Json(new JsonResponseTemplate(trySignIn.Succeeded,
-                                                 trySignIn.Succeeded ? string.Empty : ErrorMessages.SignInError));
+                trySignIn.Succeeded ? string.Empty : ErrorMessages.SignInError));
         }
 
         [Route("sign-out")]
@@ -100,9 +137,9 @@ namespace EasyRent.Server.Controllers
             IdentityResult creatingResult = await SignInManager.UserManager.CreateAsync(newUser, model.Password);
 
             return Json(new JsonResponseTemplate(creatingResult.Succeeded,
-                                                 creatingResult.Succeeded
-                                                     ? Enumerable.Empty<string>()
-                                                     : creatingResult.Errors.Select(q => q.Description)));
+                creatingResult.Succeeded
+                ? Enumerable.Empty<string>()
+                : creatingResult.Errors.Select(q => q.Description)));
         }
 
         [HttpPost("check-password")]

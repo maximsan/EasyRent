@@ -1,7 +1,7 @@
 import { UserManager, Log, WebStorageStateStore } from 'oidc-client';
 
-const IdentityServerUrl = `${process.env.IDENTITY_SERVER_URL}`;
-const PublicUrl = `${process.env.EASY_RENT_API_URL}`;
+const identityServerUrl = `${process.env.IDENTITY_SERVER_URL}`;
+const publicUrl = `${process.env.EASY_RENT_API_URL}`;
 
 class OpenIdIdentityService {
   UserManager;
@@ -9,18 +9,30 @@ class OpenIdIdentityService {
   accessToken;
 
   config = {
-    authority: IdentityServerUrl,
+    authority: identityServerUrl,
     client_id: 'client',
     scope: `openid profile api`,
     response_type: 'id_token token',
     loadUserInfo: true,
-    redirect_uri: `${PublicUrl}/singin`,
-    // login: `${process.env.PUBLIC_URL}/signin`,
-    post_logout_redirect_uri: `${PublicUrl}/signin`,
+    redirect_uri: `${publicUrl}/singin`,
+    // login: `${publicUrl}/signin`,
+    post_logout_redirect_uri: `${publicUrl}/signin`,
     checkSessionInterval: 30000,
     userStore: new WebStorageStateStore({
       store: window.localStorage,
     }),
+  };
+
+  metadata = {
+    // issuer: `https://identityserver`,
+    jwks_uri: `${process.env.REACT_APP_AUTH_URL}/.well-known/openid-configuration/jwks`,
+    authorization_endpoint: `${process.env.REACT_APP_AUTH_URL}/connect/authorize`,
+    token_endpoint: `${process.env.REACT_APP_AUTH_URL}/connect/token`,
+    userinfo_endpoint: `${process.env.REACT_APP_AUTH_URL}/connect/userinfo`,
+    end_session_endpoint: `${process.env.REACT_APP_AUTH_URL}/connect/endsession`,
+    check_session_iframe: `${process.env.REACT_APP_AUTH_URL}/connect/checksession`,
+    revocation_endpoint: `${process.env.REACT_APP_AUTH_URL}/connect/revocation`,
+    introspection_endpoint: `${process.env.REACT_APP_AUTH_URL}/connect/introspect`,
   };
 
   constructor() {
@@ -140,7 +152,7 @@ class OpenIdIdentityService {
   signoutRedirectCallback = () => {
     this.UserManager.signoutRedirectCallback().then(() => {
       localStorage.clear();
-      window.location.replace(PublicUrl);
+      window.location.replace(publicUrl);
     });
     this.UserManager.clearStaleState();
   };

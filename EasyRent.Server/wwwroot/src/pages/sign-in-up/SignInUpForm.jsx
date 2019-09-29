@@ -25,10 +25,10 @@ const SignInUpForm = () => {
   const onChange = (name) => (event) => {
     event.persist();
     setValues((prevValues) => ({ ...prevValues, [name]: event.target.value }));
-    // setValues({ [name]: event.target.value });
   };
 
-  const onSignInSubmit = (props) => {
+  const onSignInSubmit = () => {
+    debugger;
     dispatch(
       signIn({
         email: values.email,

@@ -25,13 +25,6 @@ const App = React.memo(() => (
         />
 
         <PrivateRoute path='/' component={PrivateLayout} />
-
-        {/* <Route path='/signup' component={SignUp} />
-      <Route path='/reset-password' />
-      <Route path='/home' />
-      <Route path='/main' />
-      <Route path='/ad' />
-      <Route path='/' component={SignIn} /> */}
       </Switch>
     </BrowserRouter>
   </AuthProvider>

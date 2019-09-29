@@ -1,11 +1,13 @@
 import { UserManager, Log, WebStorageStateStore } from 'oidc-client';
 
-const IdentityServerUrl = 'http://localhost:5002';
-const PublicUrl = 'http://localhost:5001';
+const IdentityServerUrl = `${process.env.IDENTITY_SERVER_URL}`;
+const PublicUrl = `${process.env.EASY_RENT_API_URL}`;
 
 export default class OpenIdIdentityService {
   UserManager;
+
   accessToken;
+
   config = {
     authority: IdentityServerUrl,
     client_id: 'client',

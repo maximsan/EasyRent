@@ -3,7 +3,7 @@ import AuthProvider from '../../context/AuthProvider';
 
 const AuthLogout = () => (
   <AuthProvider>
-    {(logout) => {
+    {({ logout }) => {
       logout();
       return <span>loading...</span>;
     }}

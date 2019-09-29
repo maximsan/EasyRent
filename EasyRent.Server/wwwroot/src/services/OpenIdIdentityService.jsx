@@ -3,7 +3,7 @@ import { UserManager, Log, WebStorageStateStore } from 'oidc-client';
 const IdentityServerUrl = `${process.env.IDENTITY_SERVER_URL}`;
 const PublicUrl = `${process.env.EASY_RENT_API_URL}`;
 
-export default class OpenIdIdentityService {
+class OpenIdIdentityService {
   UserManager;
 
   accessToken;
@@ -144,3 +144,7 @@ export default class OpenIdIdentityService {
     this.UserManager.clearStaleState();
   };
 }
+
+const openIdIdentityService = new OpenIdIdentityService();
+
+export default openIdIdentityService;

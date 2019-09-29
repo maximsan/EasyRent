@@ -13,9 +13,7 @@ export const AuthContext = createContext({
 });
 
 const AuthProvider = ({ children }) => {
-  const [identityService] = useState({
-    identityService: new OpenIdIdentityService(),
-  });
+  const [identityService] = useState(OpenIdIdentityService);
 
   return (
     <AuthContext.Provider value={identityService}>

@@ -1,4 +1,4 @@
-# easy-peasy-rent-application
+# easy-rent-application
 
 [![standard-readme compliant](https://img.shields.io/badge/standard--readme-OK-green.svg?style=flat-square)](https://github.com/RichardLitt/standard-readme)
 
@@ -8,15 +8,15 @@ TODO: Fill out this long description.
 
 ## Table of Contents
 
-- [easy-peasy-rent-application](#easy-peasy-rent-application)
-  - [Table of Contents](#Table-of-Contents)
-  - [Stack](#Stack)
-  - [Install](#Install)
-  - [Database](#Database)
-  - [Usage](#Usage)
-  - [Maintainers](#Maintainers)
-  - [Contributing](#Contributing)
-  - [License](#License)
+- [easy-rent-application](#easy-rent-application)
+- [Table of Contents](#table-of-contents)
+- [Stack](#stack)
+- [Install](#install)
+- [Database](#database)
+- [Usage](#usage)
+- [Maintainers](#maintainers)
+- [Contributing](#contributing)
+- [License](#license)
 
 ## Stack
 

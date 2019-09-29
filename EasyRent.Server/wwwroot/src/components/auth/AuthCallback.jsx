@@ -11,6 +11,6 @@ const AuthCallback = () => {
       }}
     </AuthConsumer>
   );
-
+};
 
 export default AuthCallback;

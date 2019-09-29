@@ -84,6 +84,7 @@ class OpenIdIdentityService {
   };
 
   signinRedirect = () => {
+    debugger;
     localStorage.setItem('redirectUri', window.location.pathname);
     this.UserManager.signinRedirect({});
   };

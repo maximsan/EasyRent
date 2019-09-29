@@ -1,27 +1,20 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { Route } from 'react-router-dom';
-// import AuthConsumer from '../context/AuthProvider';
+import AuthContext from '../context/AuthContext';
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
+  const { isAuthenticated, signinRedirect } = useContext(AuthContext);
+
   return (
     <Route
       {...rest}
       render={(props) => {
-        return <Component {...props} />;
-
-        // return (
-        //   <AuthConsumer>
-        //     {({ isAuthenticated, signinRedirect }) => {
-        //       if (!!Component && isAuthenticated()) {
-        //         return <Component {...props} />;
-        //       } else {
-        //         signinRedirect();
-        //         return <span>loading</span>;
-        //       }
-        //     }}
-        //   </AuthConsumer>
-        // );
+        if (!!Component && isAuthenticated()) {
+          return <Component {...props} />;
+        }
+        signinRedirect();
+        return <span>loading...</span>;
       }}
     />
   );

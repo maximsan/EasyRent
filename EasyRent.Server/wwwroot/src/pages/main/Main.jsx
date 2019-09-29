@@ -20,7 +20,7 @@ import {
   SideSectionItem,
   ItemCaption,
 } from './styled';
-import AuthProvider from '../../context/AuthContext';
+import AuthProvider from '../../context/AuthProvider';
 
 const MainPageRoute = `${process.env.PUBLIC_URL}/main`;
 

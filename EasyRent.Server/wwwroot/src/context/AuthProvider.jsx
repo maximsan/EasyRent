@@ -1,16 +1,7 @@
-import React, { createContext, useState } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import OpenIdIdentityService from '../services/OpenIdIdentityService';
-
-export const AuthContext = createContext({
-  signinRedirectCallback: () => {},
-  logout: () => {},
-  signoutRedirectCallback: () => {},
-  isAuthenticated: () => {},
-  signinRedirect: () => {},
-  signinSilentCallback: () => {},
-  createSigninRequest: () => {},
-});
+import AuthContext from './AuthContext';
 
 const AuthProvider = ({ children }) => {
   const [identityService] = useState(OpenIdIdentityService);

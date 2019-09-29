@@ -20,6 +20,7 @@ import {
   SideSectionItem,
   ItemCaption,
 } from './styled';
+import AuthProvider from '../../context/AuthContext';
 
 const MainPageRoute = `${process.env.PUBLIC_URL}/main`;
 
@@ -35,7 +36,9 @@ const Main = () => {
 
   return (
     <>
-      <Header />
+      <AuthProvider>
+        <Header />
+      </AuthProvider>
       <MainSection>
         <SideBarContext.Provider value={{ open: isOpen, toggle }}>
           <SideBar>

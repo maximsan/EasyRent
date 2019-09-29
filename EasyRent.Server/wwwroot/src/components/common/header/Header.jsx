@@ -1,13 +1,22 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import GeoLocationIcon from '../../icons/GeoLocationIcon';
 import customClasses from './header.module.css';
 import Search from '../search/Search';
 import DefaultButton from '../button/DefaultButton';
-import AuthConsumer from '../../../context/AuthProvider';
+import AuthProvider, { AuthContext } from '../../../context/AuthContext';
 
 const Header = ({ children }) => {
-  // AuthProvider.signinRedirect();
+  const { isAuthenticated, signinRedirect } = useContext(AuthContext);
+
+  const renderAuthButton = () => {
+    debugger;
+    if (isAuthenticated()) {
+      return <span>You are authorized.</span>;
+    }
+    return <DefaultButton onClick={signinRedirect}>Sing in/out</DefaultButton>;
+  };
+
   return (
     <header className={customClasses.header}>
       {children}
@@ -24,17 +33,7 @@ const Header = ({ children }) => {
         </div>
         <span className={customClasses.locationLabel}>Choose your place</span>
       </div>
-      <div>
-        <AuthConsumer>
-          {({ isAuthenticated, signinRedirect }) => {
-            if (isAuthenticated()) {
-              return <span>You are authorized.</span>;
-            } else {
-              return <button onClick={signinRedirect}>Sing in/out</button>;
-            }
-          }}
-        </AuthConsumer>
-      </div>
+      <div>{renderAuthButton()}</div>
     </header>
   );
 };

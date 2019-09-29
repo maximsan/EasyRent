@@ -2,7 +2,7 @@ import React, { createContext, useState } from 'react';
 import OpenIdIdentityService from '../services/OpenIdIdentityService';
 import PropTypes from 'prop-types';
 
-const AuthContext = createContext({
+export const AuthContext = createContext({
   signinRedirectCallback: () => {},
   logout: () => {},
   signoutRedirectCallback: () => {},
@@ -25,7 +25,7 @@ const AuthProvider = ({ children }) => {
 };
 
 AuthProvider.propTypes = {
-  children: PropTypes.element.isRequired,
+  children: PropTypes.any.isRequired,
 };
 
 export default AuthProvider;

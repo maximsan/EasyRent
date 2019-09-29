@@ -4,24 +4,28 @@ import { Route } from 'react-router-dom';
 import AuthContext from '../context/AuthContext';
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
+  debugger;
   const { isAuthenticated, signinRedirect } = useContext(AuthContext);
 
   return (
     <Route
       {...rest}
-      render={(props) => {
+      render={({ location, ...props }) => {
         if (!!Component && isAuthenticated()) {
           return <Component {...props} />;
         }
-        signinRedirect();
+        signinRedirect(location.pathname);
         return <span>loading...</span>;
       }}
     />
   );
 };
 
-PrivateRoute.defaultProps = {};
+PrivateRoute.propTypes = {
+  component: PropTypes.element,
+  location: PropTypes.object,
+};
 
-PrivateRoute.propTypes = {};
+PrivateRoute.defaultProps = {};
 
 export default PrivateRoute;

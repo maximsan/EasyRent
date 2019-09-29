@@ -6,10 +6,6 @@ import SignInUpForm from '../../pages/sign-in-up/SignInUpForm';
 import Home from '../../pages/home/Home';
 import SideBar from '../../components/common/side-bar/SideBar';
 
-// import AuthCallback from '../../components/auth/AuthCallback';
-// import AuthLogout from '../../components/auth/AuthLogout';
-// import AuthLogoutCallback from '../../components/auth/AuthLogoutCallback';
-
 const PublicUrl = process.env.PUBLIC_URL;
 
 const PublicLayout = () => {

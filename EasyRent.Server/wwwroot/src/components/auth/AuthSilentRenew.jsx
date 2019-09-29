@@ -1,11 +1,13 @@
 import React from 'react';
-import { AuthConsumer } from '../../context/AuthProvider';
+import AuthProvider from '../../context/AuthProvider';
 
-export const SilentRenew = () => (
-  <AuthConsumer>
+const SilentRenew = () => (
+  <AuthProvider>
     {({ signinSilentCallback }) => {
       signinSilentCallback();
-      return <span>loading</span>;
+      return <span>loading...</span>;
     }}
-  </AuthConsumer>
+  </AuthProvider>
 );
+
+export default SilentRenew;

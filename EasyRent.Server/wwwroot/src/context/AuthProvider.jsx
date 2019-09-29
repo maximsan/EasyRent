@@ -1,7 +1,8 @@
-import React, { Component } from 'react';
+import React, { createContext, useState } from 'react';
 import OpenIdIdentityService from '../services/OpenIdIdentityService';
+import PropTypes from 'prop-types';
 
-const AuthContext = React.createContext({
+const AuthContext = createContext({
   signinRedirectCallback: () => {},
   logout: () => {},
   signoutRedirectCallback: () => {},
@@ -11,30 +12,20 @@ const AuthContext = React.createContext({
   createSigninRequest: () => {},
 });
 
-export class AuthProvider extends Component {
-  identityService;
-  constructor(props) {
-    super(props);
-    this.identityService = new OpenIdIdentityService();
-  }
-  render() {
-    return (
-      <AuthContext.Provider value={this.identityService}>
-        {this.props.children}
-      </AuthContext.Provider>
-    );
-  }
-}
+const AuthProvider = ({ children }) => {
+  const [identityService] = useState({
+    identityService: new OpenIdIdentityService(),
+  });
 
-export default class AuthConsumer extends Component {
-  constructor(props) {
-    super(props);
-  }
-  render() {
-    return (
-      <AuthProvider>
-        <AuthContext.Consumer>{this.props.children}</AuthContext.Consumer>
-      </AuthProvider>
-    );
-  }
-}
+  return (
+    <AuthContext.Provider value={identityService}>
+      {children}
+    </AuthContext.Provider>
+  );
+};
+
+AuthProvider.propTypes = {
+  children: PropTypes.element.isRequired,
+};
+
+export default AuthProvider;

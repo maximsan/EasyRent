@@ -1,13 +1,13 @@
 import React from 'react';
-import { AuthConsumer } from '../../context/AuthProvider';
+import AuthProvider from '../../context/AuthProvider';
 
-const AuthLogout = () => {
-  <AuthConsumer>
+const AuthLogout = () => (
+  <AuthProvider>
     {(logout) => {
       logout();
       return <span>loading...</span>;
     }}
-  </AuthConsumer>;
-};
+  </AuthProvider>
+);
 
 export default AuthLogout;

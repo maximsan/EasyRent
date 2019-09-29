@@ -1,15 +1,15 @@
 import React from 'react';
-import AuthConsumer from '../../context/AuthProvider';
+import AuthProvider from '../../context/AuthProvider';
 
 const AuthCallback = () => {
   return (
-    <AuthConsumer>
+    <AuthProvider>
       {({ signinRedirectCallback }) => {
         signinRedirectCallback().then(() => {
           window.location = '/main';
         });
       }}
-    </AuthConsumer>
+    </AuthProvider>
   );
 };
 

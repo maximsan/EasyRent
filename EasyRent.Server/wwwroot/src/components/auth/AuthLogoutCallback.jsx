@@ -1,11 +1,13 @@
 import React from 'react';
-import { AuthConsumer } from '../../context/AuthProvider';
+import AuthProvider from '../../context/AuthProvider';
 
-export const LogoutCallback = () => (
-  <AuthConsumer>
+const LogoutCallback = () => (
+  <AuthProvider>
     {({ signoutRedirectCallback }) => {
       signoutRedirectCallback();
       return <span>loading</span>;
     }}
-  </AuthConsumer>
+  </AuthProvider>
 );
+
+export default LogoutCallback;

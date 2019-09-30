@@ -1,7 +1,13 @@
 import React from 'react';
 import axios from 'axios';
 import _ from 'lodash';
-import { SIGN_IN, SIGN_UP } from './actionTypes';
+import {
+  SIGN_IN,
+  SIGN_UP,
+  START_REQUEST,
+  STOP_REQUEST,
+  RECEIVED_DATA,
+} from './actionTypes';
 import AuthCallback from '../components/auth/AuthCallback';
 import { identityServerUrl } from '../config/constants';
 
@@ -59,18 +65,20 @@ export const signUp = (data) => (dispatch, getState) => {
 
   const request = {
     method: 'POST',
-    url: `${identityServerUrl}account/sign-up`,
+    url: `${identityServerUrl}/account/sign-up`,
     data,
   };
 
-  // dispatch(startRequest);
+  dispatch({ type: START_REQUEST, payload: { isLoading: true } });
 
   const handleSuccess = (response) => {
+    dispatch({ type: STOP_REQUEST, payload: { isLoading: false } });
     debugger;
     //window.location.pathname = 'main';
     // dispatch(receiveRequest);
   };
   const handleError = (response) => {
+    debugger;
     // dispatch(handleError);
   };
 
@@ -82,8 +90,13 @@ export const signUp = (data) => (dispatch, getState) => {
 const signInReducer = (state = {}, action) => {
   switch (action.type) {
     case SIGN_IN: {
-      signIn(state);
-      break;
+      return { ...state, isSigned: action.payload };
+    }
+    case START_REQUEST: {
+      return { ...state, loading: action.payload.isLoading };
+    }
+    case STOP_REQUEST: {
+      return { ...state, loading: action.payload.isLoading };
     }
     default:
       return state;

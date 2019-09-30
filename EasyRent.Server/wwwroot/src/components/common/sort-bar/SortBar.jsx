@@ -1,7 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core';
 import { SortBarDiv, SortBarDivItem, SortBySpan } from './styled';
-import { SortButton } from '../common/button';
+import SortButton from '../button/SortButton';
 
 const useClasses = makeStyles(() => ({
   root: {

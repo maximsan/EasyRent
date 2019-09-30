@@ -25,11 +25,17 @@ const SignInUpForm = () => {
   const onChange = (name) => (event) => {
     event.persist();
     setValues((prevValues) => ({ ...prevValues, [name]: event.target.value }));
-    // setValues({ [name]: event.target.value });
   };
 
-  const onSignInSubmit = (props) => {
-    dispatch(signIn({ email: values.email, password: values.password }));
+  const onSignInSubmit = () => {
+    debugger;
+    dispatch(
+      signIn({
+        email: values.email,
+        password: values.password,
+        returnUrl: new URL(window.location.href).searchParams.get('ReturnUrl'),
+      }),
+    );
   };
 
   const onHandleSignUpClick = (props) => {

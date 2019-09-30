@@ -1,25 +1,25 @@
-# easy-peasy-rent-application
+# easy-rent-application
 
 [![standard-readme compliant](https://img.shields.io/badge/standard--readme-OK-green.svg?style=flat-square)](https://github.com/RichardLitt/standard-readme)
 
 > An application to make your life easier when you want to try out but not to bye
 
-
 TODO: Fill out this long description.
 
 ## Table of Contents
 
-- [easy-peasy-rent-application](#easy-peasy-rent-application)
-  - [Table of Contents](#Table-of-Contents)
-  - [Stack](#Stack)
-  - [Install](#Install)
-  - [Database](#Database)
-  - [Usage](#Usage)
-  - [Maintainers](#Maintainers)
-  - [Contributing](#Contributing)
-  - [License](#License)
+- [easy-rent-application](#easy-rent-application)
+- [Table of Contents](#table-of-contents)
+- [Stack](#stack)
+- [Install](#install)
+- [Database](#database)
+- [Usage](#usage)
+- [Maintainers](#maintainers)
+- [Contributing](#contributing)
+- [License](#license)
 
 ## Stack
+
 - [ASP.Net Core MVC](https://github.com/aspnet/AspNetCore)
 - [React.Net](https://github.com/reactjs/React.NET)
 - [Webpack](https://webpack.js.org/)
@@ -28,6 +28,7 @@ TODO: Fill out this long description.
 - [React-router](https://github.com/ReactTraining/react-router)
 
 ## Install
+
 > install npm packages
 
 ```
@@ -35,12 +36,15 @@ TODO: Fill out this long description.
 ```
 
 ## Database
+
 You should use PostgreSQL for this project. When you install this DBMS you will have to create database and user with will be owner for DB.
 
 Database connection string have to contain:
+
 1. host and port (taken from DBMS configs).
 2. username, password, database name (taken from previous step).
-Example:
+   Example:
+
 ```
     Server=localhost;User Id=RentApp;Password=easy;Database=RentBase;
 ```
@@ -58,13 +62,18 @@ Example:
 ```
 
 ## Usage
+
 > build in development mode
-```
-    npm run start
-```
+
+You can run this solution by two ways:
+
+1. Write run script for Server and IdentityServer in terminal.
+2. Run two powershell scripts: RunIdentityServer and RunServer.
+
 > make a poduction ready build
+
 ```
-    npm run build 
+    npm run build
 ```
 
 ## Maintainers

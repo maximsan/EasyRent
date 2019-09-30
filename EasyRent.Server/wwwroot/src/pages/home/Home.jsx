@@ -7,11 +7,11 @@ const Home = () => {
     <div>
       <div>Now make someone happy is easy</div>
       <div>Free rent or gift </div>
+      <div>Place your ad</div>
       <div>
-        <span>Place your ad</span>
-        <br />
-        <span>Give it a second chance</span>
-        <br />
+        <span>Give it a chance</span>
+      </div>
+      <div>
         <Link to={MainPageRoute}>Go to Main</Link>
       </div>
       <Switch>

@@ -1,20 +1,30 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
-import { Route } from 'react-router-dom';
+import { Route, Redirect } from 'react-router-dom';
+import AuthContext from '../context/AuthContext';
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
+  const { isAuthenticated, signinRedirect } = useContext(AuthContext);
+
   return (
     <Route
       {...rest}
-      render={(props) => {
-        return <Component {...props} {...rest} />;
+      render={({ location, ...props }) => {
+        if (!!Component && isAuthenticated()) {
+          return <Component {...props} />;
+        }
+        signinRedirect(location.pathname);
+        return <Redirect to='/signin' />;
       }}
     />
   );
 };
 
-PrivateRoute.defaultProps = {};
+PrivateRoute.propTypes = {
+  component: PropTypes.element,
+  location: PropTypes.object,
+};
 
-PrivateRoute.propTypes = {};
+PrivateRoute.defaultProps = {};
 
 export default PrivateRoute;

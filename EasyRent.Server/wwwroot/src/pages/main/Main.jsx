@@ -7,8 +7,8 @@ import ImagesSection from '../../components/common/masonry/MasonrySection';
 import Footer from '../../components/common/footer/Footer';
 import SideBar from '../../components/common/side-bar/SideBar';
 import { useToggle, useFetch } from '../../hooks';
-import SortBar from '../../components/sort-bar/SortBar';
-import { url, METHODS } from '../../config';
+import SortBar from '../../components/common/sort-bar/SortBar';
+import { url, METHODS } from '../../config/constants';
 import AddIcon from '../../components/icons/AddIcon';
 import FavouritesIcon from '../../components/icons/FavouritesIcon';
 import BookmarksIcon from '../../components/icons/BookmarksIcon';
@@ -20,6 +20,7 @@ import {
   SideSectionItem,
   ItemCaption,
 } from './styled';
+import AuthProvider from '../../context/AuthProvider';
 
 const MainPageRoute = `${process.env.PUBLIC_URL}/main`;
 
@@ -35,7 +36,9 @@ const Main = () => {
 
   return (
     <>
-      <Header />
+      <AuthProvider>
+        <Header />
+      </AuthProvider>
       <MainSection>
         <SideBarContext.Provider value={{ open: isOpen, toggle }}>
           <SideBar>

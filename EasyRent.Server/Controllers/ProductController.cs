@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
+using EasyRent.Common.Models;
 using EasyRent.Data;
 using EasyRent.Data.Entities;
-using EasyRent.Server.Common;
 using EasyRent.Server.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -17,10 +17,7 @@ namespace EasyRent.Server.Controllers
         public ProductController(UnitOfWork unitOfWork, IMapper mapper) : base(unitOfWork, mapper) { }
 
         [HttpPost]
-        public IActionResult GetProducts()
-        {
-            return Json(new JsonResponseTemplate<IEnumerable<Ad>>(UnitOfWork.AdRepository.GetAll(), string.Empty));
-        }
+        public IActionResult GetProducts() => Json(new JsonResponseTemplate<IEnumerable<Ad>>(UnitOfWork.AdRepository.GetAll(), string.Empty));
 
         [HttpPost("[action]")]
         public IActionResult GetProducts([FromBody] string title)

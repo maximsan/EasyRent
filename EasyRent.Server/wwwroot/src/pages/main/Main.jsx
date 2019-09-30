@@ -8,7 +8,7 @@ import Footer from '../../components/common/footer/Footer';
 import SideBar from '../../components/common/side-bar/SideBar';
 import { useToggle, useFetch } from '../../hooks';
 import SortBar from '../../components/common/sort-bar/SortBar';
-import { url, METHODS } from '../../config';
+import { url, METHODS } from '../../config/constants';
 import AddIcon from '../../components/icons/AddIcon';
 import FavouritesIcon from '../../components/icons/FavouritesIcon';
 import BookmarksIcon from '../../components/icons/BookmarksIcon';

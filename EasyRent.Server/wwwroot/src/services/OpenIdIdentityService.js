@@ -1,42 +1,18 @@
-import { UserManager, Log, WebStorageStateStore } from 'oidc-client';
-
-const identityServerUrl = `${process.env.IDENTITY_SERVER_URL}`;
-const publicUrl = `${process.env.EASY_RENT_API_URL}`;
+import { UserManager, Log } from 'oidc-client';
+import { METADATA_OIDC, IDENTITY_CONFIG } from '../config/oidc-config';
+import { easyRentServerUrl } from '../config/constants';
 
 class OpenIdIdentityService {
   UserManager;
 
   accessToken;
 
-  config = {
-    authority: identityServerUrl,
-    client_id: 'client',
-    scope: `openid profile api`,
-    response_type: 'id_token token',
-    loadUserInfo: true,
-    redirect_uri: `${publicUrl}/singin`,
-    // login: `${publicUrl}/signin`,
-    post_logout_redirect_uri: `${publicUrl}/signin`,
-    checkSessionInterval: 30000,
-    userStore: new WebStorageStateStore({
-      store: window.localStorage,
-    }),
-  };
-
-  metadata = {
-    // issuer: `https://identityserver`,
-    jwks_uri: `${process.env.REACT_APP_AUTH_URL}/.well-known/openid-configuration/jwks`,
-    authorization_endpoint: `${process.env.REACT_APP_AUTH_URL}/connect/authorize`,
-    token_endpoint: `${process.env.REACT_APP_AUTH_URL}/connect/token`,
-    userinfo_endpoint: `${process.env.REACT_APP_AUTH_URL}/connect/userinfo`,
-    end_session_endpoint: `${process.env.REACT_APP_AUTH_URL}/connect/endsession`,
-    check_session_iframe: `${process.env.REACT_APP_AUTH_URL}/connect/checksession`,
-    revocation_endpoint: `${process.env.REACT_APP_AUTH_URL}/connect/revocation`,
-    introspection_endpoint: `${process.env.REACT_APP_AUTH_URL}/connect/introspect`,
-  };
-
   constructor() {
-    this.UserManager = new UserManager(this.config);
+    debugger;
+    this.UserManager = new UserManager({
+      ...IDENTITY_CONFIG,
+      metadata: { ...METADATA_OIDC },
+    });
 
     Log.logger = console;
     Log.level = 4;
@@ -115,8 +91,8 @@ class OpenIdIdentityService {
   };
 
   setSessionInfo(authResult) {
-    localStorage.setItem('access_token', authResult.accessToken);
-    localStorage.setItem('id_token', authResult.idToken);
+    window.localStorage.setItem('access_token', authResult.accessToken);
+    window.localStorage.setItem('id_token', authResult.idToken);
   }
 
   isAuthenticated = () => {
@@ -152,7 +128,7 @@ class OpenIdIdentityService {
   signoutRedirectCallback = () => {
     this.UserManager.signoutRedirectCallback().then(() => {
       localStorage.clear();
-      window.location.replace(publicUrl);
+      window.location.replace(easyRentServerUrl);
     });
     this.UserManager.clearStaleState();
   };

@@ -1,14 +1,19 @@
 import { WebStorageStateStore } from 'oidc-client';
-import { identityServerUrl, easyRentServerUrl } from './constants';
+import { identityServerUrl, easyRentServerUrl, CLIENT_NAME } from './constants';
 
 export const IDENTITY_CONFIG = {
   authority: identityServerUrl,
-  client_id: 'client',
-  scope: `openid profile api`,
-  response_type: 'id_token token',
-  loadUserInfo: true,
+  client_id: CLIENT_NAME,
   redirect_uri: `${easyRentServerUrl}/singin`,
-  post_logout_redirect_uri: `${easyRentServerUrl}/signin`,
+  // login: identityServerUrl + "/login",
+  // automaticSilentRenew: (boolean, default: false): Flag to indicate if there should be an automatic attempt to renew the access token prior to its expiration.
+  loadUserInfo: true,
+  // silent_redirect_uri: (string): The URL for the page containing the code handling the silent renew.
+  post_logout_redirect_uri: `${easyRentServerUrl}/signin`, // The OIDC post-logout redirect URI.
+  response_type: 'id_token token', // (string, default: 'id_token'): The type of response desired from the OIDC provider.
+  // grantType: "password",
+  scope: `openid profile api`, // (string, default: 'openid'): The scope being requested from the OIDC provider.
+  // webAuthResponseType: "id_token token",
   checkSessionInterval: 30000,
   userStore: new WebStorageStateStore({
     store: window.localStorage,

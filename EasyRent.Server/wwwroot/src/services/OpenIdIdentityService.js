@@ -3,10 +3,6 @@ import { METADATA_OIDC, IDENTITY_CONFIG } from '../config/oidc-config';
 import { easyRentServerUrl } from '../config/constants';
 
 class OpenIdIdentityService {
-  UserManager;
-
-  accessToken;
-
   constructor() {
     debugger;
     this.UserManager = new UserManager({
@@ -77,17 +73,17 @@ class OpenIdIdentityService {
     this.UserManager.signinRedirect({});
   };
 
-  setUser = (data) => {
-    localStorage.setItem('userId', data.sub);
+  setUser = (userId) => {
+    localStorage.setItem('userId', userId.sub);
   };
 
   navigateToScreen = () => {
     const redirectUri = localStorage.getItem('redirectUri')
       ? localStorage.getItem('redirectUri')
       : '/en/dashboard';
-    const language = '/' + redirectUri.split('/')[1];
+    const language = `/${redirectUri.split('/')[1]}`;
 
-    window.location.replace(language + '/dashboard');
+    window.location.replace(`${language}/dashboard`);
   };
 
   setSessionInfo(authResult) {

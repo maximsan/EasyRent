@@ -3,6 +3,7 @@ import axios from 'axios';
 import _ from 'lodash';
 import { SIGN_IN, SIGN_UP } from './actionTypes';
 import AuthCallback from '../components/auth/AuthCallback';
+import { identityServerUrl } from '../config/constants';
 
 export const signIn = (data) => (dispatch, getState) => {
   const { email, password, returnUrl } = data;
@@ -17,7 +18,7 @@ export const signIn = (data) => (dispatch, getState) => {
 
   const request = {
     method: 'POST',
-    url: `http://localhost:5002/account/sign-in?returnUrl=${returnUrl}`,
+    url: `${identityServerUrl}/account/sign-in?returnUrl=${returnUrl}`,
     data,
     headers: {
       'Access-Control-Allow-Origin': '*',
@@ -58,7 +59,7 @@ export const signUp = (data) => (dispatch, getState) => {
 
   const request = {
     method: 'POST',
-    url: `${process.env.PUBLIC_URL}account/sign-up`,
+    url: `${identityServerUrl}account/sign-up`,
     data,
   };
 

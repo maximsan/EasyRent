@@ -126,6 +126,7 @@ namespace EasyRent.IdentityServer
             app.UseDeveloperExceptionPage();
             app.UseStaticFiles();
             app.UseIdentityServer();
+            app.UseCors("default");
             app.UseMvcWithDefaultRoute();
         }
     }

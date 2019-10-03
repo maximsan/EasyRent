@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { connect, useDispatch } from 'react-redux';
 import { signIn, signUp } from '../../reducers/signInReducer';
@@ -7,6 +7,7 @@ import SignInOverlay from '../sign-in/SignInOverlay';
 import SignUpForm from '../../components/sign-up/SignUpForm';
 import SignUpOverlay from '../../components/sign-up/SignUpOverlay';
 import classes from './SignInUp.module.css';
+import AuthContext from '../../context/AuthContext';
 
 const SignInUpForm = () => {
   const [values, setValues] = useState({
@@ -21,6 +22,7 @@ const SignInUpForm = () => {
   const containerRef = useRef();
 
   const [isSignIn, setSignIn] = useState(true);
+  const { signinRedirectCallback } = useContext(AuthContext);
 
   const onChange = (name) => (event) => {
     event.persist();
@@ -34,6 +36,7 @@ const SignInUpForm = () => {
         email: values.email,
         password: values.password,
         returnUrl: new URL(window.location.href).searchParams.get('ReturnUrl'),
+        signinRedirectCallback,
       }),
     );
   };

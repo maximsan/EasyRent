@@ -13,9 +13,7 @@ import { identityServerUrl } from '../config/constants';
 import AuthContext from '../context/AuthContext';
 
 export const signIn = (data) => (dispatch, getState) => {
-  const { email, password, returnUrl } = data;
-
-  const { signinRedirectCallback } = useContext(AuthContext);
+  const { email, password, returnUrl, signinRedirectCallback } = data;
 
   if (_.isEmpty(data) || email === '' || password === '') {
     return;

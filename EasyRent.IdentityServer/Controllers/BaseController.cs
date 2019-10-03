@@ -8,17 +8,20 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace EasyRent.Server.Controllers
 {
-    public class BaseController : Controller
+  public class BaseController : Controller
+  {
+    protected readonly IMapper Mapper;
+
+    public BaseController(IMapper mapper)
     {
-        protected readonly IMapper Mapper;
-
-        public BaseController(IMapper mapper) => Mapper = mapper;
-
-        protected T GetService<T>() => HttpContext.RequestServices.GetService<T>();
-
-        protected void SetJsonResponseType() => Response.ContentType = "application/json";
-
-        protected IEnumerable<string> ModelStateErrors => ModelState.Values.SelectMany(q => q.Errors.Select(w => w.ErrorMessage)
-                                                                                                    .Where(w => !w.IsNullOrEmpty()));
+      Mapper = mapper;
     }
+
+    protected T GetService<T>() => HttpContext.RequestServices.GetService<T>();
+
+    protected void SetJsonResponseType() => Response.ContentType = "application/json";
+
+    protected IEnumerable<string> ModelStateErrors => ModelState.Values.SelectMany(q => q.Errors.Select(w => w.ErrorMessage)
+                                                                                                .Where(w => !w.IsNullOrEmpty()));
+  }
 }

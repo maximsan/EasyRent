@@ -1,4 +1,4 @@
-import React from 'react';
+import { useContext } from 'react';
 import axios from 'axios';
 import _ from 'lodash';
 import {
@@ -8,11 +8,12 @@ import {
   STOP_REQUEST,
   RECEIVED_DATA,
 } from './actionTypes';
-import AuthCallback from '../components/auth/AuthCallback';
+import { startRequest, stopRequest, handleRequestError } from './signInActions';
 import { identityServerUrl } from '../config/constants';
+import AuthContext from '../context/AuthContext';
 
 export const signIn = (data) => (dispatch, getState) => {
-  const { email, password, returnUrl } = data;
+  const { email, password, returnUrl, signinRedirectCallback } = data;
 
   if (_.isEmpty(data) || email === '' || password === '') {
     return;
@@ -31,17 +32,19 @@ export const signIn = (data) => (dispatch, getState) => {
     },
   };
 
-  // dispatch(startRequest);
+  dispatch(startRequest);
 
   const handleSuccess = (response) => {
-    return <AuthCallback />;
-    // debugger;
-    //window.location.pathname = 'main';
-    // dispatch(receiveRequest);
+    debugger;
+    dispatch(stopRequest);
+
+    signinRedirectCallback().then(() => {
+      window.location = '/main';
+    });
   };
   const handleError = (response) => {
     debugger;
-    // dispatch(handleError);
+    dispatch(handleRequestError(response));
   };
 
   axios(request)
@@ -69,17 +72,18 @@ export const signUp = (data) => (dispatch, getState) => {
     data,
   };
 
-  dispatch({ type: START_REQUEST, payload: { isLoading: true } });
+  dispatch(startRequest);
 
   const handleSuccess = (response) => {
-    dispatch({ type: STOP_REQUEST, payload: { isLoading: false } });
+    dispatch(stopRequest);
     debugger;
     //window.location.pathname = 'main';
     // dispatch(receiveRequest);
   };
   const handleError = (response) => {
     debugger;
-    // dispatch(handleError);
+    dispatch(stopRequest);
+    dispatch(handleRequestError(response));
   };
 
   axios(request)
@@ -93,10 +97,10 @@ const signInReducer = (state = {}, action) => {
       return { ...state, isSigned: action.payload };
     }
     case START_REQUEST: {
-      return { ...state, loading: action.payload.isLoading };
+      return { ...state, loading: true };
     }
     case STOP_REQUEST: {
-      return { ...state, loading: action.payload.isLoading };
+      return { ...state, loading: false };
     }
     default:
       return state;

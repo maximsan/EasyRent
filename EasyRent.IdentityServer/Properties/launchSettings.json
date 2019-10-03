@@ -8,6 +8,24 @@
     }
   },
   "profiles": {
+    "Kestrel Development": {
+      "commandName": "Project",
+      "executablePath": "dotnet run",
+      "commandLineArgs": "dotnet run",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "ASPNETCORE_URLS": "http://localhost:5000"
+      }
+    },
+    "Kestrel Production": {
+      "commandName": "Project",
+      "executablePath": "dotnet",
+      "commandLineArgs": "dotnet run",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Production",
+        "ASPNETCORE_URLS": "http://localhost:5000"
+      }
+    },
     "IIS Express": {
       "commandName": "IISExpress",
       "launchBrowser": true,

@@ -27,7 +27,7 @@ namespace EasyRent.IdentityServer
                     },
                     RedirectUris = new string[]{
                         "http://localhost:5001/src/oidc/callback.html",
-                        "http://localhost:5001/singin"
+                        "http://localhost:5001/signin"
                     },
                     AllowedCorsOrigins = new string[]{
                         "http://localhost:5001"

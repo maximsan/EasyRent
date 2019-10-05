@@ -1,23 +1,18 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using EasyRent.Common;
 using EasyRent.Common.Constants;
 using EasyRent.Common.Extentions;
 using EasyRent.Common.Models;
-using EasyRent.Data;
 using EasyRent.Data.Entities;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using SignInResult = Microsoft.AspNetCore.Identity.SignInResult;
-using System.Collections.Generic;
-using System.Security.Claims;
 using IdentityServer4.Events;
-using IdentityServer4.Extensions;
 using IdentityServer4.Models;
 using IdentityServer4.Services;
 using IdentityServer4.Stores;
+using SignInResult = Microsoft.AspNetCore.Identity.SignInResult;
 
 namespace EasyRent.Server.Controllers
 {
@@ -32,7 +27,8 @@ namespace EasyRent.Server.Controllers
         protected readonly SignInManager<User> SignInManager;
 
         public AccountController(SignInManager<User> signInManager,
-            IMapper mapper, IIdentityServerInteractionService interaction,
+            IMapper mapper,
+            IIdentityServerInteractionService interaction,
             IClientStore clientStore,
             IAuthenticationSchemeProvider schemeProvider,
             IEventService events) : base(mapper)
@@ -134,12 +130,14 @@ namespace EasyRent.Server.Controllers
 
             User newUser = Mapper.Map<User>(model);
 
-            IdentityResult creatingResult = await SignInManager.UserManager.CreateAsync(newUser, model.Password);
+            var creatingResult = await SignInManager.UserManager.CreateAsync(newUser, model.Password);
 
-            return Json(new JsonResponseTemplate(creatingResult.Succeeded,
-                creatingResult.Succeeded
-                ? Enumerable.Empty<string>()
-                : creatingResult.Errors.Select(q => q.Description)));
+            if (creatingResult.Succeeded)
+            {
+                return Ok(creatingResult.Succeeded);
+            }
+
+            return Json(new JsonResponseTemplate(creatingResult.Succeeded, creatingResult.Errors.Select(q => q.Description)));
         }
 
         [HttpPost("check-password")]

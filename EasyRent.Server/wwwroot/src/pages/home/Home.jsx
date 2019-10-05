@@ -1,6 +1,6 @@
 import React from 'react';
 import { Switch, Route, Link } from 'react-router-dom';
-import { Main, MainPageRoute } from '../../pages/main/Main';
+import Main from '../main/Main';
 
 const Home = () => {
   return (
@@ -12,10 +12,10 @@ const Home = () => {
         <span>Give it a chance</span>
       </div>
       <div>
-        <Link to={MainPageRoute}>Go to Main</Link>
+        <Link to='/main'>Go to Main</Link>
       </div>
       <Switch>
-        <Route path={MainPageRoute} exact component={Main} />
+        <Route path='/main' exact component={Main} />
       </Switch>
     </div>
   );

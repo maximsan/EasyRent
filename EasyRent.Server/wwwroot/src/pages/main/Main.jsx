@@ -22,8 +22,6 @@ import {
 } from './styled';
 import AuthProvider from '../../context/AuthProvider';
 
-const MainPageRoute = `${process.env.PUBLIC_URL}/main`;
-
 const Main = () => {
   const [images, setImages] = useState(null);
   const [isOpen, toggle] = useToggle();
@@ -72,4 +70,3 @@ const Main = () => {
 };
 
 export default Main;
-export { Main, MainPageRoute };

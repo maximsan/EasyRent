@@ -13,7 +13,8 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
         if (!!Component && isAuthenticated()) {
           return <Component {...props} />;
         }
-        signinRedirect(location.pathname);
+
+        signinRedirect();
         return <Redirect to='/signin' />;
       }}
     />

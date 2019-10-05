@@ -11,19 +11,9 @@ const App = React.memo(() => (
   <AuthProvider>
     <BrowserRouter>
       <Switch>
-        <Route
-          path={`${process.env.PUBLIC_URL}/signin`}
-          component={PublicLayout}
-        />
-        <Route
-          path={`${process.env.PUBLIC_URL}/signup`}
-          component={PublicLayout}
-        />
-        <Route
-          path={`${process.env.PUBLIC_URL}/home`}
-          component={PublicLayout}
-        />
-
+        <Route path='/signin' component={PublicLayout} />
+        <Route path='/signup' component={PublicLayout} />
+        <Route path='/home' component={PublicLayout} />
         <PrivateRoute path='/' component={PrivateLayout} />
       </Switch>
     </BrowserRouter>

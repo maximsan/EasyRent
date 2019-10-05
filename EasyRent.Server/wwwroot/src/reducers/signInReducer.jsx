@@ -7,10 +7,10 @@ import {
   START_REQUEST,
   STOP_REQUEST,
   RECEIVED_DATA,
+  HANDLE_ERROR,
 } from './actionTypes';
 import { startRequest, stopRequest, handleRequestError } from './signInActions';
 import { identityServerUrl } from '../config/constants';
-import AuthContext from '../context/AuthContext';
 
 export const signIn = (data) => (dispatch, getState) => {
   const { email, password, returnUrl, signinRedirectCallback } = data;
@@ -52,7 +52,7 @@ export const signIn = (data) => (dispatch, getState) => {
     .catch(handleError);
 };
 
-export const signUp = (data) => (dispatch, getState) => {
+export const signUp = (data) => (dispatch) => {
   const { email, password, userName, confirmPassword } = data;
 
   if (
@@ -74,16 +74,13 @@ export const signUp = (data) => (dispatch, getState) => {
 
   dispatch(startRequest);
 
-  const handleSuccess = (response) => {
+  const handleSuccess = () => {
     dispatch(stopRequest);
-    debugger;
-    //window.location.pathname = 'main';
-    // dispatch(receiveRequest);
+    window.location.pathname = '/main';
   };
   const handleError = (response) => {
-    debugger;
     dispatch(stopRequest);
-    dispatch(handleRequestError(response));
+    dispatch(handleRequestError(response.data));
   };
 
   axios(request)
@@ -101,6 +98,15 @@ const signInReducer = (state = {}, action) => {
     }
     case STOP_REQUEST: {
       return { ...state, loading: false };
+    }
+    case HANDLE_ERROR: {
+      return {
+        ...state,
+        erros: {
+          ...state.errors,
+          signUpErrors: action.payload,
+        },
+      };
     }
     default:
       return state;

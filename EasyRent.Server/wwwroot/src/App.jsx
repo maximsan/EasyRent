@@ -11,8 +11,8 @@ const App = React.memo(() => (
   <AuthProvider>
     <BrowserRouter>
       <Switch>
-        <Route path='/signin' component={PublicLayout} />
-        <Route path='/signup' component={PublicLayout} />
+        <Route path='/sign-in' component={PublicLayout} />
+        <Route path='/sign-up' component={PublicLayout} />
         <Route path='/home' component={PublicLayout} />
         <PrivateRoute path='/' component={PrivateLayout} />
       </Switch>

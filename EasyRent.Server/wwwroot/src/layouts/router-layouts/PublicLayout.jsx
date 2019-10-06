@@ -22,8 +22,8 @@ const PublicLayout = () => {
         )} 
         />*/}
       <Switch>
-        <Route path='/signin' exact component={SignInUpForm} />
-        <Route path='/signup' exact component={SignInUpForm} />
+        <Route path='/sign-in' exact component={SignInUpForm} />
+        <Route path='/sign-up' exact component={SignInUpForm} />
         <Route path='/home' exact component={Home} />
         <Route path='/side-bar' exact component={SideBar} />
       </Switch>

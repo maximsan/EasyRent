@@ -7,11 +7,11 @@ using Microsoft.Extensions.Configuration;
 
 namespace EasyRent.IdentityServer
 {
-    public class Config
+  public class Config
+  {
+    public static IEnumerable<Client> GetClients()
     {
-        public static IEnumerable<Client> GetClients()
-        {
-            return new List<Client>
+      return new List<Client>
             {
                 new Client
                 {
@@ -23,14 +23,14 @@ namespace EasyRent.IdentityServer
                     AllowAccessTokensViaBrowser = true,
                     AlwaysIncludeUserClaimsInIdToken = true,
                     PostLogoutRedirectUris = new string[]{
-                        "http://localhost:5001/signin"
+                        "http://localhost:5002/sign-in"
                     },
                     RedirectUris = new string[]{
-                        "http://localhost:5001/src/oidc/callback.html",
-                        "http://localhost:5001/signin"
+                        // "http://localhost:5002/src/oidc/callback.html",
+                        "http://localhost:5002/sign-in"
                     },
                     AllowedCorsOrigins = new string[]{
-                        "http://localhost:5001"
+                        "http://localhost:5002"
                     },
                     // scopes that client has access to
                     AllowedScopes =
@@ -42,23 +42,23 @@ namespace EasyRent.IdentityServer
                     AllowOfflineAccess = false
                 }
             };
-        }
+    }
 
-        public static IEnumerable<ApiResource> GetApiResources()
-        {
-            return new List<ApiResource>
+    public static IEnumerable<ApiResource> GetApiResources()
+    {
+      return new List<ApiResource>
             {
                 new ApiResource("api", "Rent API Resource")
             };
-        }
+    }
 
-        public static IEnumerable<IdentityResource> GetIdentityResources()
-        {
-            return new List<IdentityResource>
+    public static IEnumerable<IdentityResource> GetIdentityResources()
+    {
+      return new List<IdentityResource>
             {
                 new IdentityResources.OpenId(),
                 new IdentityResources.Profile()
             };
-        }
     }
+  }
 }

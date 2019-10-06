@@ -4,13 +4,14 @@ import { identityServerUrl, easyRentServerUrl, CLIENT_NAME } from './constants';
 export const IDENTITY_CONFIG = {
   authority: identityServerUrl,
   client_id: CLIENT_NAME,
-  redirect_uri: `${easyRentServerUrl}/signin`,
+  redirect_uri: `${identityServerUrl}/sign-in`,
   // login: identityServerUrl + "/login",
   // automaticSilentRenew: (boolean, default: false): Flag to indicate if there should be an automatic attempt to renew the access token prior to its expiration.
   loadUserInfo: true,
   // silent_redirect_uri: (string): The URL for the page containing the code handling the silent renew.
-  post_logout_redirect_uri: `${easyRentServerUrl}/signin`, // The OIDC post-logout redirect URI.
-  response_type: 'id_token token', // (string, default: 'id_token'): The type of response desired from the OIDC provider.
+  post_logout_redirect_uri: `${identityServerUrl}/sign-in`, // The OIDC post-logout redirect URI.
+  response_type: 'id_token token',
+  // (string, default: 'id_token'): The type of response desired from the OIDC provider.
   // grantType: "password",
   scope: `openid profile api`, // (string, default: 'openid'): The scope being requested from the OIDC provider.
   // webAuthResponseType: "id_token token",

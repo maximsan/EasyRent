@@ -25,109 +25,109 @@ using FluentValidation.AspNetCore;
 namespace EasyRent.IdentityServer
 {
 
-    public class Startup
+  public class Startup
+  {
+    public IConfiguration Configuration { get; }
+    public IHostingEnvironment Environment { get; }
+    private string MainDatabaseConnectionString
     {
-        public IConfiguration Configuration { get; }
-        public IHostingEnvironment Environment { get; }
-        private string MainDatabaseConnectionString
-        {
-            get
-            {
-                return Configuration.GetConnectionString("MainDatabase");
-            }
-        }
-
-        public Startup(IConfiguration configuration, IHostingEnvironment environment)
-        {
-            Environment = environment;
-            Configuration = configuration;
-        }
-
-        public void ConfigureServices(IServiceCollection services)
-        {
-            services.AddDbContext<ApplicationDbContext>(options =>
-            {
-                options.UseNpgsql(MainDatabaseConnectionString);
-            });
-
-            services.AddDefaultIdentity<User>(config =>
-                {
-                    config.User.RequireUniqueEmail = true;
-
-                    config.Password = new PasswordOptions
-                    {
-                        RequireDigit = false,
-                        RequireLowercase = false,
-                        RequireNonAlphanumeric = false,
-                        RequireUppercase = false,
-                        RequiredLength = 5
-                    };
-                })
-                .AddEntityFrameworkStores<ApplicationDbContext>()
-                .AddDefaultTokenProviders();
-
-            services.AddMvcCore()
-                .AddJsonFormatters()
-                .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
-                .AddFluentValidation(config =>
-                {
-                    config.RunDefaultMvcValidationAfterFluentValidationExecutes = true;
-                });
-
-            var builder = services.AddIdentityServer(options =>
-                {
-                    options.Events.RaiseErrorEvents = true;
-                    options.Events.RaiseFailureEvents = true;
-                    options.Events.RaiseInformationEvents = true;
-                    options.Events.RaiseSuccessEvents = true;
-                    options.UserInteraction.LoginUrl = "http://localhost:5001/signin";
-                })
-                .AddInMemoryApiResources(Config.GetApiResources())
-                .AddInMemoryIdentityResources(Config.GetIdentityResources())
-                .AddInMemoryClients(Config.GetClients())
-                .AddAspNetIdentity<User>();
-
-            if (Environment.IsDevelopment())
-            {
-                builder.AddDeveloperSigningCredential();
-            }
-            else
-            {
-                //TODO: Need configure key material.
-            }
-
-            services.AddAuthentication("Cookie")
-            .AddCookie("Cookie", options =>
-            {
-                options.ExpireTimeSpan = TimeSpan.FromDays(1);
-            });
-
-            services.AddCors(options =>
-            {
-                options.AddPolicy("default", policy =>
-                {
-                    policy.AllowAnyOrigin()
-                        .AllowAnyHeader()
-                        .AllowAnyMethod();
-                });
-            });
-
-            services.AddAutoMapper(config =>
-            {
-                config.CreateMap<SignInModel, User>();
-                config.CreateMap<SignUpModel, User>();
-            }, typeof(Startup));
-        }
-
-        public void Configure(IApplicationBuilder app, ILoggerFactory loggerFactory)
-        {
-            loggerFactory.AddFileLogger();
-
-            app.UseDeveloperExceptionPage();
-            app.UseStaticFiles();
-            app.UseIdentityServer();
-            app.UseCors("default");
-            app.UseMvcWithDefaultRoute();
-        }
+      get
+      {
+        return Configuration.GetConnectionString("MainDatabase");
+      }
     }
+
+    public Startup(IConfiguration configuration, IHostingEnvironment environment)
+    {
+      Environment = environment;
+      Configuration = configuration;
+    }
+
+    public void ConfigureServices(IServiceCollection services)
+    {
+      services.AddDbContext<ApplicationDbContext>(options =>
+      {
+        options.UseNpgsql(MainDatabaseConnectionString);
+      });
+
+      services.AddDefaultIdentity<User>(config =>
+          {
+            config.User.RequireUniqueEmail = true;
+
+            config.Password = new PasswordOptions
+            {
+              RequireDigit = false,
+              RequireLowercase = false,
+              RequireNonAlphanumeric = false,
+              RequireUppercase = false,
+              RequiredLength = 5
+            };
+          })
+          .AddEntityFrameworkStores<ApplicationDbContext>()
+          .AddDefaultTokenProviders();
+
+      services.AddMvcCore()
+          .AddJsonFormatters()
+          .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
+          .AddFluentValidation(config =>
+          {
+            config.RunDefaultMvcValidationAfterFluentValidationExecutes = true;
+          });
+
+      var builder = services.AddIdentityServer(options =>
+          {
+            options.Events.RaiseErrorEvents = true;
+            options.Events.RaiseFailureEvents = true;
+            options.Events.RaiseInformationEvents = true;
+            options.Events.RaiseSuccessEvents = true;
+            options.UserInteraction.LoginUrl = "http://localhost:5002/sign-in";
+          })
+          .AddInMemoryApiResources(Config.GetApiResources())
+          .AddInMemoryIdentityResources(Config.GetIdentityResources())
+          .AddInMemoryClients(Config.GetClients())
+          .AddAspNetIdentity<User>();
+
+      if (Environment.IsDevelopment())
+      {
+        builder.AddDeveloperSigningCredential();
+      }
+      else
+      {
+        //TODO: Need configure key material.
+      }
+
+      services.AddAuthentication("Cookie")
+      .AddCookie("Cookie", options =>
+      {
+        options.ExpireTimeSpan = TimeSpan.FromDays(1);
+      });
+
+      services.AddCors(options =>
+      {
+        options.AddPolicy("default", policy =>
+              {
+            policy.AllowAnyOrigin()
+                      .AllowAnyHeader()
+                      .AllowAnyMethod();
+          });
+      });
+
+      services.AddAutoMapper(config =>
+      {
+        config.CreateMap<SignInModel, User>();
+        config.CreateMap<SignUpModel, User>();
+      }, typeof(Startup));
+    }
+
+    public void Configure(IApplicationBuilder app, ILoggerFactory loggerFactory)
+    {
+      loggerFactory.AddFileLogger();
+
+      app.UseDeveloperExceptionPage();
+      app.UseStaticFiles();
+      app.UseIdentityServer();
+      app.UseCors("default");
+      app.UseMvcWithDefaultRoute();
+    }
+  }
 }

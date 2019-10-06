@@ -1,16 +1,20 @@
-import React from 'react';
-import AuthProvider from '../../context/AuthProvider';
+import { useContext, useEffect } from 'react';
+import AuthContext from '../../context/AuthContext';
 
 const AuthCallback = () => {
-  return (
-    <AuthProvider>
-      {({ signinRedirectCallback }) => {
-        signinRedirectCallback().then(() => {
-          window.location = '/main';
-        });
-      }}
-    </AuthProvider>
-  );
+  const { signinRedirectCallback } = useContext(AuthContext);
+
+  useEffect(() => {
+    signinRedirectCallback()
+      .then((state) => {
+        window.location = '/main';
+      })
+      .catch((error) => {
+        console.warn(error);
+      });
+  }, [signinRedirectCallback]);
+
+  return null;
 };
 
 export default AuthCallback;

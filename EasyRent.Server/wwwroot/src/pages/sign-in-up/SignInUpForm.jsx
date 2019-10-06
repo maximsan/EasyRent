@@ -1,7 +1,8 @@
 import React, { useState, useRef, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { connect, useDispatch } from 'react-redux';
-import { signIn, signUp } from '../../reducers/signInReducer';
+import { signIn } from '../../reducers/signInReducer';
+import { signUp } from '../../reducers/signUpReducer';
 import SignInForm from '../sign-in/SignInForm';
 import SignInOverlay from '../sign-in/SignInOverlay';
 import SignUpForm from '../../components/sign-up/SignUpForm';
@@ -30,7 +31,6 @@ const SignInUpForm = () => {
   };
 
   const onSignInSubmit = () => {
-    debugger;
     dispatch(
       signIn({
         email: values.email,

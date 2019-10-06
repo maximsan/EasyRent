@@ -1,47 +1,45 @@
 import axios from 'axios';
 import _ from 'lodash';
 import {
-  SIGN_IN,
+  SIGN_UP,
   START_REQUEST,
   STOP_REQUEST,
   HANDLE_ERROR,
 } from './actionTypes';
 import { startRequest, stopRequest, handleRequestError } from './signInActions';
+import { signUpSuccess } from './signUpActions';
 import { identityServerUrl } from '../config/constants';
 
-export const signIn = (data) => (dispatch) => {
-  const { email, password, returnUrl, signinRedirectCallback } = data;
+export const signUp = (data) => (dispatch) => {
+  const { email, password, userName, confirmPassword } = data;
 
-  if (_.isEmpty(data) || email === '' || password === '') {
+  if (
+    _.isEmpty(data) ||
+    email === '' ||
+    password === '' ||
+    userName === '' ||
+    confirmPassword === '' ||
+    confirmPassword !== password
+  ) {
     return;
-  }
-
-  if (!returnUrl) {
-    throw Error('ReturnUrl cannot be empty');
   }
 
   const request = {
     method: 'POST',
-    url: `${identityServerUrl}/account/sign-in?returnUrl=${returnUrl}`,
+    url: `${identityServerUrl}/account/sign-up`,
     data,
-    headers: {
-      'Access-Control-Allow-Origin': '*',
-    },
   };
 
   dispatch(startRequest);
 
-  const handleSuccess = (response) => {
-    debugger;
+  const handleSuccess = () => {
     dispatch(stopRequest);
-
-    signinRedirectCallback().then(() => {
-      window.location = '/main';
-    });
+    dispatch(signUpSuccess);
+    window.location.pathname = '/main';
   };
   const handleError = (response) => {
-    debugger;
-    dispatch(handleRequestError(response));
+    dispatch(stopRequest);
+    dispatch(handleRequestError(response.data));
   };
 
   axios(request)
@@ -49,9 +47,9 @@ export const signIn = (data) => (dispatch) => {
     .catch(handleError);
 };
 
-const signInReducer = (state = {}, action) => {
+export const signUpReducer = (state = {}, action) => {
   switch (action.type) {
-    case SIGN_IN: {
+    case SIGN_UP: {
       return { ...state, isSigned: action.payload };
     }
     case START_REQUEST: {
@@ -73,5 +71,3 @@ const signInReducer = (state = {}, action) => {
       return state;
   }
 };
-
-export default signInReducer;

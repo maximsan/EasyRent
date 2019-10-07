@@ -78,7 +78,7 @@ You can run this solution by two ways:
 
 ## Maintainers
 
-[@maximsan](https://github.com/maximsan)
+[@maximsan](https://github.com/maximsan) [@PushMeNow](https://github.com/PushMeNow)
 
 ## Contributing
 

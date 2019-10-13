@@ -5,13 +5,7 @@ const AuthCallback = () => {
   const { signinRedirectCallback } = useContext(AuthContext);
 
   useEffect(() => {
-    signinRedirectCallback()
-      .then((state) => {
-        window.location = '/main';
-      })
-      .catch((error) => {
-        console.warn(error);
-      });
+    signinRedirectCallback();
   }, [signinRedirectCallback]);
 
   return null;

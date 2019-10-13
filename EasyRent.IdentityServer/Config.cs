@@ -26,7 +26,7 @@ namespace EasyRent.IdentityServer
                         "http://localhost:5001/sign-in"
                     },
                     RedirectUris = new string[]{
-                        "http://localhost:5001" //TODO: Change on authcallback
+                        "http://localhost:5001/auth-callback"
                     },
                     AllowedCorsOrigins = new string[]{
                         "http://localhost:5002",

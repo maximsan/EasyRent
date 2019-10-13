@@ -37,9 +37,15 @@ class OpenIdIdentityService {
   }
 
   signinRedirectCallback = () => {
-    this.UserManager.signinRedirectCallback().then((user) => {
-      this.user = user;
-    });
+    this.UserManager.signinRedirectCallback()
+      .then((user) => {
+        this.user = user;
+        window.location.href = '/main';
+      })
+      .catch((error) => {
+        debugger;
+        Log.warn(error);
+      });
   };
 
   getUser = async () => {

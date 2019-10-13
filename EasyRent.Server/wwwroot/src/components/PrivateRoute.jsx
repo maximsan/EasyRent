@@ -15,7 +15,8 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
         }
 
         signinRedirect();
-        return <Redirect to='/signin' />;
+        //return <Redirect to='/signin' />; not need here.
+        return <span>loading</span>;
       }}
     />
   );

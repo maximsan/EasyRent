@@ -1,0 +1,33 @@
+﻿@model EasyRent.IdentityServer.Models.ScopeViewModel
+
+<li class="list-group-item">
+    <label>
+        @Html.CheckBoxFor(q => q.Checked, new 
+        { 
+            disabled = Model.Required, 
+            value = Model.Name, 
+            id = "scopes_" + Model.Name, 
+            name = "ScopesConsented",
+            @class="consent-scopecheck"
+        })
+        @if (Model.Required)
+        {
+            @Html.Hidden("ScopesConsented", Model.Name)
+        }
+        <strong>@Model.DisplayName</strong>
+        @if (Model.Emphasize)
+        {
+            <span class="glyphicon glyphicon-exclamation-sign"></span>
+        }
+    </label>
+    @if (Model.Required)
+    {
+        <span><em>(required)</em></span>
+    }
+    @if (Model.Description != null)
+    {
+        <div class="consent-description">
+            <label for="scopes_@Model.Name">@Model.Description</label>
+        </div>
+    }
+</li>

@@ -22,11 +22,8 @@ export const signIn = (data) => (dispatch) => {
 
   const request = {
     method: 'POST',
-    url: `${identityServerUrl}/account/sign-in?returnUrl=${returnUrl}`,
+    url: `${identityServerUrl}/account/sign-in`,
     data,
-    headers: {
-      'Access-Control-Allow-Origin': '*',
-    },
   };
 
   dispatch(startRequest);
@@ -35,9 +32,7 @@ export const signIn = (data) => (dispatch) => {
     debugger;
     dispatch(stopRequest);
 
-    signinRedirectCallback().then(() => {
-      window.location = '/main';
-    });
+    signinRedirectCallback(returnUrl);
   };
   const handleError = (response) => {
     debugger;

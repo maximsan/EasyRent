@@ -4,7 +4,7 @@ import { identityServerUrl, easyRentServerUrl, CLIENT_NAME } from './constants';
 export const IDENTITY_CONFIG = {
   authority: identityServerUrl,
   client_id: CLIENT_NAME,
-  redirect_uri: `${identityServerUrl}/sign-in`,
+  redirect_uri: `${easyRentServerUrl}`,
   // login: identityServerUrl + "/login",
   // automaticSilentRenew: (boolean, default: false): Flag to indicate if there should be an automatic attempt to renew the access token prior to its expiration.
   loadUserInfo: true,

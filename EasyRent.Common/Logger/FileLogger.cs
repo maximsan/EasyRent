@@ -75,6 +75,6 @@ namespace EasyRent.Common.Logger
 
         private static string GetFullCatalogPath() => Path.Combine(Environment.CurrentDirectory, rootCatalog);
 
-        private static string GetFullFilePath() => Path.Combine(GetFullCatalogPath(), DateTime.Now.ToShortDateString() + ".txt");
+        private static string GetFullFilePath() => Path.Combine(GetFullCatalogPath(), DateTime.Now.Date.ToString("MM.dd.yyyy") + ".txt");
     }
 }

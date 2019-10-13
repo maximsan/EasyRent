@@ -5,17 +5,19 @@ using EasyRent.Common.Constants;
 using EasyRent.Common.Extentions;
 using EasyRent.Common.Models;
 using EasyRent.Data.Entities;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
 using IdentityServer4.Events;
 using IdentityServer4.Models;
 using IdentityServer4.Services;
 using IdentityServer4.Stores;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using SignInResult = Microsoft.AspNetCore.Identity.SignInResult;
+using EasyRent.Common.Attributes;
 
-namespace EasyRent.Server.Controllers
+namespace EasyRent.IdentityServer.Controllers
 {
+    [SecurityHeaders]
     [Produces("application/json")]
     [Route("[controller]")]
     public class AccountController : BaseController
@@ -74,15 +76,23 @@ namespace EasyRent.Server.Controllers
             return Json(new JsonResponseTemplate(result.Succeeded, result.Errors.Select(q => q.Description)));
         }
 
-        [HttpPost("sign-in")]
-        public async Task<IActionResult> SignIn([FromBody] SignInModel model, [FromQuery] string ReturnUrl)
+        [HttpGet("SignIn")]
+        public IActionResult SignIn(string returnUrl)
+        {
+            var vm = new SignInModel { ReturnUrl = returnUrl };
+
+            return View(vm);
+        }
+
+        [HttpPost("SignIn")]
+        public async Task<IActionResult> SignIn([FromForm] SignInModel model)
         {
             if (!ModelState.IsValid)
             {
                 return Json(new JsonResponseTemplate(false, ErrorMessages.SignInError));
             }
 
-            AuthorizationRequest context = await Interaction.GetAuthorizationContextAsync(ReturnUrl);
+            AuthorizationRequest context = await Interaction.GetAuthorizationContextAsync(model.ReturnUrl);
 
             var user = await SignInManager.UserManager.FindByEmailAsync(model.Email);
 
@@ -94,17 +104,16 @@ namespace EasyRent.Server.Controllers
 
                 if (context != null)
                 {
-                    return Redirect(ReturnUrl);
+                    return Redirect(model.ReturnUrl);
                 }
 
-                if (Url.IsLocalUrl(ReturnUrl))
+                if (Url.IsLocalUrl(model.ReturnUrl))
                 {
-                    return Redirect(ReturnUrl);
+                    return Redirect(model.ReturnUrl);
                 }
             }
 
-            return Json(new JsonResponseTemplate(trySignIn.Succeeded,
-                trySignIn.Succeeded ? string.Empty : ErrorMessages.SignInError));
+            return Redirect("~/");
         }
 
         [Route("sign-out")]

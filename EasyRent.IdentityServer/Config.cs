@@ -23,14 +23,14 @@ namespace EasyRent.IdentityServer
                     AllowAccessTokensViaBrowser = true,
                     AlwaysIncludeUserClaimsInIdToken = true,
                     PostLogoutRedirectUris = new string[]{
-                        "http://localhost:5002/sign-in"
+                        "http://localhost:5001/sign-in"
                     },
                     RedirectUris = new string[]{
-                        // "http://localhost:5002/src/oidc/callback.html",
-                        "http://localhost:5002/sign-in"
+                        "http://localhost:5001" //TODO: Change on authcallback
                     },
                     AllowedCorsOrigins = new string[]{
-                        "http://localhost:5002"
+                        "http://localhost:5002",
+                        "http://localhost:5001"
                     },
                     // scopes that client has access to
                     AllowedScopes =

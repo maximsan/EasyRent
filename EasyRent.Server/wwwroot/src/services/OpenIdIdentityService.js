@@ -4,14 +4,13 @@ import { easyRentServerUrl } from '../config/constants';
 
 class OpenIdIdentityService {
   constructor() {
-    debugger;
     this.UserManager = new UserManager({
       ...IDENTITY_CONFIG,
       metadata: { ...METADATA_OIDC },
     });
 
     Log.logger = console;
-    Log.level = 4;
+    Log.level = Log.DEBUG;
 
     this.UserManager.events.addUserLoaded((user) => {
       this.accessToken = user.access_token;
@@ -39,7 +38,7 @@ class OpenIdIdentityService {
 
   signinRedirectCallback = () => {
     this.UserManager.signinRedirectCallback().then(() => {
-      '';
+      window.location.href = '/main';
     });
   };
 
@@ -67,10 +66,10 @@ class OpenIdIdentityService {
     this.setUser(data);
   };
 
-  signinRedirect = (url) => {
-    debugger;
-    localStorage.setItem('redirectUri', url);
-    this.UserManager.signinRedirect({});
+  signinRedirect = () => {
+    // debugger;
+    localStorage.setItem('redirectUri', window.location.origin);
+    this.UserManager.signinRedirect();
   };
 
   setUser = (userId) => {

@@ -6,7 +6,7 @@ using IdentityServer4.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace EasyRent.Server.Controllers
+namespace EasyRent.IdentityServer.Controllers
 {
   public class BaseController : Controller
   {

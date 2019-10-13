@@ -27,18 +27,18 @@ class OpenIdIdentityService {
     });
 
     this.UserManager.events.addSilentRenewError((e) => {
-      console.log('silent renew error', e.message);
+      console.warn('silent renew error', e.message);
     });
 
     this.UserManager.events.addAccessTokenExpired(() => {
-      console.log('token expired');
+      console.warn('token expired');
       this.signinSilent();
     });
   }
 
   signinRedirectCallback = () => {
-    this.UserManager.signinRedirectCallback().then(() => {
-      window.location.href = '/main';
+    this.UserManager.signinRedirectCallback().then((user) => {
+      this.user = user;
     });
   };
 
@@ -77,18 +77,16 @@ class OpenIdIdentityService {
   };
 
   navigateToScreen = () => {
-    const redirectUri = localStorage.getItem('redirectUri')
-      ? localStorage.getItem('redirectUri')
-      : '/en/dashboard';
+    const redirectUri = localStorage.getItem('redirectUri') || '/en/dashboard';
     const language = `/${redirectUri.split('/')[1]}`;
 
     window.location.replace(`${language}/dashboard`);
   };
 
-  setSessionInfo(authResult) {
-    window.localStorage.setItem('access_token', authResult.accessToken);
-    window.localStorage.setItem('id_token', authResult.idToken);
-  }
+  setSessionInfo = ({ accessToken, idToken }) => {
+    window.localStorage.setItem('access_token', accessToken);
+    window.localStorage.setItem('id_token', idToken);
+  };
 
   isAuthenticated = () => {
     const accessToken = localStorage.getItem('access_token');
@@ -101,7 +99,7 @@ class OpenIdIdentityService {
         console.log('signed in', user);
       })
       .catch((err) => {
-        console.log(err);
+        console.error(err);
       });
   };
 

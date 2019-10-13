@@ -13,13 +13,6 @@ export const signIn = (data) => {
   };
 };
 
-export const signUp = (data) => {
-  return {
-    type: SIGN_UP,
-    data,
-  };
-};
-
 export const startRequest = () => {
   return {
     type: START_REQUEST,

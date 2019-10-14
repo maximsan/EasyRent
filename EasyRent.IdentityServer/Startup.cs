@@ -72,6 +72,7 @@ namespace EasyRent.IdentityServer
                     options.Events.RaiseInformationEvents = true;
                     options.Events.RaiseSuccessEvents = true;
                     options.UserInteraction.LoginUrl = "http://localhost:5002/Account/SignIn";
+                    options.IssuerUri = "http://localhost:5002";
                 })
                 .AddInMemoryApiResources(Config.GetApiResources())
                 .AddInMemoryIdentityResources(Config.GetIdentityResources())

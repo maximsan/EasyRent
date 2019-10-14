@@ -22,6 +22,7 @@ export const IDENTITY_CONFIG = {
 };
 
 export const METADATA_OIDC = {
+  issuer: identityServerUrl,
   jwks_uri: `${identityServerUrl}/.well-known/openid-configuration/jwks`,
   authorization_endpoint: `${identityServerUrl}/connect/authorize`,
   token_endpoint: `${identityServerUrl}/connect/token`,

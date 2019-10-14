@@ -102,15 +102,7 @@ namespace EasyRent.IdentityServer.Controllers
             {
                 await Events.RaiseAsync(new UserLoginSuccessEvent(user.UserName, user.Id, user.UserName));
 
-                if (context != null)
-                {
-                    return Redirect(model.ReturnUrl);
-                }
-
-                if (Url.IsLocalUrl(model.ReturnUrl))
-                {
-                    return Redirect(model.ReturnUrl);
-                }
+                return Redirect(model.ReturnUrl);
             }
 
             return Redirect("~/");

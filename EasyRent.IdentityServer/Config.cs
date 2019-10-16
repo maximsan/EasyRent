@@ -23,7 +23,7 @@ namespace EasyRent.IdentityServer
                     AllowAccessTokensViaBrowser = true,
                     AlwaysIncludeUserClaimsInIdToken = true,
                     PostLogoutRedirectUris = new string[]{
-                        "http://localhost:5001/sign-in"
+                        "http://localhost:5001/logout-callback"
                     },
                     RedirectUris = new string[]{
                         "http://localhost:5001/auth-callback"
@@ -39,7 +39,8 @@ namespace EasyRent.IdentityServer
                         IdentityServerConstants.StandardScopes.Profile,
                         "api"
                     },
-                    AllowOfflineAccess = false
+                    AllowOfflineAccess = false,
+                    RequireConsent = false
                 }
             };
     }

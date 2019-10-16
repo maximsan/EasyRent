@@ -268,3 +268,4 @@ EasyRent.Server/Properties/PublishProfiles/FolderProfile.pubxml
 /.vscode/tasks.json
 /.vscode/launch.json
 EasyRent.IdentityServer/logger
+EasyRent.Server/wwwroot/.prettierrc

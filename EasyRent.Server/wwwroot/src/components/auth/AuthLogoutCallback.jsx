@@ -1,13 +1,15 @@
-import React from 'react';
-import AuthProvider from '../../context/AuthProvider';
+// This componet which finishes logout request.
+import React, { useContext, useEffect } from 'react';
+import AuthContext from '../../context/AuthContext';
 
-const LogoutCallback = () => (
-  <AuthProvider>
-    {({ signoutRedirectCallback }) => {
-      signoutRedirectCallback();
-      return <span>loading</span>;
-    }}
-  </AuthProvider>
-);
+const LogoutCallback = () => {
+    const { signoutRedirectCallback } = useContext(AuthContext);
+
+    useEffect(() => {
+        signoutRedirectCallback();
+    }, [signoutRedirectCallback]);
+
+    return null;
+};
 
 export default LogoutCallback;

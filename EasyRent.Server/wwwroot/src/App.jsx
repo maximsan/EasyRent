@@ -7,19 +7,21 @@ import PrivateLayout from './layouts/router-layouts/PrivateLayout';
 import PrivateRoute from './components/PrivateRoute';
 import AuthProvider from './context/AuthProvider';
 import AuthCallback from './components/auth/AuthCallback';
+import LogoutCallback from './components/auth/AuthLogoutCallback';
 
 const App = React.memo(() => (
-  <AuthProvider>
-    <BrowserRouter>
-      <Switch>
-        <Route path='/sign-in' component={PublicLayout} />
-        <Route path='/sign-up' component={PublicLayout} />
-        <Route path='/home' component={PublicLayout} />
-        <Route path='/auth-callback' component={AuthCallback} />
-        <PrivateRoute path='/' component={PrivateLayout} />
-      </Switch>
-    </BrowserRouter>
-  </AuthProvider>
+    <AuthProvider>
+        <BrowserRouter>
+            <Switch>
+                <Route path='/sign-in' component={PublicLayout} />
+                <Route path='/sign-up' component={PublicLayout} />
+                <Route path='/home' component={PublicLayout} />
+                <Route path='/auth-callback' component={AuthCallback} />
+                <Route path='/logout-callback' component={LogoutCallback} />
+                <PrivateRoute path='/' component={PrivateLayout} />
+            </Switch>
+        </BrowserRouter>
+    </AuthProvider>
 ));
 
 export default App;

@@ -9,6 +9,7 @@ using IdentityServer4.Models;
 using IdentityServer4.Services;
 using IdentityServer4.Stores;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -17,6 +18,7 @@ namespace EasyRent.IdentityServer.Controllers
     /// <summary>
     /// This controller processes the consent UI
     /// </summary>
+    [DisableCors]
     [SecurityHeaders]
     [Authorize]
     public class ConsentController : Controller

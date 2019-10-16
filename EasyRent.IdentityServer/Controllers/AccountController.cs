@@ -6,7 +6,6 @@ using EasyRent.Common.Extentions;
 using EasyRent.Common.Models;
 using EasyRent.Data.Entities;
 using IdentityServer4.Events;
-using IdentityServer4.Models;
 using IdentityServer4.Services;
 using IdentityServer4.Stores;
 using Microsoft.AspNetCore.Authentication;
@@ -14,9 +13,12 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using SignInResult = Microsoft.AspNetCore.Identity.SignInResult;
 using EasyRent.Common.Attributes;
+using IdentityServer4.Extensions;
+using Microsoft.AspNetCore.Cors;
 
 namespace EasyRent.IdentityServer.Controllers
 {
+    [EnableCors("WithCredentials")]
     [SecurityHeaders]
     [Produces("application/json")]
     [Route("[controller]")]
@@ -84,15 +86,13 @@ namespace EasyRent.IdentityServer.Controllers
             return View(vm);
         }
 
-        [HttpPost("SignIn")]
-        public async Task<IActionResult> SignIn([FromForm] SignInModel model)
+        [HttpPost("sign-in")]
+        public async Task<IActionResult> SignIn([FromBody] SignInModel model)
         {
             if (!ModelState.IsValid)
             {
-                return Json(new JsonResponseTemplate(false, ErrorMessages.SignInError));
+                return ValidationProblem();
             }
-
-            AuthorizationRequest context = await Interaction.GetAuthorizationContextAsync(model.ReturnUrl);
 
             var user = await SignInManager.UserManager.FindByEmailAsync(model.Email);
 
@@ -102,23 +102,31 @@ namespace EasyRent.IdentityServer.Controllers
             {
                 await Events.RaiseAsync(new UserLoginSuccessEvent(user.UserName, user.Id, user.UserName));
 
-                return Redirect(model.ReturnUrl);
+                return Json(new { returnUrl = model.ReturnUrl });
             }
 
-            return Redirect("~/");
+            await Events.RaiseAsync(new UserLoginFailureEvent(user.UserName, "User cannot sign in."));
+
+            return NotFound();
         }
 
-        [Route("sign-out")]
-        public async Task<IActionResult> SignOut(int? id)
+        [HttpGet("sign-out")]
+        public async Task<IActionResult> SignOut([FromQuery] string logoutId)
         {
-            if (!id.HasValue)
+            var context = await Interaction.GetLogoutContextAsync(logoutId.IsNotNullOrWhiteSpace()
+                ? logoutId
+                : await Interaction.CreateLogoutContextAsync());
+
+            if (context is null)
             {
-                return Json(new JsonResponseTemplate(false, "Bad request. Try again."));
+                return Json(false);
             }
 
             await SignInManager.SignOutAsync();
 
-            return Json(new JsonResponseTemplate(true, string.Empty));
+            await Events.RaiseAsync(new UserLogoutSuccessEvent(User.GetSubjectId(), User.GetDisplayName()));
+
+            return Redirect(context.PostLogoutRedirectUri);
         }
 
         [HttpPost("sign-up")]

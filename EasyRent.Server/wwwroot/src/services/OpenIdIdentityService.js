@@ -3,134 +3,134 @@ import { METADATA_OIDC, IDENTITY_CONFIG } from '../config/oidc-config';
 import { easyRentServerUrl } from '../config/constants';
 
 class OpenIdIdentityService {
-  constructor() {
-    this.UserManager = new UserManager({
-      ...IDENTITY_CONFIG,
-      metadata: { ...METADATA_OIDC },
-    });
+    constructor() {
+        this.UserManager = new UserManager({
+            ...IDENTITY_CONFIG,
+            metadata: { ...METADATA_OIDC },
+        });
 
-    Log.logger = console;
-    Log.level = Log.DEBUG;
+        Log.logger = console;
+        Log.level = Log.DEBUG;
 
-    this.UserManager.events.addUserLoaded((user) => {
-      this.accessToken = user.access_token;
-      localStorage.setItem('access_token', user.access_token);
-      localStorage.setItem('id_token', user.id_token);
-      this.setUserInfo({
-        accessToken: this.accessToken,
-        idToken: user.id_token,
-      });
+        this.UserManager.events.addUserLoaded((user) => {
+            this.accessToken = user.access_token;
+            localStorage.setItem('access_token', user.access_token);
+            localStorage.setItem('id_token', user.id_token);
+            this.setUserInfo({
+                accessToken: this.accessToken,
+                idToken: user.id_token,
+            });
 
-      if (window.location.href.indexOf('signin-oidc') !== -1) {
-        this.navigateToScreen();
-      }
-    });
+            if (window.location.href.indexOf('signin-oidc') !== -1) {
+                this.navigateToScreen();
+            }
+        });
 
-    this.UserManager.events.addSilentRenewError((e) => {
-      console.warn('silent renew error', e.message);
-    });
+        this.UserManager.events.addSilentRenewError((e) => {
+            console.warn('silent renew error', e.message);
+        });
 
-    this.UserManager.events.addAccessTokenExpired(() => {
-      console.warn('token expired');
-      this.signinSilent();
-    });
-  }
-
-  signinRedirectCallback = () => {
-    this.UserManager.signinRedirectCallback()
-      .then((user) => {
-        this.user = user;
-        window.location.href = '/main';
-      })
-      .catch((error) => {
-        debugger;
-        Log.warn(error);
-      });
-  };
-
-  getUser = async () => {
-    let user = await this.UserManager.getUser();
-
-    if (!user) {
-      user = await this.UserManager.signinRedirectCallback();
-      return user;
+        this.UserManager.events.addAccessTokenExpired(() => {
+            console.warn('token expired');
+            this.signinSilent();
+        });
     }
 
-    return user;
-  };
+    signinRedirectCallback = () => {
+        this.UserManager.signinRedirectCallback()
+            .then((user) => {
+                this.user = user;
+                window.location.href = '/main';
+            })
+            .catch((error) => {
+                debugger;
+                Log.warn(error);
+            });
+    };
 
-  parseJwt = (token) => {
-    const base64Url = token.split('.')[1];
-    const base64 = base64Url.replace('-', '+').replace('_', '/');
-    return JSON.parse(window.atob(base64));
-  };
+    getUser = async () => {
+        let user = await this.UserManager.getUser();
 
-  setUserInfo = (authResult) => {
-    const data = this.parseJwt(this.accessToken);
+        if (!user) {
+            user = await this.UserManager.signinRedirectCallback();
+            return user;
+        }
 
-    this.setSessionInfo(authResult);
-    this.setUser(data);
-  };
+        return user;
+    };
 
-  signinRedirect = () => {
-    // debugger;
-    localStorage.setItem('redirectUri', window.location.origin);
-    this.UserManager.signinRedirect();
-  };
+    parseJwt = (token) => {
+        const base64Url = token.split('.')[1];
+        const base64 = base64Url.replace('-', '+').replace('_', '/');
+        return JSON.parse(window.atob(base64));
+    };
 
-  setUser = (userId) => {
-    localStorage.setItem('userId', userId.sub);
-  };
+    setUserInfo = (authResult) => {
+        const data = this.parseJwt(this.accessToken);
 
-  navigateToScreen = () => {
-    const redirectUri = localStorage.getItem('redirectUri') || '/en/dashboard';
-    const language = `/${redirectUri.split('/')[1]}`;
+        this.setSessionInfo(authResult);
+        this.setUser(data);
+    };
 
-    window.location.replace(`${language}/dashboard`);
-  };
+    signinRedirect = () => {
+        // debugger;
+        localStorage.setItem('redirectUri', window.location.origin);
+        this.UserManager.signinRedirect();
+    };
 
-  setSessionInfo = ({ accessToken, idToken }) => {
-    window.localStorage.setItem('access_token', accessToken);
-    window.localStorage.setItem('id_token', idToken);
-  };
+    setUser = (userId) => {
+        localStorage.setItem('userId', userId.sub);
+    };
 
-  isAuthenticated = () => {
-    const accessToken = localStorage.getItem('access_token');
-    return !!accessToken;
-  };
+    navigateToScreen = () => {
+        const redirectUri =
+            localStorage.getItem('redirectUri') || '/en/dashboard';
+        const language = `/${redirectUri.split('/')[1]}`;
 
-  signinSilent = () => {
-    this.UserManager.signinSilent()
-      .then((user) => {
-        console.log('signed in', user);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-  };
+        window.location.replace(`${language}/dashboard`);
+    };
 
-  signinSilentCallback = () => {
-    this.UserManager.signinSilentCallback();
-  };
+    setSessionInfo = ({ accessToken, idToken }) => {
+        window.localStorage.setItem('access_token', accessToken);
+        window.localStorage.setItem('id_token', idToken);
+    };
 
-  createSigninRequest = () => {
-    return this.UserManager.createSigninRequest();
-  };
+    isAuthenticated = () => {
+        const accessToken = localStorage.getItem('access_token');
+        return !!accessToken;
+    };
 
-  logout = () => {
-    this.UserManager.signoutRedirect({
-      id_token_hint: localStorage.getItem('id_token'),
-    });
-    this.UserManager.clearStaleState();
-  };
+    signinSilent = () => {
+        this.UserManager.signinSilent()
+            .then((user) => {
+                console.log('signed in', user);
+            })
+            .catch((err) => {
+                console.error(err);
+            });
+    };
 
-  signoutRedirectCallback = () => {
-    this.UserManager.signoutRedirectCallback().then(() => {
-      localStorage.clear();
-      window.location.replace(easyRentServerUrl);
-    });
-    this.UserManager.clearStaleState();
-  };
+    signinSilentCallback = () => {
+        this.UserManager.signinSilentCallback();
+    };
+
+    createSigninRequest = () => {
+        return this.UserManager.createSigninRequest();
+    };
+
+    logout = () => {
+        this.UserManager.signoutRedirect({
+            id_token_hint: localStorage.getItem('id_token'),
+        });
+    };
+
+    signoutRedirectCallback = () => {
+        this.UserManager.signoutRedirectCallback().then(() => {
+            localStorage.clear();
+            window.location.replace(`${easyRentServerUrl}/main`);
+        });
+        this.UserManager.clearStaleState();
+    };
 }
 
 const openIdIdentityService = new OpenIdIdentityService();

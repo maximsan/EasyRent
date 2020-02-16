@@ -71,7 +71,7 @@ namespace EasyRent.IdentityServer
                     options.Events.RaiseFailureEvents = true;
                     options.Events.RaiseInformationEvents = true;
                     options.Events.RaiseSuccessEvents = true;
-                    options.UserInteraction.LoginUrl = "http://localhost:5001/sign-in";
+                    options.UserInteraction.LoginUrl = "http://localhost:5002/account/SignIn";
                     options.UserInteraction.LogoutUrl = "http://localhost:5002/account/sign-out";
                     options.IssuerUri = "http://localhost:5002";
                 })
@@ -98,18 +98,6 @@ namespace EasyRent.IdentityServer
                     policy.AllowAnyOrigin()
                         .AllowAnyHeader()
                         .AllowAnyMethod();
-                });
-
-                // policy for authentication of cross-damain requests.
-                // cross-damain requests have to have allow-credentials header.
-                // IS passes cross-domain requests which included in origins list.
-                options.AddPolicy("WithCredentials", policy => 
-                {
-                    policy.AllowAnyHeader()
-                        .AllowAnyMethod()
-                        .AllowCredentials()
-                        .WithOrigins("http://localhost:5001",
-                            "http://localhost:5002");
                 });
             });
 

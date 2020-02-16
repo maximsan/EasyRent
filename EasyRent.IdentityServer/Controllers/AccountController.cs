@@ -18,7 +18,6 @@ using Microsoft.AspNetCore.Cors;
 
 namespace EasyRent.IdentityServer.Controllers
 {
-    [EnableCors("WithCredentials")]
     [SecurityHeaders]
     [Produces("application/json")]
     [Route("[controller]")]
@@ -78,7 +77,7 @@ namespace EasyRent.IdentityServer.Controllers
             return Json(new JsonResponseTemplate(result.Succeeded, result.Errors.Select(q => q.Description)));
         }
 
-        [HttpGet("SignIn")]
+        [HttpGet("[action]")]
         public IActionResult SignIn(string returnUrl)
         {
             var vm = new SignInModel { ReturnUrl = returnUrl };
@@ -86,12 +85,12 @@ namespace EasyRent.IdentityServer.Controllers
             return View(vm);
         }
 
-        [HttpPost("sign-in")]
-        public async Task<IActionResult> SignIn([FromBody] SignInModel model)
+        [HttpPost("[action]")]
+        public async Task<IActionResult> SignIn(SignInModel model)
         {
             if (!ModelState.IsValid)
             {
-                return ValidationProblem();
+                return View(model);
             }
 
             var user = await SignInManager.UserManager.FindByEmailAsync(model.Email);
@@ -102,12 +101,12 @@ namespace EasyRent.IdentityServer.Controllers
             {
                 await Events.RaiseAsync(new UserLoginSuccessEvent(user.UserName, user.Id, user.UserName));
 
-                return Json(new { returnUrl = model.ReturnUrl });
+                return Redirect(model.ReturnUrl);
             }
 
             await Events.RaiseAsync(new UserLoginFailureEvent(user.UserName, "User cannot sign in."));
 
-            return NotFound();
+            return View(model);
         }
 
         [HttpGet("sign-out")]

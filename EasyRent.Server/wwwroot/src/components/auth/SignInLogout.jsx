@@ -7,9 +7,9 @@ const SignInLogout = () => {
     const { isAuthenticated, logout, signinRedirect } = useContext(AuthContext);
 
     if (isAuthenticated()) {
-        return <DefaultButton onClick={logout}>Logout</DefaultButton>; //<button onClick={logout}>Logout</button>;
+        return <DefaultButton onClick={logout}>Logout</DefaultButton>;
     } else {
-        return <DefaultButton onClick={signinRedirect}>Sing In</DefaultButton>; //<button onClick={signinRedirect}>Logout</button>;
+        return <DefaultButton onClick={signinRedirect}>Sing In</DefaultButton>;
     }
 };
 

@@ -18,7 +18,6 @@ namespace EasyRent.IdentityServer.Controllers
     /// <summary>
     /// This controller processes the consent UI
     /// </summary>
-    [DisableCors]
     [SecurityHeaders]
     [Authorize]
     public class ConsentController : Controller

@@ -1,8 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import GeoLocationIcon from '../../icons/GeoLocationIcon';
 import customClasses from './header.module.css';
 import Search from '../search/Search';
 import SignInLogout from '../../auth/SignInLogout';
+import axios from 'axios';
+import { easyRentServerUrl } from '../../../config/constants';
+import DefaultButton from '../button/DefaultButton';
+import AuthContex from '../../../context/AuthContext';
 
 const Header = ({ children }) => {
     return (

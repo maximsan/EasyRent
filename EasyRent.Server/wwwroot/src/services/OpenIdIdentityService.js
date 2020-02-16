@@ -43,7 +43,6 @@ class OpenIdIdentityService {
                 window.location.href = '/main';
             })
             .catch((error) => {
-                debugger;
                 Log.warn(error);
             });
     };
@@ -57,6 +56,11 @@ class OpenIdIdentityService {
         }
 
         return user;
+    };
+
+    getAuthorizationHeaderValue = async () => {
+        let user = await this.getUser();
+        return 'Bearer ' + user.access_token;
     };
 
     parseJwt = (token) => {
@@ -73,7 +77,6 @@ class OpenIdIdentityService {
     };
 
     signinRedirect = () => {
-        // debugger;
         localStorage.setItem('redirectUri', window.location.origin);
         this.UserManager.signinRedirect();
     };

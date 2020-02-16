@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
+using EasyRent.Common.Extentions;
 using EasyRent.Common.Models;
 using EasyRent.Data;
 using EasyRent.Data.Entities;
@@ -10,22 +11,23 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace EasyRent.Server.Controllers
 {
-    [Produces("application/json")]
-    [Route("[controller]")]
     public class ProductController : BaseController
     {
         public ProductController(UnitOfWork unitOfWork, IMapper mapper) : base(unitOfWork, mapper) { }
 
-        [HttpPost]
-        public IActionResult GetProducts() => Json(new JsonResponseTemplate<IEnumerable<Ad>>(UnitOfWork.AdRepository.GetAll(), string.Empty));
-
-        [HttpPost("[action]")]
-        public IActionResult GetProducts([FromBody] string title)
+        [Authorize]
+        [HttpGet]
+        public IActionResult GetProducts()//([FromBody] string title)
         {
-            title = title.Trim();
-            title = "%" + title.Replace(' ', '%') + "%";
+            // if (title.IsNotNullOrWhiteSpace())
+            // {
+            //     title = title.Trim();
+            //     title = "%" + title.Replace(' ', '%') + "%";
 
-            return Json(new JsonResponseTemplate<IEnumerable<Ad>>(UnitOfWork.AdRepository.GetAll().Where(q => q.Title.Contains(title)), string.Empty));
+            //     return Json(new JsonResponseTemplate<IEnumerable<Ad>>(UnitOfWork.AdRepository.GetAll().Where(q => q.Title.Contains(title)), string.Empty));
+            // }
+
+            return Json(new JsonResponseTemplate<IEnumerable<Ad>>(UnitOfWork.AdRepository.GetAll(), string.Empty));
         }
 
         [Authorize]

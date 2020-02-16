@@ -1,17 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using IdentityServer4;
+﻿using IdentityServer4;
 using IdentityServer4.Models;
-using IdentityServer4.Test;
-using Microsoft.Extensions.Configuration;
+using System.Collections.Generic;
 
 namespace EasyRent.IdentityServer
 {
-  public class Config
-  {
-    public static IEnumerable<Client> GetClients()
+    public class Config
     {
-      return new List<Client>
+        public static IEnumerable<Client> GetClients()
+        {
+            return new List<Client>
             {
                 new Client
                 {
@@ -41,25 +38,49 @@ namespace EasyRent.IdentityServer
                     },
                     AllowOfflineAccess = false,
                     RequireConsent = false
+                },
+                new Client
+                {
+                    ClientId = "api",
+                    AllowedGrantTypes = GrantTypes.Hybrid,
+                    RequireClientSecret = false,
+                    AlwaysIncludeUserClaimsInIdToken = true,
+                    RequireConsent = false,
+                    RequirePkce = false,
+                    PostLogoutRedirectUris = new string[]{
+                        "http://localhost:5001/logout-callback"
+                    },
+                    RedirectUris = new string[]{
+                        "http://localhost:5001/auth-callback"
+                    },
+
+                    AllowedScopes =
+                    {
+                        IdentityServerConstants.StandardScopes.OpenId,
+                        IdentityServerConstants.StandardScopes.Profile,
+                        "api1"
+                    },
+
+                    AllowOfflineAccess = true
                 }
             };
-    }
+        }
 
-    public static IEnumerable<ApiResource> GetApiResources()
-    {
-      return new List<ApiResource>
+        public static IEnumerable<ApiResource> GetApiResources()
+        {
+            return new List<ApiResource>
             {
                 new ApiResource("api", "Rent API Resource")
             };
-    }
+        }
 
-    public static IEnumerable<IdentityResource> GetIdentityResources()
-    {
-      return new List<IdentityResource>
+        public static IEnumerable<IdentityResource> GetIdentityResources()
+        {
+            return new List<IdentityResource>
             {
                 new IdentityResources.OpenId(),
                 new IdentityResources.Profile()
             };
+        }
     }
-  }
 }

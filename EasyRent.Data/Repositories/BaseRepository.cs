@@ -1,6 +1,6 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Linq;
-using Microsoft.EntityFrameworkCore;
 
 namespace EasyRent.Data.Repositories
 {
@@ -9,18 +9,10 @@ namespace EasyRent.Data.Repositories
         protected readonly ApplicationDbContext Context;
         protected DbSet<TEntity> CurrentSet;
 
-        private bool disposed;
-
         protected BaseRepository(ApplicationDbContext context)
         {
             Context = context;
             CurrentSet = context.Set<TEntity>();
-        }
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
         }
 
         public virtual void Create(TEntity entity) => CurrentSet.Add(entity);
@@ -35,6 +27,16 @@ namespace EasyRent.Data.Repositories
 
         public virtual void Update(TEntity entity) => Context.Entry(entity).State = EntityState.Modified;
 
+        #region Disposable
+
+        private bool disposed;
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
         protected virtual void Dispose(bool disposing)
         {
             if (!disposed)
@@ -47,5 +49,7 @@ namespace EasyRent.Data.Repositories
                 disposed = true;
             }
         }
+
+        #endregion Disposable
     }
 }

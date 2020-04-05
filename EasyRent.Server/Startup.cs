@@ -1,12 +1,13 @@
 ﻿using AutoMapper;
 using EasyRent.Common.Extentions;
 using EasyRent.Common.Models;
+using EasyRent.Common.Models.AdModels;
 using EasyRent.Common.Validators;
 using EasyRent.Data;
 using EasyRent.Data.Entities;
 using EasyRent.Data.Repositories;
+using EasyRent.Data.Repositories.Filters;
 using EasyRent.Server.Common.Constants;
-using EasyRent.Server.Models;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
@@ -167,7 +168,9 @@ namespace EasyRent.Server
             {
                 config.CreateMap<SignInModel, User>();
                 config.CreateMap<SignUpModel, User>();
-                config.CreateMap<ProductModel, Ad>();
+                config.CreateMap<Ad, AdViewModel>();
+                config.CreateMap<AdRequest, AdFilter>();
+                config.CreateMap<AdModel, Ad>();
             }, typeof(Startup));
         }
     }

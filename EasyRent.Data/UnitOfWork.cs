@@ -1,12 +1,10 @@
-﻿using System;
-using EasyRent.Data.Repositories;
+﻿using EasyRent.Data.Repositories;
+using System;
 
 namespace EasyRent.Data
 {
     public class UnitOfWork : IDisposable
     {
-        private bool disposed = false;
-
         private readonly ApplicationDbContext dbContext;
 
         private AddressRepository addressRepository;
@@ -41,6 +39,10 @@ namespace EasyRent.Data
             this.dbContext = dbContext;
         }
 
+        #region Disposable
+
+        private bool disposed = false;
+
         public void Dispose()
         {
             Dispose(true);
@@ -59,5 +61,7 @@ namespace EasyRent.Data
                 disposed = true;
             }
         }
+
+        #endregion Disposable
     }
 }

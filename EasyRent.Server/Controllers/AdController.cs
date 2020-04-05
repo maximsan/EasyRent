@@ -11,9 +11,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace EasyRent.Server.Controllers
 {
-    public class ProductController : BaseController
+    public class AdController : BaseController
     {
-        public ProductController(UnitOfWork unitOfWork, IMapper mapper) : base(unitOfWork, mapper) { }
+        public AdController(UnitOfWork unitOfWork, IMapper mapper) : base(unitOfWork, mapper) { }
 
         [Authorize]
         [HttpGet]

@@ -6,6 +6,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="logger\**" />
+    <Content Remove="logger\**" />
+    <EmbeddedResource Remove="logger\**" />
+    <None Remove="logger\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="tempkey.rsa" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="FluentValidation.AspNetCore" Version="8.4.0" />
     <PackageReference Include="identityserver4" Version="2.5.3" />
     <PackageReference Include="IdentityServer4.AspNetIdentity" Version="2.5.3" />

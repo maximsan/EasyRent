@@ -1,23 +1,24 @@
 ﻿using EasyRent.Common.Extentions;
 using EasyRent.Data.Extentions;
 using EasyRent.Server.Common.Constants;
-using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
-namespace EasyRent.Server
+namespace EasyRent.Tests.Common.Startups
 {
-    public class Startup
+    public class EasyRentServerStartupTest
     {
         public IConfiguration Configuration { get; }
-        public IHostingEnvironment Environment { get; }
+        public IWebHostEnvironment Environment { get; }
 
-        public Startup(IConfiguration configuration, IHostingEnvironment environment)
+        public string MainDatabaseConnectionString => "Server=localhost;Database=EasyRent;User Id=EasyRent;Password=12345;";
+
+        public EasyRentServerStartupTest(IConfiguration configuration, IWebHostEnvironment environment)
         {
             Configuration = configuration;
             Environment = environment;
@@ -41,28 +42,7 @@ namespace EasyRent.Server
 
             app.UseAuthentication();
             app.UseStaticFiles();
-            app.UseSpaStaticFiles();
             app.UseCookiePolicy();
-
-            app.UseMvc(routes =>
-            {
-                routes.MapSpaFallbackRoute("spa-fallback", new
-                {
-                    controller = "Home",
-                    action = "Index"
-                });
-                routes.MapRoute("default", "{controller=Home}/{action=Index}/{id?}");
-            });
-
-            app.UseSpa(spa =>
-            {
-                spa.Options.SourcePath = "wwwroot";
-
-                if (Environment.IsDevelopment())
-                {
-                    spa.UseReactDevelopmentServer("start");
-                }
-            });
         }
 
         public void ConfigureServices(IServiceCollection services)
@@ -73,13 +53,9 @@ namespace EasyRent.Server
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            services.AddDatabaseConfigs(Configuration.GetConnectionString("MainDatabase"));
+            services.AddDatabaseConfigs(MainDatabaseConnectionString);
 
-            services.AddMvc()
-                .AddFluentValidation(config =>
-                {
-                    config.RunDefaultMvcValidationAfterFluentValidationExecutes = true;
-                });
+            services.AddMvc();
 
             services.AddAuthentication("Bearer")
                 .AddIdentityServerAuthentication(configs =>
@@ -97,8 +73,7 @@ namespace EasyRent.Server
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddDatabaseDependencies();
-            services.AddValidationDependencies();
-            services.AddAutoMapperConfigs<Startup>();
+            services.AddAutoMapperConfigs<EasyRentServerStartupTest>();
         }
     }
 }

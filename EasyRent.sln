@@ -5,11 +5,13 @@ VisualStudioVersion = 16.0.28922.388
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EasyRent.Server", "EasyRent.Server\EasyRent.Server.csproj", "{EF40AAF7-38C7-4073-B3C3-B8CDF12026C1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EasyRent.Data", "EasyRent.Data\EasyRent.Data.csproj", "{C8714D5A-9363-438A-A8A7-DCFBA3C7946D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EasyRent.Data", "EasyRent.Data\EasyRent.Data.csproj", "{C8714D5A-9363-438A-A8A7-DCFBA3C7946D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EasyRent.IdentityServer", "EasyRent.IdentityServer\EasyRent.IdentityServer.csproj", "{470163EA-7620-424F-A630-C205892D2537}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EasyRent.IdentityServer", "EasyRent.IdentityServer\EasyRent.IdentityServer.csproj", "{470163EA-7620-424F-A630-C205892D2537}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EasyRent.Common", "EasyRent.Common\EasyRent.Common.csproj", "{2B9B8124-EE02-4F2C-A697-088A89343332}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EasyRent.Common", "EasyRent.Common\EasyRent.Common.csproj", "{2B9B8124-EE02-4F2C-A697-088A89343332}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EasyRent.Tests", "EasyRent.Tests\EasyRent.Tests.csproj", "{A55C0E1B-BCEB-4FAA-A147-94456DAFC0A3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{2B9B8124-EE02-4F2C-A697-088A89343332}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2B9B8124-EE02-4F2C-A697-088A89343332}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2B9B8124-EE02-4F2C-A697-088A89343332}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A55C0E1B-BCEB-4FAA-A147-94456DAFC0A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A55C0E1B-BCEB-4FAA-A147-94456DAFC0A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A55C0E1B-BCEB-4FAA-A147-94456DAFC0A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A55C0E1B-BCEB-4FAA-A147-94456DAFC0A3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

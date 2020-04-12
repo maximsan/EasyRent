@@ -1,38 +1,36 @@
-using System.Collections.Generic;
-using System.Linq;
 using AutoMapper;
-using EasyRent.Common.Extentions;
 using EasyRent.Common.Models;
 using EasyRent.Common.Models.AdModels;
 using EasyRent.Data;
 using EasyRent.Data.Entities;
-using EasyRent.Server.Models;
 using EasyRent.Server.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace EasyRent.Server.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class AdController : BaseController
     {
         private readonly AdService adService;
-        public AdController(UnitOfWork unitOfWork, IMapper mapper) : base(unitOfWork, mapper) {
+
+        public AdController(UnitOfWork unitOfWork, IMapper mapper) : base(unitOfWork, mapper)
+        {
             adService = new AdService(unitOfWork, mapper);
         }
 
         [HttpGet]
-        public IActionResult Get([FromBody] AdRequest request)
+        public async Task<IActionResult> Get([FromBody] AdRequest request)
         {
-            if(request is null)
+            if (request is null)
             {
                 return BadRequest();
             }
 
-            var adsExpression = adService.Search(request);
-            var result = Mapper.Map<List<AdViewModel>>(adsExpression);
+            var result = await adService.Search(request);
 
-            return Json(result);
+            return Ok(result);
         }
 
         [HttpPost("[action]")]
@@ -48,7 +46,7 @@ namespace EasyRent.Server.Controllers
             UnitOfWork.AdRepository.Create(newProduct);
             UnitOfWork.AdRepository.Save();
 
-            return Json(new JsonResponseTemplate(true, string.Empty));
+            return Ok(new JsonResponseTemplate(true, string.Empty));
         }
     }
 }

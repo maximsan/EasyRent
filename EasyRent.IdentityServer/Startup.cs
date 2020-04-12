@@ -3,6 +3,7 @@ using EasyRent.Common.Extentions;
 using EasyRent.Common.Models;
 using EasyRent.Data;
 using EasyRent.Data.Entities;
+using EasyRent.Data.Extentions;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -36,26 +37,7 @@ namespace EasyRent.IdentityServer
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ApplicationDbContext>(options =>
-            {
-                options.UseNpgsql(MainDatabaseConnectionString);
-            });
-
-            services.AddDefaultIdentity<User>(config =>
-                {
-                    config.User.RequireUniqueEmail = true;
-
-                    config.Password = new PasswordOptions
-                    {
-                        RequireDigit = false,
-                        RequireLowercase = false,
-                        RequireNonAlphanumeric = false,
-                        RequireUppercase = false,
-                        RequiredLength = 5
-                    };
-                })
-                .AddEntityFrameworkStores<ApplicationDbContext>()
-                .AddDefaultTokenProviders();
+            services.AddDatabaseConfigs(MainDatabaseConnectionString);
 
             services.AddMvcCore()
                 .AddJsonFormatters()
@@ -101,11 +83,7 @@ namespace EasyRent.IdentityServer
                 });
             });
 
-            services.AddAutoMapper(config =>
-            {
-                config.CreateMap<SignInModel, User>();
-                config.CreateMap<SignUpModel, User>();
-            }, typeof(Startup));
+            services.AddAutoMapperConfigs<Startup>();
         }
 
         public void Configure(IApplicationBuilder app, ILoggerFactory loggerFactory)

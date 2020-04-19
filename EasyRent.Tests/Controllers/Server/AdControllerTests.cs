@@ -1,4 +1,5 @@
 ﻿using EasyRent.Common.Models.AdModels;
+using EasyRent.Common.Services;
 using EasyRent.Server.Controllers;
 using EasyRent.Tests.Common.Fixtures;
 using System.Net.Http;
@@ -17,7 +18,7 @@ namespace EasyRent.Tests.Controllers.Server
         {
             this.fixture = fixture;
             httpClient = this.fixture.CreateClient();
-            controller = new AdController(fixture.UnitOfWork, fixture.Mapper);
+            controller = new AdController(fixture.UnitOfWork, fixture.Mapper, fixture.GetService<AdService>());
         }
 
         [Theory]

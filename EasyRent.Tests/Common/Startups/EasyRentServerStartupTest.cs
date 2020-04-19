@@ -1,5 +1,4 @@
 ﻿using EasyRent.Common.Extentions;
-using EasyRent.Data.Extentions;
 using EasyRent.Server.Common.Constants;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -73,6 +72,7 @@ namespace EasyRent.Tests.Common.Startups
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddDatabaseDependencies();
+            services.AddDataServiceDependencies();
             services.AddAutoMapperConfigs<EasyRentServerStartupTest>();
         }
     }

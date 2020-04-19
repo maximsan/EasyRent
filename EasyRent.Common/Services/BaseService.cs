@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using EasyRent.Data;
 
-namespace EasyRent.Server.Services
+namespace EasyRent.Common.Services
 {
     public abstract class BaseService
     {

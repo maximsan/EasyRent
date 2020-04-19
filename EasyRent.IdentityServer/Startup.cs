@@ -1,26 +1,20 @@
-﻿using AutoMapper;
-using EasyRent.Common.Extentions;
-using EasyRent.Common.Models;
-using EasyRent.Data;
+﻿using EasyRent.Common.Extentions;
 using EasyRent.Data.Entities;
-using EasyRent.Data.Extentions;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
 namespace EasyRent.IdentityServer
 {
-
     public class Startup
     {
         public IConfiguration Configuration { get; }
         public IHostingEnvironment Environment { get; }
+
         private string MainDatabaseConnectionString
         {
             get

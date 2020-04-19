@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace EasyRent.Server.Services
+namespace EasyRent.Common.Services
 {
     public class AdService : BaseService
     {

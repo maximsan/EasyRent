@@ -1,5 +1,4 @@
 ﻿using EasyRent.Common.Extentions;
-using EasyRent.Data.Extentions;
 using EasyRent.Server.Common.Constants;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
@@ -97,6 +96,7 @@ namespace EasyRent.Server
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddDatabaseDependencies();
+            services.AddDataServiceDependencies();
             services.AddValidationDependencies();
             services.AddAutoMapperConfigs<Startup>();
         }

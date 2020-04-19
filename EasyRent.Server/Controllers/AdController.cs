@@ -3,21 +3,21 @@ using EasyRent.Common.Models;
 using EasyRent.Common.Models.AdModels;
 using EasyRent.Data;
 using EasyRent.Data.Entities;
-using EasyRent.Server.Services;
+using EasyRent.Common.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
 namespace EasyRent.Server.Controllers
 {
-    //[Authorize]
+    [Authorize]
     public class AdController : BaseController
     {
         private readonly AdService adService;
 
-        public AdController(UnitOfWork unitOfWork, IMapper mapper) : base(unitOfWork, mapper)
+        public AdController(UnitOfWork unitOfWork, IMapper mapper, AdService adService) : base(unitOfWork, mapper)
         {
-            adService = new AdService(unitOfWork, mapper);
+            this.adService = adService;
         }
 
         [HttpGet]

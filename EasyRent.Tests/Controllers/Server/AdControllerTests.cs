@@ -18,11 +18,11 @@ namespace EasyRent.Tests.Controllers.Server
         {
             this.fixture = fixture;
             httpClient = this.fixture.CreateClient();
-            controller = new AdController(fixture.UnitOfWork, fixture.Mapper, fixture.GetService<AdService>());
+            controller = new AdController(fixture.GetService<AdService>());
         }
 
         [Theory]
-        [InlineData(null)]
+        [InlineData(1)]
         public async Task GetTest(int? adId)
         {
             var request = new AdRequest
@@ -30,7 +30,7 @@ namespace EasyRent.Tests.Controllers.Server
                 AdId = adId
             };
 
-            var result = await controller.Get(request);
+            var result = await controller.Search(request);
 
             Assert.NotNull(result);
         }

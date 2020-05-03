@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace EasyRent.Data.Repositories
 {
@@ -24,6 +25,8 @@ namespace EasyRent.Data.Repositories
         public virtual TEntity GetById(int id) => CurrentSet.Find(id);
 
         public virtual void Save() => Context.SaveChanges();
+
+        public virtual async Task SaveAsync() => await Context.SaveChangesAsync();
 
         public virtual void Update(TEntity entity) => Context.Entry(entity).State = EntityState.Modified;
 

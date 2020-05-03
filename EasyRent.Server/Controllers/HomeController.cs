@@ -1,8 +1,6 @@
-﻿using System.Collections.Generic;
-using AutoMapper;
-using EasyRent.Common.Models;
-using EasyRent.Data;
+﻿using EasyRent.Common.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 
 namespace EasyRent.Server.Controllers
 {
@@ -15,8 +13,6 @@ namespace EasyRent.Server.Controllers
             "Alex",
             "Fedr"
         };
-
-        public HomeController(UnitOfWork unitOfWork, IMapper mapper) : base(unitOfWork, mapper) { }
 
         [HttpGet("[action]")]
         public IActionResult Index() => Json(new JsonResponseTemplate(nameof(HomeController), string.Empty));

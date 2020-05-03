@@ -1,8 +1,5 @@
-using System.Linq;
-using AutoMapper;
 using EasyRent.Common.Extentions;
 using EasyRent.Common.Models;
-using EasyRent.Data;
 using EasyRent.Data.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -14,9 +11,8 @@ namespace EasyRent.Server.Controllers
     public class UserController : BaseController
     {
         private readonly UserManager<User> UserManager;
-        public UserController(UnitOfWork unitOfWork,
-                              IMapper mapper,
-                              UserManager<User> userManager) : base(unitOfWork, mapper) => UserManager = userManager;
+
+        public UserController(UserManager<User> userManager) => UserManager = userManager;
 
         [HttpGet]
         public IActionResult GetAddress() => Json(new JsonResponseTemplate<Address>(UserManager.FindByUserNameOrEmail(User.Identity.Name).Address));

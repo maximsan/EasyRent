@@ -1,8 +1,4 @@
-using AutoMapper;
-using EasyRent.Common.Models;
 using EasyRent.Common.Models.AdModels;
-using EasyRent.Data;
-using EasyRent.Data.Entities;
 using EasyRent.Common.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -15,13 +11,12 @@ namespace EasyRent.Server.Controllers
     {
         private readonly AdService adService;
 
-        public AdController(UnitOfWork unitOfWork, IMapper mapper, AdService adService) : base(unitOfWork, mapper)
+        public AdController(AdService adService)
         {
             this.adService = adService;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> Get([FromBody] AdRequest request)
+        public async Task<IActionResult> Search([FromQuery, FromBody] AdRequest request)
         {
             if (request is null)
             {
@@ -33,20 +28,37 @@ namespace EasyRent.Server.Controllers
             return Ok(result);
         }
 
-        [HttpPost("[action]")]
-        public IActionResult Put([FromBody] AdModel model) // TODO: Change this logic.
+        [HttpPut("[action]")]
+        public async Task<IActionResult> Put([FromBody] AdModel model)
         {
             if (!ModelState.IsValid)
             {
-                return Json(new JsonResponseTemplate(false, GetModelStateErrors()));
+                return ValidationProblem(ModelState);
             }
 
-            Ad newProduct = Mapper.Map<Ad>(model);
+            if (model.AdId == 0)
+            {
+                await adService.Create(model);
+            }
+            else
+            {
+                await adService.Update(model);
+            }
 
-            UnitOfWork.AdRepository.Create(newProduct);
-            UnitOfWork.AdRepository.Save();
+            return Ok();
+        }
 
-            return Ok(new JsonResponseTemplate(true, string.Empty));
+        [HttpDelete]
+        public async Task<IActionResult> Delete(int id)
+        {
+            if(id == 0)
+            {
+                return BadRequest();
+            }
+
+            await adService.Delete(id);
+
+            return Ok();
         }
     }
 }

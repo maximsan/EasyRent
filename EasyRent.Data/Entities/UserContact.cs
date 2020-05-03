@@ -14,7 +14,7 @@ namespace EasyRent.Data.Entities
         [ForeignKey("Id")]
         public string UserId { get; set; }
         public int ContactId { get; set; }
-        public User User { get; set; }
-        public Contact Contact { get; set; }
+        public virtual User User { get; set; }
+        public virtual Contact Contact { get; set; }
     }
 }

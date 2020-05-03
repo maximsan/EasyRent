@@ -7,7 +7,7 @@ namespace EasyRent.Data.Entities
 {
     public class User : IdentityUser
     {
-        public Address Address { get; set; }
+        public virtual Address Address { get; set; }
 
         [DefaultValue(null)]
         public int? AddressId { get; set; }
@@ -18,7 +18,7 @@ namespace EasyRent.Data.Entities
         [MaxLength(40)]
         public string LastName { get; set; }
 
-        public ICollection<UserAd> UserAds { get; set; }
-        public ICollection<UserContact> UserContacts { get; set; }
+        public virtual ICollection<UserAd> UserAds { get; set; }
+        public virtual ICollection<UserContact> UserContacts { get; set; }
     }
 }

@@ -1,5 +1,4 @@
 using EasyRent.Common.Extentions;
-using EasyRent.Common.Models;
 using EasyRent.Data.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -15,6 +14,6 @@ namespace EasyRent.Server.Controllers
         public UserController(UserManager<User> userManager) => UserManager = userManager;
 
         [HttpGet]
-        public IActionResult GetAddress() => Json(new JsonResponseTemplate<Address>(UserManager.FindByUserNameOrEmail(User.Identity.Name).Address));
+        public IActionResult Address() => Ok(UserManager.FindByUserNameOrEmail(User.Identity.Name)?.Address);
     }
 }

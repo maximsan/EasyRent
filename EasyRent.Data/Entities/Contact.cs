@@ -11,6 +11,6 @@ namespace EasyRent.Data.Entities
         [MaxLength(50)]
         public string Name { get; set; }
 
-        public ICollection<UserContact> UserContacts { get; set; }
+        public virtual ICollection<UserContact> UserContacts { get; set; }
     }
 }

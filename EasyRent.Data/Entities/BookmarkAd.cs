@@ -8,6 +8,6 @@ namespace EasyRent.Data.Entities
 
         public int AdId { get; set; }
         public Ad Ad { get; set; }
-        public ICollection<BookmarkAdBookmarkList> BookmarkAdBookmarkLists { get; set; }
+        public virtual ICollection<BookmarkAdBookmarkList> BookmarkAdBookmarkLists { get; set; }
     }
 }

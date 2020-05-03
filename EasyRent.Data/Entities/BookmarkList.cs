@@ -9,7 +9,7 @@ namespace EasyRent.Data.Entities
 
         [ForeignKey("Id")]
         public string UserId { get; set; }
-        public User User { get; set; }
-        public ICollection<BookmarkAdBookmarkList> BookmarkAdBookmarkLists { get; set; }
+        public virtual User User { get; set; }
+        public virtual ICollection<BookmarkAdBookmarkList> BookmarkAdBookmarkLists { get; set; }
     }
 }

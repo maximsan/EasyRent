@@ -6,7 +6,7 @@
 
         public int BookmarkListId { get; set; }
         public int BookmarkAdId { get; set; }
-        public BookmarkList BookmarkList { get; set; }
-        public BookmarkAd BookmarkAd { get; set; }
+        public virtual BookmarkList BookmarkList { get; set; }
+        public virtual BookmarkAd BookmarkAd { get; set; }
     }
 }

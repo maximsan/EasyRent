@@ -2,10 +2,10 @@
 {
     public class AdImage
     {
-        public Ad Ad { get; set; }
+        public virtual Ad Ad { get; set; }
         public int AdId { get; set; }
         public int AdImageId { get; set; }
-        public Image Image { get; set; }
+        public virtual Image Image { get; set; }
 
         public int ImageId { get; set; }
     }

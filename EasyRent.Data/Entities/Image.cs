@@ -14,6 +14,6 @@ namespace EasyRent.Data.Entities
         [MaxLength(100)]
         public string Url { get; set; }
 
-        public ICollection<AdImage> AdImages { get; set; }
+        public virtual ICollection<AdImage> AdImages { get; set; }
     }
 }

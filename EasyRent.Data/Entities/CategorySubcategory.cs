@@ -9,7 +9,7 @@ namespace EasyRent.Data.Entities
 
         public int CategoryId { get; set; }
         public int SubcategoryId { get; set; }
-        public Category Category { get; set; }
-        public Subcategory Subcategory { get; set; }
+        public virtual Category Category { get; set; }
+        public virtual Subcategory Subcategory { get; set; }
     }
 }

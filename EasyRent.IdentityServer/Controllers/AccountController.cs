@@ -1,20 +1,19 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
+using EasyRent.Common.Attributes;
 using EasyRent.Common.Constants;
 using EasyRent.Common.Extentions;
 using EasyRent.Common.Models;
 using EasyRent.Data.Entities;
 using IdentityServer4.Events;
+using IdentityServer4.Extensions;
 using IdentityServer4.Services;
 using IdentityServer4.Stores;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
+using System.Threading.Tasks;
 using SignInResult = Microsoft.AspNetCore.Identity.SignInResult;
-using EasyRent.Common.Attributes;
-using IdentityServer4.Extensions;
-using Microsoft.AspNetCore.Cors;
 
 namespace EasyRent.IdentityServer.Controllers
 {
@@ -51,7 +50,7 @@ namespace EasyRent.IdentityServer.Controllers
                 return Json(new JsonResponseTemplate(false, ErrorMessages.EmailRequired));
             }
 
-            User user = SignInManager.UserManager.FindByUserNameOrEmail(email);
+            User user = await SignInManager.UserManager.FindByUserNameOrEmailAsync(email);
 
             if (user is null)
             {
@@ -69,10 +68,9 @@ namespace EasyRent.IdentityServer.Controllers
                 return Json(new JsonResponseTemplate(false, ModelStateErrors));
             }
 
-            User user = SignInManager.UserManager.FindByUserNameOrEmail(resetPassword.Email);
+            User user = await SignInManager.UserManager.FindByUserNameOrEmailAsync(resetPassword.Email);
 
-            IdentityResult result =
-                await SignInManager.UserManager.ResetPasswordAsync(user, resetPassword.Key, resetPassword.Password);
+            IdentityResult result = await SignInManager.UserManager.ResetPasswordAsync(user, resetPassword.Key, resetPassword.Password).ConfigureAwait(false);
 
             return Json(new JsonResponseTemplate(result.Succeeded, result.Errors.Select(q => q.Description)));
         }

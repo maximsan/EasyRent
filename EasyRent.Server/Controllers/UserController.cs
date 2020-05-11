@@ -1,19 +1,25 @@
-using EasyRent.Common.Extentions;
-using EasyRent.Data.Entities;
+using EasyRent.Common.Services;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace EasyRent.Server.Controllers
 {
     [Authorize]
     public class UserController : BaseController
     {
-        private readonly UserManager<User> UserManager;
+        private readonly IUserService userService;
 
-        public UserController(UserManager<User> userManager) => UserManager = userManager;
+        public UserController(IUserService userService) => this.userService = userService;
 
         [HttpGet]
-        public IActionResult Address() => Ok(UserManager.FindByUserNameOrEmail(User.Identity.Name)?.Address);
+        public async Task<IActionResult> Address()
+        {
+            var address = await userService.GetAddress(User.Identity.Name);
+
+            return address is null
+                ? NotFound()
+                : (IActionResult)Ok(address);
+        }
     }
 }

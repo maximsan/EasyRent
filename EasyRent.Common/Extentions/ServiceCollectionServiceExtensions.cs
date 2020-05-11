@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using EasyRent.Common.Models;
 using EasyRent.Common.Models.AdModels;
+using EasyRent.Common.Models.UserModels;
 using EasyRent.Common.Services;
 using EasyRent.Common.Validators;
 using EasyRent.Data;
@@ -32,6 +33,7 @@ namespace EasyRent.Common.Extentions
                 config.CreateMap<Ad, AdViewModel>();
                 config.CreateMap<AdRequest, AdFilter>();
                 config.CreateMap<AdModel, Ad>();
+                config.CreateMap<Address, AddressModel>();
             }, typeof(TStartup));
         }
 
@@ -44,7 +46,7 @@ namespace EasyRent.Common.Extentions
             services.AddTransient<ImageRepository>();
             services.AddTransient<SubcategoryRepository>();
             services.AddTransient<UserContactRepository>();
-            services.AddScoped<UnitOfWork>();
+            services.AddTransient<UnitOfWork>();
         }
 
         public static void AddDatabaseConfigs(this IServiceCollection services, string connString)
@@ -72,7 +74,8 @@ namespace EasyRent.Common.Extentions
 
         public static void AddDataServiceDependencies(this IServiceCollection services)
         {
-            services.AddScoped<AdService>();
+            services.AddTransient<IAdService, AdService>();
+            services.AddTransient<IUserService, UserService>();
         }
     }
 }

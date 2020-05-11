@@ -18,7 +18,7 @@ namespace EasyRent.Tests.Controllers.Server
         {
             this.fixture = fixture;
             httpClient = this.fixture.CreateClient();
-            controller = new AdController(fixture.GetService<AdService>());
+            controller = new AdController(fixture.GetService<IAdService>());
         }
 
         [Theory]

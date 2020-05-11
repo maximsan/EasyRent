@@ -13,14 +13,16 @@ namespace EasyRent.Tests.Common.Fixtures
 {
     public class EasyRentServerFixture : WebApplicationFactory<EasyRentServerStartupTest>
     {
-        public UnitOfWork UnitOfWork => GetService<UnitOfWork>();
-        public IMapper Mapper => GetService<IMapper>();
-
         protected IServiceCollection serviceCollection;
 
         public T GetService<T>() where T : class
         {
             var descriptor = serviceCollection.FirstOrDefault(q => q.ServiceType == typeof(T));
+
+            if(descriptor is null)
+            {
+                return null;
+            }
 
             if (descriptor.ImplementationInstance != null)
             {

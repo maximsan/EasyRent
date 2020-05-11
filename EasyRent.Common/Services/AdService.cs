@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace EasyRent.Common.Services
 {
-    public class AdService : BaseService
+    public class AdService : BaseService, IAdService
     {
         public AdService(UnitOfWork unitOfWork, IMapper mapper) : base(unitOfWork, mapper)
         {
@@ -28,12 +28,12 @@ namespace EasyRent.Common.Services
         {
             var adEntity = mapper.Map<Ad>(model);
             unitOfWork.AdRepository.Create(adEntity);
-            await unitOfWork.AddressRepository.SaveAsync();
+            await unitOfWork.AddressRepository.SaveAsync().ConfigureAwait(false);
         }
 
         public async Task Update(AdModel model)
         {
-            if(model.AdId <= 0)
+            if (model.AdId <= 0)
             {
                 return;
             }
@@ -43,14 +43,14 @@ namespace EasyRent.Common.Services
             mapper.Map(model, adEntity, model.GetType(), adEntity.GetType());
 
             unitOfWork.AdRepository.Update(adEntity);
-            await unitOfWork.AdRepository.SaveAsync();
+            await unitOfWork.AdRepository.SaveAsync().ConfigureAwait(false);
         }
 
         public async Task Delete(int id)
         {
             var entity = unitOfWork.AdRepository.GetById(id);
             unitOfWork.AdRepository.Delete(entity);
-            await unitOfWork.AdRepository.SaveAsync();
+            await unitOfWork.AdRepository.SaveAsync().ConfigureAwait(false);
         }
     }
 }

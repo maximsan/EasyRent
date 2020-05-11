@@ -9,9 +9,9 @@ namespace EasyRent.Server.Controllers
     [Authorize]
     public class AdController : BaseController
     {
-        private readonly AdService adService;
+        private readonly IAdService adService;
 
-        public AdController(AdService adService)
+        public AdController(IAdService adService)
         {
             this.adService = adService;
         }

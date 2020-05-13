@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using EasyRent.Common.Extentions;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
+using NLog.Web;
+using System;
 
 namespace EasyRent.IdentityServer
 {
@@ -15,12 +11,21 @@ namespace EasyRent.IdentityServer
         public static void Main(string[] args)
         {
             Console.Title = "IdentityServer4";
-            CreateWebHostBuilder(args).Build().Run();
+            CreateWebHostBuilder(args)
+                .Build()
+                .Run();
         }
 
-        public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
-            .UseUrls("http://localhost:5002")
-            .UseStartup<Startup>();
+        public static IWebHostBuilder CreateWebHostBuilder(string[] args)
+        {
+            return WebHost.CreateDefaultBuilder(args)
+                .UseUrls("http://localhost:5002")
+                .UseStartup<Startup>()
+                .ConfigureLogging(logging =>
+                {
+                    logging.ConfigureNlogByJson();
+                })
+                .UseNLog();
+        }
     }
 }

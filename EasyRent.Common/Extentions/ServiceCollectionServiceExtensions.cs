@@ -56,7 +56,7 @@ namespace EasyRent.Common.Extentions
                 options.UseNpgsql(connString);
             });
 
-            services.AddDefaultIdentity<User>(config =>
+            services.AddIdentityCore<User>(config =>
             {
                 config.User.RequireUniqueEmail = true;
                 config.Password = new PasswordOptions

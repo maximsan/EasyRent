@@ -1,0 +1,31 @@
+// https://nlog-project.org/config/?tab=layout-renderers&search=package:nlog.web.aspnetcore - config description
+// https://nlog-project.org/config/?tab=layout-renderers - layout variables
+{
+  "NLog": {
+    "ThrowConfigExceptions": true,
+    "IncludeScopes": true,
+    "Targets": {
+      "LogFile": {
+        "Type": "File",
+        "FileName": "${aspnet-appbasepath}/logs/${shortdate}.log",
+        "Layout": "${longdate} ${level:uppercase=true} ${logger} ${message}\r\n\t${exception:format=tostring}"
+      },
+      "LogConsole": {
+        "Type": "Console",
+        "Layout": "${longdate} ${level:uppercase=true} ${logger} ${message}\r\n\t${exception:format=tostring}"
+      }
+    },
+    "Rules": [
+      {
+        "Logger": "*",
+        "MinLevel": "Trace",
+        "WriteTo": "LogFile"
+      },
+      {
+        "Logger": "*",
+        "MinLevel": "Debug",
+        "WriteTo": "LogConsole"
+      }
+    ]
+  }
+}

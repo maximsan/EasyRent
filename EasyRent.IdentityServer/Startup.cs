@@ -6,14 +6,14 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Hosting;
 
 namespace EasyRent.IdentityServer
 {
     public class Startup
     {
         public IConfiguration Configuration { get; }
-        public IHostingEnvironment Environment { get; }
+        public IWebHostEnvironment Environment { get; }
 
         private string MainDatabaseConnectionString
         {
@@ -23,7 +23,7 @@ namespace EasyRent.IdentityServer
             }
         }
 
-        public Startup(IConfiguration configuration, IHostingEnvironment environment)
+        public Startup(IConfiguration configuration, IWebHostEnvironment environment)
         {
             Environment = environment;
             Configuration = configuration;
@@ -34,8 +34,13 @@ namespace EasyRent.IdentityServer
             services.AddDatabaseConfigs(MainDatabaseConnectionString);
 
             services.AddMvcCore()
-                .AddJsonFormatters()
-                .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
+                .AddMvcOptions(opts =>
+                {
+                    opts.EnableEndpointRouting = false;
+                })
+                .AddControllersAsServices()
+                .AddNewtonsoftJson()
+                .SetCompatibilityVersion(CompatibilityVersion.Version_3_0)
                 .AddFluentValidation(config =>
                 {
                     config.RunDefaultMvcValidationAfterFluentValidationExecutes = true;
@@ -80,14 +85,11 @@ namespace EasyRent.IdentityServer
             services.AddAutoMapperConfigs<Startup>();
         }
 
-        public void Configure(IApplicationBuilder app, ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app)
         {
-            loggerFactory.AddFileLogger();
-
             app.UseDeveloperExceptionPage();
             app.UseStaticFiles();
             app.UseIdentityServer();
-            app.UseMvcWithDefaultRoute();
         }
     }
 }

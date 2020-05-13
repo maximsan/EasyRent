@@ -7,29 +7,26 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Hosting;
 
 namespace EasyRent.Server
 {
     public class Startup
     {
         public IConfiguration Configuration { get; }
-        public IHostingEnvironment Environment { get; }
+        public IWebHostEnvironment Environment { get; }
 
-        public Startup(IConfiguration configuration, IHostingEnvironment environment)
+        public Startup(IConfiguration configuration, IWebHostEnvironment environment)
         {
             Configuration = configuration;
             Environment = environment;
         }
 
-        public void Configure(IApplicationBuilder app, ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app)
         {
-            loggerFactory.AddFileLogger();
-
             if (Environment.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseDatabaseErrorPage();
             }
             else
             {
@@ -75,6 +72,10 @@ namespace EasyRent.Server
             services.AddDatabaseConfigs(Configuration.GetConnectionString("MainDatabase"));
 
             services.AddMvc()
+                .AddMvcOptions(opts =>
+                {
+                    opts.EnableEndpointRouting = false;
+                })
                 .AddFluentValidation(config =>
                 {
                     config.RunDefaultMvcValidationAfterFluentValidationExecutes = true;

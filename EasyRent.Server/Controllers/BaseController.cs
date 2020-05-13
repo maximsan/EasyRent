@@ -1,10 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using AutoMapper;
-using EasyRent.Data;
-using IdentityServer4.Extensions;
+﻿using EasyRent.Common.Extentions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace EasyRent.Server.Controllers
 {
@@ -13,8 +11,5 @@ namespace EasyRent.Server.Controllers
         protected T GetService<T>() => HttpContext.RequestServices.GetService<T>();
 
         protected void SetJsonResponseType() => Response.ContentType = "application/json";
-
-        protected IEnumerable<string> GetModelStateErrors() => ModelState.Values.SelectMany(q => q.Errors.Select(w => w.ErrorMessage)
-                                                                                                         .Where(w => !w.IsNullOrEmpty()));
     }
 }

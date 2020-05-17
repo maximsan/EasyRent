@@ -46,6 +46,11 @@ namespace EasyRent.Common.Validators
                 .NotNull()
                 .Equal(q => q.Password)
                 .WithMessage(ErrorMessages.ConfirmPasswordInvalid);
+
+            RuleFor(q => q.ReturnUrl)
+                .Cascade(CascadeMode.StopOnFirstFailure)
+                .NotEmpty()
+                .NotNull();
         }
     }
 }

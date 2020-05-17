@@ -3,6 +3,7 @@ using EasyRent.Common.Attributes;
 using EasyRent.Common.Constants;
 using EasyRent.Common.Extentions;
 using EasyRent.Common.Models;
+using EasyRent.Common.Services;
 using EasyRent.Data.Entities;
 using IdentityServer4.Events;
 using IdentityServer4.Extensions;
@@ -18,8 +19,7 @@ using SignInResult = Microsoft.AspNetCore.Identity.SignInResult;
 namespace EasyRent.IdentityServer.Controllers
 {
     [SecurityHeaders]
-    [Produces("application/json")]
-    [Route("[controller]")]
+    [ResponseCache(NoStore = true, Duration = 0)]
     public class AccountController : BaseController
     {
         private readonly IIdentityServerInteractionService Interaction;
@@ -27,19 +27,22 @@ namespace EasyRent.IdentityServer.Controllers
         private readonly IAuthenticationSchemeProvider SchemeProvider;
         private readonly IEventService Events;
         protected readonly SignInManager<User> SignInManager;
+        private readonly IUserService userService;
 
         public AccountController(SignInManager<User> signInManager,
             IMapper mapper,
             IIdentityServerInteractionService interaction,
             IClientStore clientStore,
             IAuthenticationSchemeProvider schemeProvider,
-            IEventService events) : base(mapper)
+            IEventService events,
+            IUserService userService) : base(mapper)
         {
             Interaction = interaction;
             ClientStore = clientStore;
             SchemeProvider = schemeProvider;
             Events = events;
             SignInManager = signInManager;
+            this.userService = userService;
         }
 
         [HttpPost("reset-password-token")]
@@ -52,12 +55,9 @@ namespace EasyRent.IdentityServer.Controllers
 
             User user = await SignInManager.UserManager.FindByUserNameOrEmailAsync(email);
 
-            if (user is null)
-            {
-                return Json(new JsonResponseTemplate(false, ErrorMessages.UserNotExist));
-            }
-
-            return Json(new JsonResponseTemplate(await SignInManager.UserManager.GeneratePasswordResetTokenAsync(user), string.Empty));
+            return user is null
+                ? Json(new JsonResponseTemplate(false, ErrorMessages.UserNotExist))
+                : Json(new JsonResponseTemplate(await SignInManager.UserManager.GeneratePasswordResetTokenAsync(user), string.Empty));
         }
 
         [HttpPost("reset-password")]
@@ -65,7 +65,7 @@ namespace EasyRent.IdentityServer.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return Json(new JsonResponseTemplate(false, ModelStateErrors));
+                return ValidationProblem();
             }
 
             User user = await SignInManager.UserManager.FindByUserNameOrEmailAsync(resetPassword.Email);
@@ -75,34 +75,38 @@ namespace EasyRent.IdentityServer.Controllers
             return Json(new JsonResponseTemplate(result.Succeeded, result.Errors.Select(q => q.Description)));
         }
 
-        [HttpGet("[action]")]
+        [HttpGet]
         public IActionResult SignIn(string returnUrl)
         {
-            var vm = new SignInModel { ReturnUrl = returnUrl };
+            if(returnUrl.IsNullOrWhiteSpace())
+            {
+                return BadRequest();
+            }
 
-            return View(vm);
+            var model = new SignInModel { ReturnUrl = returnUrl };
+
+            return View(model);
         }
 
-        [HttpPost("[action]")]
-        public async Task<IActionResult> SignIn(SignInModel model)
+        [HttpPost]
+        public async Task<IActionResult> SignIn([FromForm] SignInModel model)
         {
             if (!ModelState.IsValid)
             {
                 return View(model);
             }
 
-            var user = await SignInManager.UserManager.FindByEmailAsync(model.Email);
+            SignInResult signInStatus = await userService.SignInAsync(model);
 
-            SignInResult trySignIn = await SignInManager.PasswordSignInAsync(user, model.Password, false, false);
-
-            if (trySignIn.Succeeded)
+            if (signInStatus.Succeeded)
             {
-                await Events.RaiseAsync(new UserLoginSuccessEvent(user.UserName, user.Id, user.UserName));
+                var user = await userService.FindAsync(model.Email);
+                await Events.RaiseAsync(new UserLoginSuccessEvent(user.Email, user.Id, user.Email));
 
                 return Redirect(model.ReturnUrl);
             }
 
-            await Events.RaiseAsync(new UserLoginFailureEvent(user.UserName, "User cannot sign in."));
+            await Events.RaiseAsync(new UserLoginFailureEvent(model.Email, "User cannot sign in."));
 
             return View(model);
         }
@@ -126,24 +130,35 @@ namespace EasyRent.IdentityServer.Controllers
             return Redirect(context.PostLogoutRedirectUri);
         }
 
-        [HttpPost("sign-up")]
-        public async Task<IActionResult> SignUp([FromBody] SignUpModel model)
+        [HttpGet]
+        public IActionResult SignUp(string returnUrl)
+        {
+            if (returnUrl.IsNullOrWhiteSpace())
+            {
+                return BadRequest();
+            }
+
+            var model = new SignUpModel
+            {
+                ReturnUrl = returnUrl
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> SignUp([FromForm] SignUpModel model)
         {
             if (!ModelState.IsValid)
             {
-                return Json(new JsonResponseTemplate(false, ModelStateErrors));
+                return View(model);
             }
 
-            User newUser = Mapper.Map<User>(model);
+            var creatingResult = await userService.SignUpAsync(model);
 
-            var creatingResult = await SignInManager.UserManager.CreateAsync(newUser, model.Password);
-
-            if (creatingResult.Succeeded)
-            {
-                return Ok(creatingResult.Succeeded);
-            }
-
-            return Json(new JsonResponseTemplate(creatingResult.Succeeded, creatingResult.Errors.Select(q => q.Description)));
+            return creatingResult.Succeeded
+                ? await SignIn(new SignInModel { Email = model.Email, Password = model.Password, ReturnUrl = model.ReturnUrl })
+                : View(model);
         }
 
         [HttpPost("check-password")]
@@ -151,7 +166,7 @@ namespace EasyRent.IdentityServer.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return Json(new JsonResponseTemplate(false, ModelStateErrors));
+                return ValidationProblem();
             }
 
             var user = await SignInManager.UserManager.FindByEmailAsync(checkPassword.Email);

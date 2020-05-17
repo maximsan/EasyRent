@@ -14,15 +14,19 @@
   <ItemGroup>
     <!-- remove from compilation -->
     <Compile Remove="logger\**" />
+    <Compile Remove="logs\**" />
     <Compile Remove="wwwroot\**" />
     <!-- remove from publishing -->
     <Content Remove="logger\**" />
+    <Content Remove="logs\**" />
     <Content Remove="wwwroot\**" />
     <!-- remove from embedded resources like pictures/images/sound and etc -->
     <EmbeddedResource Remove="logger\**" />
+    <EmbeddedResource Remove="logs\**" />
     <EmbeddedResource Remove="wwwroot\**" />
     <!-- any additional flag from .net sdk -->
     <None Remove="logger\**" />
+    <None Remove="logs\**" />
     <None Remove="wwwroot\**" />
   </ItemGroup>
 

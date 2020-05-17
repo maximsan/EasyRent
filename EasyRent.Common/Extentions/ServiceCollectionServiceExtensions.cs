@@ -17,14 +17,16 @@ namespace EasyRent.Common.Extentions
 {
     public static class ServiceCollectionServiceExtensions
     {
-        public static void AddValidationDependencies(this IServiceCollection services)
+        public static IServiceCollection AddValidationDependencies(this IServiceCollection services)
         {
             services.AddTransient<IValidator<SignInModel>, SignInValidator>();
             services.AddTransient<IValidator<SignUpModel>, SignUpValidator>();
             services.AddTransient<IValidator<ResetPasswordModel>, ResetPasswordValidator>();
+
+            return services;
         }
 
-        public static void AddAutoMapperConfigs<TStartup>(this IServiceCollection services) where TStartup : class
+        public static IServiceCollection AddAutoMapperConfigs<TStartup>(this IServiceCollection services) where TStartup : class
         {
             services.AddAutoMapper(config =>
             {
@@ -35,9 +37,11 @@ namespace EasyRent.Common.Extentions
                 config.CreateMap<AdModel, Ad>();
                 config.CreateMap<Address, AddressModel>();
             }, typeof(TStartup));
+
+            return services;
         }
 
-        public static void AddDatabaseDependencies(this IServiceCollection services)
+        public static IServiceCollection AddDatabaseDependencies(this IServiceCollection services)
         {
             services.AddTransient<AddressRepository>();
             services.AddTransient<AdRepository>();
@@ -47,16 +51,18 @@ namespace EasyRent.Common.Extentions
             services.AddTransient<SubcategoryRepository>();
             services.AddTransient<UserContactRepository>();
             services.AddTransient<UnitOfWork>();
+
+            return services;
         }
 
-        public static void AddDatabaseConfigs(this IServiceCollection services, string connString)
+        public static IServiceCollection AddDatabaseConfigs(this IServiceCollection services, string connString)
         {
             services.AddDbContext<ApplicationDbContext>(options =>
             {
                 options.UseNpgsql(connString);
             });
 
-            services.AddIdentityCore<User>(config =>
+            services.AddDefaultIdentity<User>(config =>
             {
                 config.User.RequireUniqueEmail = true;
                 config.Password = new PasswordOptions
@@ -70,12 +76,16 @@ namespace EasyRent.Common.Extentions
             })
             .AddEntityFrameworkStores<ApplicationDbContext>()
             .AddDefaultTokenProviders();
+
+            return services;
         }
 
-        public static void AddDataServiceDependencies(this IServiceCollection services)
+        public static IServiceCollection AddDataServiceDependencies(this IServiceCollection services)
         {
             services.AddTransient<IAdService, AdService>();
             services.AddTransient<IUserService, UserService>();
+
+            return services;
         }
     }
 }

@@ -3,7 +3,6 @@ using EasyRent.Data.Entities;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -31,20 +30,19 @@ namespace EasyRent.IdentityServer
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDatabaseConfigs(MainDatabaseConnectionString);
+            services.AddDatabaseConfigs(MainDatabaseConnectionString)
+                .AddDatabaseDependencies()
+                .AddDataServiceDependencies()
+                .AddAutoMapperConfigs<Startup>();
 
-            services.AddMvcCore()
-                .AddMvcOptions(opts =>
-                {
-                    opts.EnableEndpointRouting = false;
-                })
-                .AddControllersAsServices()
-                .AddNewtonsoftJson()
-                .SetCompatibilityVersion(CompatibilityVersion.Version_3_0)
+            services.AddMvc()
                 .AddFluentValidation(config =>
                 {
                     config.RunDefaultMvcValidationAfterFluentValidationExecutes = true;
                 });
+
+            services.AddControllersWithViews()
+                .AddRazorRuntimeCompilation(); // give oppotunity to change view in runtime.
 
             var builder = services.AddIdentityServer(options =>
                 {
@@ -70,7 +68,7 @@ namespace EasyRent.IdentityServer
                 //TODO: Need configure key material.
             }
 
-            services.AddAuthentication();
+            services.AddAuthenticationCore();
 
             services.AddCors(options =>
             {
@@ -90,6 +88,11 @@ namespace EasyRent.IdentityServer
             app.UseDeveloperExceptionPage();
             app.UseStaticFiles();
             app.UseIdentityServer();
+            app.UseRouting();
+            app.UseEndpoints(configs =>
+            {
+                configs.MapDefaultControllerRoute(); //standart routing.
+            });
         }
     }
 }

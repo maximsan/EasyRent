@@ -15,7 +15,7 @@ namespace EasyRent.Server.Controllers
         [HttpGet]
         public async Task<IActionResult> Address()
         {
-            var address = await userService.GetAddress(User.Identity.Name);
+            var address = await userService.GetAddressAsync(User.Identity.Name);
 
             return address is null
                 ? NotFound()

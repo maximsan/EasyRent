@@ -1,39 +1,39 @@
 @model EasyRent.Common.Models.SignInModel
+@{
+    ViewBag.Title = "Login Page | Easy Peasy Rent";
+}
 
 <div class="login-page">
     <div class="page-header">
-        <h1>Login</h1>
+        <h2>Login</h2>
     </div>
 
     <div class="row">
-
-            <div class="col-sm-6">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Local Login</h3>
-                    </div>
-                    <div class="panel-body">
-
-                        <form asp-route="SignIn" method="post">
-                            @Html.HiddenFor(q => q.ReturnUrl)
-                            <fieldset>
-                                <div class="form-group">
-                                    @Html.LabelFor(q => q.Email, new { @class = "label-control" })
-                                    @Html.TextBoxFor(q => q.Email, new {@class = "from-control", placeholder = "Email"})
-                                </div>
-                                <div class="form-group">
-                                    @Html.LabelFor(q => q.Password, new { @class = "label-control" })
-                                    @Html.PasswordFor(q => q.Password, new { @class = "from-control", placeholder = "Password" })
-                                </div>
-
-                                <div class="form-group">
-                                    <button class="btn btn-primary" name="button" value="login">Login</button>
-                                    <!-- <button class="btn btn-default" name="button" value="cancel">Cancel</button> -->
-                                </div>
-                            </fieldset>
-                        </form>
-                    </div>
+        <div class="col-xs-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">Local Login</h4>
+                </div>
+                <div class="panel-body">
+                    <form asp-route="SignIn" method="post">
+                        @Html.HiddenFor(q => q.ReturnUrl)
+                        <div class="form-group">
+                            @Html.LabelFor(q => q.Email, new { @class = "label-control" })
+                            @Html.TextBoxFor(q => q.Email, new { @class = "form-control", placeholder = "Email" })
+                            @Html.ValidationMessageFor(q => q.Email, null, new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(q => q.Password, new { @class = "label-control" })
+                            @Html.PasswordFor(q => q.Password, new { @class = "form-control", placeholder = "Password" })
+                            @Html.ValidationMessageFor(q => q.Password, null, new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary">Login</button>
+                            <a asp-action="SignUp" asp-all-route-data='new Dictionary<string, string> { { "returnUrl", Model.ReturnUrl } }'>Register</a>
+                        </div>
+                    </form>
                 </div>
             </div>
+        </div>
     </div>
 </div>

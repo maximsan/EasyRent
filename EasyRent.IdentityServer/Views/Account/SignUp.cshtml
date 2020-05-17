@@ -1,0 +1,48 @@
+﻿@model EasyRent.Common.Models.SignUpModel
+@{ 
+    ViewBag.Title = "Register Page | Easy Peasy Rent";
+}
+
+<div class="sign-up-form">
+    <div class="page-header">
+        <h2>Register</h2>
+    </div>
+    <div class="row">
+        <div class="col-xs-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4>Don't have account? Register your account right now!</h4>
+                </div>
+                <div class="panel-body">
+                    <form asp-action="SignUp" method="post">
+                        @Html.HiddenFor(q => q.ReturnUrl)
+                        <div class="form-group">
+                            @Html.LabelFor(q => q.Email, new { @class = "label-control" })
+                            @Html.TextBoxFor(q => q.Email, new { @class = "form-control", placeholder = "Enter your email" })
+                            @Html.ValidationMessageFor(q => q.Email, null, new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(q => q.UserName, new { @class = "label-control" })
+                            @Html.TextBoxFor(q => q.UserName, new { @class = "form-control", placeholder = "Enter your user name" })
+                            @Html.ValidationMessageFor(q => q.UserName, null, new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(q => q.Password, new { @class = "label-control" })
+                            @Html.PasswordFor(q => q.Password, new { @class = "form-control", placeholder = "Enter your password" })
+                            @Html.ValidationMessageFor(q => q.Password, null, new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(q => q.ConfirmPassword, new { @class = "label-control" })
+                            @Html.PasswordFor(q => q.ConfirmPassword, new { @class = "form-control", placeholder = "Confirm your password" })
+                            @Html.ValidationMessageFor(q => q.ConfirmPassword, null, new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary">Confirm</button>
+                            <a asp-action="SignIn" asp-all-route-data='new Dictionary<string, string> { { "returnUrl", Model.ReturnUrl } }'>Login</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

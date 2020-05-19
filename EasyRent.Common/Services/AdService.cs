@@ -19,7 +19,7 @@ namespace EasyRent.Common.Services
         {
             var filter = mapper.Map<AdFilter>(request);
             var foundAds = unitOfWork.AdRepository.Search(filter);
-            var result = mapper.Map<List<AdViewModel>>(await foundAds.ToListAsync());
+            var result = mapper.Map<List<AdViewModel>>(await foundAds.ToListAsync().ConfigureAwait(false));
 
             return result;
         }
@@ -38,18 +38,21 @@ namespace EasyRent.Common.Services
                 return;
             }
 
-            var adEntity = unitOfWork.AdRepository.GetById(model.AdId);
+            var adEntity = await unitOfWork.AdRepository.GetByIdAsync(model.AdId).ConfigureAwait(false);
 
             mapper.Map(model, adEntity, model.GetType(), adEntity.GetType());
 
             unitOfWork.AdRepository.Update(adEntity);
+
             await unitOfWork.AdRepository.SaveAsync().ConfigureAwait(false);
         }
 
         public async Task Delete(int id)
         {
-            var entity = unitOfWork.AdRepository.GetById(id);
+            var entity = await unitOfWork.AdRepository.GetByIdAsync(id).ConfigureAwait(false);
+
             unitOfWork.AdRepository.Delete(entity);
+
             await unitOfWork.AdRepository.SaveAsync().ConfigureAwait(false);
         }
     }

@@ -15,7 +15,7 @@ namespace EasyRent.Common.Extentions
 
         public static async Task<T> FindByUserNameOrEmailAsync<T>(this UserManager<T> userManager, string userNameOrEmail) where T : User
         {
-            return await userManager.Users.FirstOrDefaultAsync(q => q.UserName == userNameOrEmail || q.Email == userNameOrEmail);
+            return await userManager.Users.FirstOrDefaultAsync(q => q.UserName == userNameOrEmail || q.Email == userNameOrEmail).ConfigureAwait(false);
         }
     }
 }

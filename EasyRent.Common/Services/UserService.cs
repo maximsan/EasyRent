@@ -25,7 +25,7 @@ namespace EasyRent.Common.Services
 
         public async Task<User> FindAsync(string userNameOrEmail)
         {
-            return await userManager.FindByUserNameOrEmailAsync(userNameOrEmail);
+            return await userManager.FindByUserNameOrEmailAsync(userNameOrEmail).ConfigureAwait(false);
         }
 
         public async Task<AddressModel> GetAddressAsync(string userName)
@@ -35,7 +35,7 @@ namespace EasyRent.Common.Services
                 return null;
             }
 
-            var addressEntity = (await FindAsync(userName))?.Address;
+            var addressEntity = (await FindAsync(userName).ConfigureAwait(false))?.Address;
             var mappedModel = mapper.Map<AddressModel>(addressEntity);
 
             return mappedModel;
@@ -50,7 +50,7 @@ namespace EasyRent.Common.Services
                 return SignInResult.Failed;
             }
 
-            var signInStatus = await signInManager.PasswordSignInAsync(user, model.Password, false, false);
+            var signInStatus = await signInManager.PasswordSignInAsync(user, model.Password, false, false).ConfigureAwait(false);
 
             return signInStatus;
         }
@@ -59,7 +59,7 @@ namespace EasyRent.Common.Services
         {
             var mappedUser = mapper.Map<User>(model);
 
-            var signUpStatus = await userManager.CreateAsync(mappedUser, model.Password);
+            var signUpStatus = await userManager.CreateAsync(mappedUser, model.Password).ConfigureAwait(false);
 
             return signUpStatus;
         }

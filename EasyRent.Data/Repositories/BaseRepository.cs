@@ -24,6 +24,8 @@ namespace EasyRent.Data.Repositories
 
         public virtual TEntity GetById(int id) => CurrentSet.Find(id);
 
+        public virtual async Task<TEntity> GetByIdAsync(int id) => await CurrentSet.FindAsync(id).ConfigureAwait(false);
+
         public virtual void Save() => Context.SaveChanges();
 
         public virtual async Task SaveAsync() => await Context.SaveChangesAsync();

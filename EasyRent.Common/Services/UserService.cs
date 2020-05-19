@@ -63,5 +63,10 @@ namespace EasyRent.Common.Services
 
             return signUpStatus;
         }
+
+        public async Task SignOutAsync()
+        {
+            await signInManager.SignOutAsync();
+        }
     }
 }

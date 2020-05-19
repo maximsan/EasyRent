@@ -12,5 +12,6 @@ namespace EasyRent.Common.Services
         Task<AddressModel> GetAddressAsync(string userName);
         Task<SignInResult> SignInAsync(SignInModel model);
         Task<IdentityResult> SignUpAsync(SignUpModel model);
+        Task SignOutAsync();
     }
 }

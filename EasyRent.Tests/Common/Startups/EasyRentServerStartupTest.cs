@@ -52,14 +52,7 @@ namespace EasyRent.Tests.Common.Startups
 
             services.AddMvc();
 
-            services.AddAuthentication("Bearer")
-                .AddIdentityServerAuthentication(configs =>
-                {
-                    configs.ApiName = CommonConstants.ApiName;
-                    configs.Authority = "http://localhost:5002";
-                    configs.RequireHttpsMetadata = false;
-                    configs.SaveToken = true;
-                });
+            services.AddAuthentication();
 
             services.AddSpaStaticFiles(config =>
             {

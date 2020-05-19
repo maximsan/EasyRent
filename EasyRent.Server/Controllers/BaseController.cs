@@ -1,8 +1,5 @@
-﻿using EasyRent.Common.Extentions;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace EasyRent.Server.Controllers
 {

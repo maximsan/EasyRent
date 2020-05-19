@@ -1,6 +1,6 @@
 ﻿using EasyRent.Common.Extentions;
-using EasyRent.Server.Common.Constants;
 using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -35,19 +35,18 @@ namespace EasyRent.Server
                 app.UseHttpsRedirection();
             }
 
-            app.UseAuthentication();
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
-            app.UseCookiePolicy();
+            
+            app.UseRouting();
 
-            app.UseMvc(routes =>
+            app.UseCookiePolicy();
+            app.UseAuthentication();
+            app.UseAuthorization();
+
+            app.UseEndpoints(configs =>
             {
-                routes.MapSpaFallbackRoute("spa-fallback", new
-                {
-                    controller = "Home",
-                    action = "Index"
-                });
-                routes.MapRoute("default", "{controller=Home}/{action=Index}/{id?}");
+                configs.MapControllers();
             });
 
             app.UseSpa(spa =>
@@ -69,37 +68,27 @@ namespace EasyRent.Server
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            services.AddDatabaseConfigs(Configuration.GetConnectionString("MainDatabase"));
+            services.AddDatabaseConfigs(Configuration.GetConnectionString("MainDatabase"))
+                .AddDatabaseDependencies()
+                .AddDataServiceDependencies()
+                .AddValidationDependencies()
+                .AddAutoMapperConfigs<Startup>();
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
-            services.AddMvc()
-                .AddMvcOptions(opts =>
-                {
-                    opts.EnableEndpointRouting = false;
-                })
+            services.AddControllers()
                 .AddFluentValidation(config =>
                 {
                     config.RunDefaultMvcValidationAfterFluentValidationExecutes = true;
                 });
 
-            services.AddAuthentication("Bearer")
-                .AddIdentityServerAuthentication(configs =>
-                {
-                    configs.ApiName = CommonConstants.ApiName;
-                    configs.Authority = "http://localhost:5002";
-                    configs.RequireHttpsMetadata = false;
-                    configs.SaveToken = true;
-                });
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie();
+            services.AddAuthorization();
 
             services.AddSpaStaticFiles(config =>
             {
                 config.RootPath = "wwwroot/build";
             });
-
-            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-            services.AddDatabaseDependencies();
-            services.AddDataServiceDependencies();
-            services.AddValidationDependencies();
-            services.AddAutoMapperConfigs<Startup>();
         }
     }
 }

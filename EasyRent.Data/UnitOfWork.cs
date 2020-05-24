@@ -1,37 +1,38 @@
-﻿using EasyRent.Data.Repositories;
+﻿using EasyRent.Data.Entities;
+using EasyRent.Data.Repositories;
 using System;
 
 namespace EasyRent.Data
 {
-    public class UnitOfWork : IDisposable
+    public class UnitOfWork : IDisposable, IUnitOfWork
     {
         private readonly ApplicationDbContext dbContext;
 
-        private AddressRepository addressRepository;
-        private AdRepository adRepository;
-        private CategoryRepository categoryRepository;
-        private ContactRepository contactRepository;
-        private ImageRepository imageRepository;
-        private SubcategoryRepository subcategoryRepository;
-        private UserContactRepository userContactRepository;
+        private IRepository<Address> addressRepository;
+        private IAdRepository adRepository;
+        private IRepository<Category> categoryRepository;
+        private IRepository<Contact> contactRepository;
+        private IRepository<Image> imageRepository;
+        private IRepository<Subcategory> subcategoryRepository;
+        private IRepository<UserContact> userContactRepository;
 
-        public AddressRepository AddressRepository =>
+        public IRepository<Address> AddressRepository =>
             addressRepository ?? (addressRepository = new AddressRepository(dbContext));
 
-        public AdRepository AdRepository => adRepository ?? (adRepository = new AdRepository(dbContext));
+        public IAdRepository AdRepository => adRepository ?? (adRepository = new AdRepository(dbContext));
 
-        public CategoryRepository CategoryRepository =>
+        public IRepository<Category> CategoryRepository =>
             categoryRepository ?? (categoryRepository = new CategoryRepository(dbContext));
 
-        public ContactRepository ContactRepository =>
+        public IRepository<Contact> ContactRepository =>
             contactRepository ?? (contactRepository = new ContactRepository(dbContext));
 
-        public ImageRepository ImageRepository => imageRepository ?? (imageRepository = new ImageRepository(dbContext));
+        public IRepository<Image> ImageRepository => imageRepository ?? (imageRepository = new ImageRepository(dbContext));
 
-        public SubcategoryRepository SubcategoryRepository =>
+        public IRepository<Subcategory> SubcategoryRepository =>
             subcategoryRepository ?? (subcategoryRepository = new SubcategoryRepository(dbContext));
 
-        public UserContactRepository UserContactRepository =>
+        public IRepository<UserContact> UserContactRepository =>
             userContactRepository ?? (userContactRepository = new UserContactRepository(dbContext));
 
         public UnitOfWork(ApplicationDbContext dbContext)

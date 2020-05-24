@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace EasyRent.Data.Repositories
 {
-    public abstract class BaseRepository<TEntity> : IDisposable where TEntity : class
+    public abstract class BaseRepository<TEntity> : IDisposable, IRepository<TEntity> where TEntity : class
     {
         protected readonly ApplicationDbContext Context;
         protected DbSet<TEntity> CurrentSet;

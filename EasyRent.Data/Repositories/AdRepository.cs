@@ -5,7 +5,7 @@ using System.Linq.Dynamic.Core;
 
 namespace EasyRent.Data.Repositories
 {
-    public class AdRepository : BaseRepository<Ad>
+    public class AdRepository : BaseRepository<Ad>, IAdRepository
     {
         public AdRepository(ApplicationDbContext context) : base(context)
         {

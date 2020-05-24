@@ -43,14 +43,14 @@ namespace EasyRent.Common.Extentions
 
         public static IServiceCollection AddDatabaseDependencies(this IServiceCollection services)
         {
-            services.AddTransient<AddressRepository>();
-            services.AddTransient<AdRepository>();
-            services.AddTransient<CategoryRepository>();
-            services.AddTransient<ContactRepository>();
-            services.AddTransient<ImageRepository>();
-            services.AddTransient<SubcategoryRepository>();
-            services.AddTransient<UserContactRepository>();
-            services.AddTransient<UnitOfWork>();
+            services.AddTransient<IRepository<Address>, AddressRepository>();
+            services.AddTransient<IAdRepository, AdRepository>();
+            services.AddTransient<IRepository<Category>, CategoryRepository>();
+            services.AddTransient<IRepository<Contact>, ContactRepository>();
+            services.AddTransient<IRepository<Image>, ImageRepository>();
+            services.AddTransient<IRepository<Subcategory>, SubcategoryRepository>();
+            services.AddTransient<IRepository<UserContact>, UserContactRepository>();
+            services.AddTransient<IUnitOfWork, UnitOfWork>();
 
             return services;
         }

@@ -5,6 +5,7 @@ using EasyRent.Data.Entities;
 using EasyRent.Data.Repositories.Filters;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace EasyRent.Common.Services
@@ -17,6 +18,11 @@ namespace EasyRent.Common.Services
 
         public async Task<List<AdViewModel>> Search(AdRequest request)
         {
+            if(request is null)
+            {
+                return new List<AdViewModel>(0);
+            }
+
             var filter = mapper.Map<AdFilter>(request);
             var foundAds = unitOfWork.AdRepository.Search(filter);
             var result = mapper.Map<List<AdViewModel>>(await foundAds.ToListAsync().ConfigureAwait(false));
@@ -26,6 +32,11 @@ namespace EasyRent.Common.Services
 
         public async Task Create(AdModel model)
         {
+            if(model is null)
+            {
+                return;
+            }
+
             var adEntity = mapper.Map<Ad>(model);
             unitOfWork.AdRepository.Create(adEntity);
             await unitOfWork.AddressRepository.SaveAsync().ConfigureAwait(false);
@@ -33,7 +44,7 @@ namespace EasyRent.Common.Services
 
         public async Task Update(AdModel model)
         {
-            if (model.AdId <= 0)
+            if (model is null || model.AdId <= 0)
             {
                 return;
             }
@@ -49,6 +60,11 @@ namespace EasyRent.Common.Services
 
         public async Task Delete(int id)
         {
+            if(id == 0)
+            {
+                return;
+            }
+
             var entity = await unitOfWork.AdRepository.GetByIdAsync(id).ConfigureAwait(false);
 
             unitOfWork.AdRepository.Delete(entity);

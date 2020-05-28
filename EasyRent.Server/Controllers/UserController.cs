@@ -15,11 +15,17 @@ namespace EasyRent.Server.Controllers
         [HttpGet]
         public async Task<IActionResult> Address()
         {
-            var address = await userService.GetAddressAsync(User.Identity.Name);
+            var address = await userService.GetAddressByEmailAsync(User.Identity.Name);
 
-            return address is null
-                ? NotFound()
-                : (IActionResult)Ok(address);
+            return OkOrNotFound(address);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Address(string id)
+        {
+            var address = await userService.GetAddressByIdAsync(id);
+
+            return OkOrNotFound(address);
         }
     }
 }

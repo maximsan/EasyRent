@@ -5,8 +5,6 @@ namespace EasyRent.Server.Controllers
 {
     public class BaseController : Controller
     {
-        protected T GetService<T>() => HttpContext.RequestServices.GetService<T>();
-
-        protected void SetJsonResponseType() => Response.ContentType = "application/json";
+        protected IActionResult OkOrNotFound(object obj) => obj is null ? NotFound() : (IActionResult)Ok(obj);
     }
 }

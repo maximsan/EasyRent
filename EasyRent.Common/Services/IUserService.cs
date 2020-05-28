@@ -8,8 +8,8 @@ namespace EasyRent.Common.Services
 {
     public interface IUserService
     {
-        Task<User> FindAsync(string userNameOrEmail);
-        Task<AddressModel> GetAddressAsync(string userName);
+        Task<AddressModel> GetAddressByEmailAsync(string email);
+        Task<AddressModel> GetAddressByIdAsync(string userId);
         Task<SignInResult> SignInAsync(SignInModel model);
         Task<IdentityResult> SignUpAsync(SignUpModel model);
         Task SignOutAsync();

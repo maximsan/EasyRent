@@ -23,19 +23,27 @@ namespace EasyRent.Common.Services
             this.signInManager = signInManager;
         }
 
-        public async Task<User> FindAsync(string userNameOrEmail)
+        public async Task<AddressModel> GetAddressByEmailAsync(string email)
         {
-            return await userManager.FindByUserNameOrEmailAsync(userNameOrEmail).ConfigureAwait(false);
-        }
-
-        public async Task<AddressModel> GetAddressAsync(string userName)
-        {
-            if (userName.IsNullOrWhiteSpace())
+            if (email.IsNullOrWhiteSpace())
             {
                 return null;
             }
 
-            var addressEntity = (await FindAsync(userName).ConfigureAwait(false))?.Address;
+            var addressEntity = (await FindByUserNameOrEmailAsync(email).ConfigureAwait(false))?.Address;
+            var mappedModel = mapper.Map<AddressModel>(addressEntity);
+
+            return mappedModel;
+        }
+
+        public async Task<AddressModel> GetAddressByIdAsync(string userId)
+        {
+            if(userId.IsNullOrWhiteSpace())
+            {
+                return null;
+            }
+
+            var addressEntity = (await FindByIdAsync(userId).ConfigureAwait(false))?.Address;
             var mappedModel = mapper.Map<AddressModel>(addressEntity);
 
             return mappedModel;
@@ -43,7 +51,7 @@ namespace EasyRent.Common.Services
 
         public async Task<SignInResult> SignInAsync(SignInModel model)
         {
-            var user = await FindAsync(model.Email);
+            var user = await FindByUserNameOrEmailAsync(model.Email);
 
             if (user is null)
             {
@@ -67,6 +75,16 @@ namespace EasyRent.Common.Services
         public async Task SignOutAsync()
         {
             await signInManager.SignOutAsync();
+        }
+
+        private async Task<User> FindByUserNameOrEmailAsync(string userNameOrEmail)
+        {
+            return await userManager.FindByUserNameOrEmailAsync(userNameOrEmail).ConfigureAwait(false);
+        }
+
+        private async Task<User> FindByIdAsync(string userId)
+        {
+            return await userManager.FindByIdAsync(userId).ConfigureAwait(false);
         }
     }
 }

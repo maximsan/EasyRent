@@ -58,7 +58,7 @@ namespace EasyRent.Common.Services
                 return SignInResult.Failed;
             }
 
-            var signInStatus = await signInManager.PasswordSignInAsync(user, model.Password, false, false).ConfigureAwait(false);
+            var signInStatus = await signInManager.PasswordSignInAsync(user, model.Password, model.RememberMe, false).ConfigureAwait(false);
 
             return signInStatus;
         }

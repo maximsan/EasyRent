@@ -10,5 +10,6 @@ namespace EasyRent.Common.Models
         public string Password { get; set; }
         [Required]
         public string ReturnUrl { get; set; }
+        public bool RememberMe { get; set; }
     }
 }

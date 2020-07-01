@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace EasyRent.Data.Entities
 {
-    public class User : IdentityUser
+    public class User : IdentityUser<int>
     {
         public virtual Address Address { get; set; }
 
@@ -20,5 +20,6 @@ namespace EasyRent.Data.Entities
 
         public virtual ICollection<UserAd> UserAds { get; set; }
         public virtual ICollection<UserContact> UserContacts { get; set; }
+        public virtual BookmarkList BookmarkList { get; set; }
     }
 }

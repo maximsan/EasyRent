@@ -13,7 +13,7 @@ namespace EasyRent.Data.Migrations
                 columns: table => new
                 {
                     AdId = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Description = table.Column<string>(maxLength: 500, nullable: true),
                     IsGift = table.Column<bool>(nullable: false),
                     Location = table.Column<string>(maxLength: 100, nullable: true),
@@ -30,7 +30,8 @@ namespace EasyRent.Data.Migrations
                 name: "AspNetRoles",
                 columns: table => new
                 {
-                    Id = table.Column<string>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Name = table.Column<string>(maxLength: 256, nullable: true),
                     NormalizedName = table.Column<string>(maxLength: 256, nullable: true),
                     ConcurrencyStamp = table.Column<string>(nullable: true)
@@ -44,7 +45,8 @@ namespace EasyRent.Data.Migrations
                 name: "AspNetUsers",
                 columns: table => new
                 {
-                    Id = table.Column<string>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     UserName = table.Column<string>(maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(maxLength: 256, nullable: true),
                     Email = table.Column<string>(maxLength: 256, nullable: true),
@@ -73,7 +75,7 @@ namespace EasyRent.Data.Migrations
                 columns: table => new
                 {
                     CategoryId = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Name = table.Column<string>(maxLength: 30, nullable: true)
                 },
                 constraints: table =>
@@ -86,7 +88,7 @@ namespace EasyRent.Data.Migrations
                 columns: table => new
                 {
                     ContactId = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Name = table.Column<string>(maxLength: 50, nullable: true)
                 },
                 constraints: table =>
@@ -99,7 +101,7 @@ namespace EasyRent.Data.Migrations
                 columns: table => new
                 {
                     ImageId = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Name = table.Column<string>(maxLength: 50, nullable: true),
                     Url = table.Column<string>(maxLength: 100, nullable: true)
                 },
@@ -113,7 +115,7 @@ namespace EasyRent.Data.Migrations
                 columns: table => new
                 {
                     SubcategoryId = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Name = table.Column<string>(maxLength: 30, nullable: true)
                 },
                 constraints: table =>
@@ -122,31 +124,12 @@ namespace EasyRent.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "BookmarkAds",
-                columns: table => new
-                {
-                    BookmarkAdId = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
-                    AdId = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_BookmarkAds", x => x.BookmarkAdId);
-                    table.ForeignKey(
-                        name: "FK_BookmarkAds_Ads_AdId",
-                        column: x => x.AdId,
-                        principalTable: "Ads",
-                        principalColumn: "AdId",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
-                    RoleId = table.Column<string>(nullable: false),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    RoleId = table.Column<int>(nullable: false),
                     ClaimType = table.Column<string>(nullable: true),
                     ClaimValue = table.Column<string>(nullable: true)
                 },
@@ -166,11 +149,11 @@ namespace EasyRent.Data.Migrations
                 columns: table => new
                 {
                     AddressId = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Country = table.Column<string>(maxLength: 30, nullable: true),
                     City = table.Column<string>(maxLength: 40, nullable: true),
                     AdditionalInformation = table.Column<string>(maxLength: 200, nullable: true),
-                    UserId = table.Column<string>(nullable: true)
+                    UserId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -180,7 +163,7 @@ namespace EasyRent.Data.Migrations
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -188,8 +171,8 @@ namespace EasyRent.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
-                    UserId = table.Column<string>(nullable: false),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    UserId = table.Column<int>(nullable: false),
                     ClaimType = table.Column<string>(nullable: true),
                     ClaimValue = table.Column<string>(nullable: true)
                 },
@@ -208,10 +191,10 @@ namespace EasyRent.Data.Migrations
                 name: "AspNetUserLogins",
                 columns: table => new
                 {
-                    LoginProvider = table.Column<string>(maxLength: 128, nullable: false),
-                    ProviderKey = table.Column<string>(maxLength: 128, nullable: false),
+                    LoginProvider = table.Column<string>(nullable: false),
+                    ProviderKey = table.Column<string>(nullable: false),
                     ProviderDisplayName = table.Column<string>(nullable: true),
-                    UserId = table.Column<string>(nullable: false)
+                    UserId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -228,8 +211,8 @@ namespace EasyRent.Data.Migrations
                 name: "AspNetUserRoles",
                 columns: table => new
                 {
-                    UserId = table.Column<string>(nullable: false),
-                    RoleId = table.Column<string>(nullable: false)
+                    UserId = table.Column<int>(nullable: false),
+                    RoleId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -252,9 +235,9 @@ namespace EasyRent.Data.Migrations
                 name: "AspNetUserTokens",
                 columns: table => new
                 {
-                    UserId = table.Column<string>(nullable: false),
-                    LoginProvider = table.Column<string>(maxLength: 128, nullable: false),
-                    Name = table.Column<string>(maxLength: 128, nullable: false),
+                    UserId = table.Column<int>(nullable: false),
+                    LoginProvider = table.Column<string>(nullable: false),
+                    Name = table.Column<string>(nullable: false),
                     Value = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -273,8 +256,8 @@ namespace EasyRent.Data.Migrations
                 columns: table => new
                 {
                     BookmarkListId = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
-                    UserId = table.Column<string>(nullable: true)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    UserId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -284,7 +267,7 @@ namespace EasyRent.Data.Migrations
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -292,8 +275,8 @@ namespace EasyRent.Data.Migrations
                 columns: table => new
                 {
                     UserAdId = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
-                    UserId = table.Column<string>(nullable: true),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    UserId = table.Column<int>(nullable: false),
                     AdId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -310,7 +293,7 @@ namespace EasyRent.Data.Migrations
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -318,9 +301,9 @@ namespace EasyRent.Data.Migrations
                 columns: table => new
                 {
                     UserContactId = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     ContactValue = table.Column<string>(maxLength: 50, nullable: true),
-                    UserId = table.Column<string>(nullable: true),
+                    UserId = table.Column<int>(nullable: false),
                     ContactId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -337,7 +320,7 @@ namespace EasyRent.Data.Migrations
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -345,7 +328,7 @@ namespace EasyRent.Data.Migrations
                 columns: table => new
                 {
                     AdImageId = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     AdId = table.Column<int>(nullable: false),
                     ImageId = table.Column<int>(nullable: false)
                 },
@@ -371,7 +354,7 @@ namespace EasyRent.Data.Migrations
                 columns: table => new
                 {
                     CategorySubcategoryId = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     CategoryId = table.Column<int>(nullable: false),
                     SubcategoryId = table.Column<int>(nullable: false)
                 },
@@ -393,25 +376,25 @@ namespace EasyRent.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "BookmarkAdBookmarkLists",
+                name: "BookmarkAds",
                 columns: table => new
                 {
-                    BookmarkAdBookmarkListId = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
-                    BookmarkListId = table.Column<int>(nullable: false),
                     BookmarkAdId = table.Column<int>(nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    AdId = table.Column<int>(nullable: false),
+                    BookmarkListId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_BookmarkAdBookmarkLists", x => x.BookmarkAdBookmarkListId);
+                    table.PrimaryKey("PK_BookmarkAds", x => x.BookmarkAdId);
                     table.ForeignKey(
-                        name: "FK_BookmarkAdBookmarkLists_BookmarkAds_BookmarkAdId",
-                        column: x => x.BookmarkAdId,
-                        principalTable: "BookmarkAds",
-                        principalColumn: "BookmarkAdId",
+                        name: "FK_BookmarkAds_Ads_AdId",
+                        column: x => x.AdId,
+                        principalTable: "Ads",
+                        principalColumn: "AdId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_BookmarkAdBookmarkLists_BookmarkLists_BookmarkListId",
+                        name: "FK_BookmarkAds_BookmarkLists_BookmarkListId",
                         column: x => x.BookmarkListId,
                         principalTable: "BookmarkLists",
                         principalColumn: "BookmarkListId",
@@ -472,24 +455,20 @@ namespace EasyRent.Data.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_BookmarkAdBookmarkLists_BookmarkAdId",
-                table: "BookmarkAdBookmarkLists",
-                column: "BookmarkAdId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_BookmarkAdBookmarkLists_BookmarkListId",
-                table: "BookmarkAdBookmarkLists",
-                column: "BookmarkListId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_BookmarkAds_AdId",
                 table: "BookmarkAds",
                 column: "AdId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_BookmarkAds_BookmarkListId",
+                table: "BookmarkAds",
+                column: "BookmarkListId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_BookmarkLists_UserId",
                 table: "BookmarkLists",
-                column: "UserId");
+                column: "UserId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_CategorySubcategories_CategoryId",
@@ -546,7 +525,7 @@ namespace EasyRent.Data.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "BookmarkAdBookmarkLists");
+                name: "BookmarkAds");
 
             migrationBuilder.DropTable(
                 name: "CategorySubcategories");
@@ -564,9 +543,6 @@ namespace EasyRent.Data.Migrations
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "BookmarkAds");
-
-            migrationBuilder.DropTable(
                 name: "BookmarkLists");
 
             migrationBuilder.DropTable(
@@ -576,10 +552,10 @@ namespace EasyRent.Data.Migrations
                 name: "Subcategories");
 
             migrationBuilder.DropTable(
-                name: "Contacts");
+                name: "Ads");
 
             migrationBuilder.DropTable(
-                name: "Ads");
+                name: "Contacts");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");

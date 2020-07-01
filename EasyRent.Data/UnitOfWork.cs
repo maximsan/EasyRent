@@ -16,24 +16,19 @@ namespace EasyRent.Data
         private IRepository<Subcategory> subcategoryRepository;
         private IRepository<UserContact> userContactRepository;
 
-        public IRepository<Address> AddressRepository =>
-            addressRepository ?? (addressRepository = new AddressRepository(dbContext));
+        public IRepository<Address> AddressRepository => addressRepository ??= new AddressRepository(dbContext);
 
-        public IAdRepository AdRepository => adRepository ?? (adRepository = new AdRepository(dbContext));
+        public IAdRepository AdRepository => adRepository ??= new AdRepository(dbContext);
 
-        public IRepository<Category> CategoryRepository =>
-            categoryRepository ?? (categoryRepository = new CategoryRepository(dbContext));
+        public IRepository<Category> CategoryRepository => categoryRepository ??= new CategoryRepository(dbContext);
 
-        public IRepository<Contact> ContactRepository =>
-            contactRepository ?? (contactRepository = new ContactRepository(dbContext));
+        public IRepository<Contact> ContactRepository => contactRepository ??= new ContactRepository(dbContext);
 
-        public IRepository<Image> ImageRepository => imageRepository ?? (imageRepository = new ImageRepository(dbContext));
+        public IRepository<Image> ImageRepository => imageRepository ??= new ImageRepository(dbContext);
 
-        public IRepository<Subcategory> SubcategoryRepository =>
-            subcategoryRepository ?? (subcategoryRepository = new SubcategoryRepository(dbContext));
+        public IRepository<Subcategory> SubcategoryRepository => subcategoryRepository ??= new SubcategoryRepository(dbContext);
 
-        public IRepository<UserContact> UserContactRepository =>
-            userContactRepository ?? (userContactRepository = new UserContactRepository(dbContext));
+        public IRepository<UserContact> UserContactRepository => userContactRepository ??= new UserContactRepository(dbContext);
 
         public UnitOfWork(ApplicationDbContext dbContext)
         {
@@ -61,6 +56,11 @@ namespace EasyRent.Data
 
                 disposed = true;
             }
+        }
+
+        ~UnitOfWork()
+        {
+            Dispose(true);
         }
 
         #endregion Disposable

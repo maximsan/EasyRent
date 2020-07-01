@@ -72,7 +72,7 @@ namespace EasyRent.Server
                 .AddDatabaseDependencies()
                 .AddDataServiceDependencies()
                 .AddValidationDependencies()
-                .AddAutoMapperConfigs<Startup>();
+                .AddAutoMapperConfigs();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             services.AddControllers()

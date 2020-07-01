@@ -21,11 +21,19 @@ namespace EasyRent.Server.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Address(string id)
+        public async Task<IActionResult> Address(int id)
         {
             var address = await userService.GetAddressByIdAsync(id);
 
             return OkOrNotFound(address);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Bookmarks()
+        {
+            var bookmarks = await userService.GetBookmarks(User.Identity.Name);
+
+            return OkOrNotFound(bookmarks);
         }
     }
 }

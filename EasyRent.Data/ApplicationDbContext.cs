@@ -4,12 +4,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EasyRent.Data
 {
-    public class ApplicationDbContext : IdentityDbContext<User>
+    public class ApplicationDbContext : IdentityDbContext<User, Role, int>
     {
         public DbSet<Address> Addresses { get; set; }
         public DbSet<AdImage> AdImages { get; set; }
         public DbSet<Ad> Ads { get; set; }
-        public DbSet<BookmarkAdBookmarkList> BookmarkAdBookmarkLists { get; set; }
         public DbSet<BookmarkAd> BookmarkAds { get; set; }
         public DbSet<BookmarkList> BookmarkLists { get; set; }
         public DbSet<Category> Categories { get; set; }
@@ -29,6 +28,16 @@ namespace EasyRent.Data
                    .WithOne(q => q.User)
                    .HasForeignKey<Address>(q => q.UserId);
 
+            builder.Entity<User>()
+                .HasOne(q => q.BookmarkList)
+                .WithOne(q => q.User)
+                .HasForeignKey<BookmarkList>(q => q.UserId);
+
+            builder.Entity<BookmarkList>()
+                .HasMany(q => q.BookmarkAds)
+                .WithOne(q => q.BookmarkList)
+                .HasForeignKey(q => q.BookmarkListId);
+
             builder.Entity<UserContact>()
                    .HasOne(q => q.User)
                    .WithMany(q => q.UserContacts)
@@ -38,16 +47,6 @@ namespace EasyRent.Data
                    .HasOne(q => q.Contact)
                    .WithMany(q => q.UserContacts)
                    .HasForeignKey(q => q.ContactId);
-
-            builder.Entity<BookmarkAdBookmarkList>()
-                   .HasOne(q => q.BookmarkList)
-                   .WithMany(q => q.BookmarkAdBookmarkLists)
-                   .HasForeignKey(q => q.BookmarkListId);
-
-            builder.Entity<BookmarkAdBookmarkList>()
-                   .HasOne(q => q.BookmarkAd)
-                   .WithMany(q => q.BookmarkAdBookmarkLists)
-                   .HasForeignKey(q => q.BookmarkAdId);
 
             builder.Entity<CategorySubcategory>()
                    .HasOne(q => q.Category)

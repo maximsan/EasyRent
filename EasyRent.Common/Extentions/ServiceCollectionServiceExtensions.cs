@@ -1,17 +1,15 @@
 ﻿using AutoMapper;
 using EasyRent.Common.Models;
-using EasyRent.Common.Models.AdModels;
-using EasyRent.Common.Models.UserModels;
 using EasyRent.Common.Services;
 using EasyRent.Common.Validators;
 using EasyRent.Data;
 using EasyRent.Data.Entities;
 using EasyRent.Data.Repositories;
-using EasyRent.Data.Repositories.Filters;
 using FluentValidation;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using System.Reflection;
 
 namespace EasyRent.Common.Extentions
 {
@@ -26,17 +24,9 @@ namespace EasyRent.Common.Extentions
             return services;
         }
 
-        public static IServiceCollection AddAutoMapperConfigs<TStartup>(this IServiceCollection services) where TStartup : class
+        public static IServiceCollection AddAutoMapperConfigs(this IServiceCollection services)
         {
-            services.AddAutoMapper(config =>
-            {
-                config.CreateMap<SignInModel, User>();
-                config.CreateMap<SignUpModel, User>();
-                config.CreateMap<Ad, AdViewModel>();
-                config.CreateMap<AdRequest, AdFilter>();
-                config.CreateMap<AdModel, Ad>();
-                config.CreateMap<Address, AddressModel>();
-            }, typeof(TStartup));
+            services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
             return services;
         }
@@ -62,7 +52,7 @@ namespace EasyRent.Common.Extentions
                 options.UseNpgsql(connString);
             });
 
-            services.AddDefaultIdentity<User>(config =>
+            services.AddIdentity<User, Role>(config =>
             {
                 config.User.RequireUniqueEmail = true;
                 config.Password = new PasswordOptions

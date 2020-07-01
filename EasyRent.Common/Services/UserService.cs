@@ -36,9 +36,9 @@ namespace EasyRent.Common.Services
             return mappedModel;
         }
 
-        public async Task<AddressModel> GetAddressByIdAsync(string userId)
+        public async Task<AddressModel> GetAddressByIdAsync(int userId)
         {
-            if(userId.IsNullOrWhiteSpace())
+            if (userId <= 0)
             {
                 return null;
             }
@@ -77,14 +77,26 @@ namespace EasyRent.Common.Services
             await signInManager.SignOutAsync();
         }
 
+        public async Task<BookmarkListModel> GetBookmarks(string email)
+        {
+            var entity = await FindByUserNameOrEmailAsync(email);
+            var mappedEntity = mapper.Map<BookmarkListModel>(entity?.BookmarkList);
+
+            return mappedEntity;
+        }
+
+        #region Private methods
+
         private async Task<User> FindByUserNameOrEmailAsync(string userNameOrEmail)
         {
             return await userManager.FindByUserNameOrEmailAsync(userNameOrEmail).ConfigureAwait(false);
         }
 
-        private async Task<User> FindByIdAsync(string userId)
+        private async Task<User> FindByIdAsync(int userId)
         {
-            return await userManager.FindByIdAsync(userId).ConfigureAwait(false);
+            return await userManager.FindByIdAsync(userId.ToString()).ConfigureAwait(false);
         }
+
+        #endregion Private methods
     }
 }

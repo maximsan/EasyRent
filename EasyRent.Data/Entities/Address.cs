@@ -18,7 +18,7 @@ namespace EasyRent.Data.Entities
         public string AdditionalInformation { get; set; }
 
         [ForeignKey("Id")]
-        public string UserId { get; set; }
+        public int UserId { get; set; }
         public virtual User User { get; set; }
     }
 }

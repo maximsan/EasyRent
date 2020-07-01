@@ -3,7 +3,7 @@ using EasyRent.Common.Models.UserModels;
 using Microsoft.AspNetCore.Identity;
 using System.Threading.Tasks;
 
-namespace EasyRent.Common.Services
+namespace EasyRent.Common.Interfaces
 {
     public interface IUserService
     {

@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
+using EasyRent.Common.Interfaces;
 using EasyRent.Common.Models;
 using EasyRent.Common.Services;
 using EasyRent.Common.Validators;
 using EasyRent.Data;
 using EasyRent.Data.Entities;
+using EasyRent.Data.Interfaces;
 using EasyRent.Data.Repositories;
 using FluentValidation;
 using Microsoft.AspNetCore.Identity;

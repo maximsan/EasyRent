@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
+using EasyRent.Common.Interfaces;
 using EasyRent.Common.Models.AdModels;
 using EasyRent.Data;
 using EasyRent.Data.Entities;
 using EasyRent.Data.Repositories.Filters;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace EasyRent.Common.Services
@@ -18,7 +18,7 @@ namespace EasyRent.Common.Services
 
         public async Task<List<AdViewModel>> Search(AdRequest request)
         {
-            if(request is null)
+            if (request is null)
             {
                 return new List<AdViewModel>(0);
             }
@@ -32,7 +32,7 @@ namespace EasyRent.Common.Services
 
         public async Task Create(AdModel model)
         {
-            if(model is null)
+            if (model is null)
             {
                 return;
             }
@@ -60,7 +60,7 @@ namespace EasyRent.Common.Services
 
         public async Task Delete(int id)
         {
-            if(id == 0)
+            if (id == 0)
             {
                 return;
             }

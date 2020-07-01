@@ -1,5 +1,5 @@
+using EasyRent.Common.Interfaces;
 using EasyRent.Common.Models.AdModels;
-using EasyRent.Common.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -51,7 +51,7 @@ namespace EasyRent.Server.Controllers
         [HttpDelete]
         public async Task<IActionResult> Delete(int id)
         {
-            if(id == 0)
+            if (id == 0)
             {
                 return BadRequest();
             }

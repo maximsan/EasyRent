@@ -1,5 +1,5 @@
-﻿using EasyRent.Common.Models.AdModels;
-using EasyRent.Common.Services;
+﻿using EasyRent.Common.Interfaces;
+using EasyRent.Common.Models.AdModels;
 using EasyRent.Server.Controllers;
 using EasyRent.Tests.Common.Fixtures;
 using System.Net.Http;

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using EasyRent.Common.Extentions;
+using EasyRent.Common.Interfaces;
 using EasyRent.Common.Models;
 using EasyRent.Common.Models.UserModels;
 using EasyRent.Data;

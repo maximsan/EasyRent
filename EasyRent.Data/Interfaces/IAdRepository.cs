@@ -2,7 +2,7 @@
 using EasyRent.Data.Repositories.Filters;
 using System.Linq;
 
-namespace EasyRent.Data.Repositories
+namespace EasyRent.Data.Interfaces
 {
     public interface IAdRepository : IRepository<Ad>
     {

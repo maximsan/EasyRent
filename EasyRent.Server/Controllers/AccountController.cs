@@ -1,8 +1,8 @@
 ﻿using EasyRent.Common.Attributes;
 using EasyRent.Common.Constants;
 using EasyRent.Common.Extentions;
+using EasyRent.Common.Interfaces;
 using EasyRent.Common.Models;
-using EasyRent.Common.Services;
 using EasyRent.Data.Entities;
 using EasyRent.Server.Controllers;
 using Microsoft.AspNetCore.Identity;
@@ -69,8 +69,8 @@ namespace EasyRent.IdentityServer.Controllers
 
             SignInResult signInStatus = await userService.SignInAsync(model);
 
-            return signInStatus.Succeeded 
-                ? Ok() 
+            return signInStatus.Succeeded
+                ? Ok()
                 : (IActionResult)BadRequest();
         }
 

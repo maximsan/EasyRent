@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace EasyRent.Common.Services
+namespace EasyRent.Common.Interfaces
 {
     public interface IAdService
     {

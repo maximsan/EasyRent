@@ -1,4 +1,5 @@
 ﻿using EasyRent.Data.Entities;
+using EasyRent.Data.Interfaces;
 using EasyRent.Data.Repositories.Filters;
 using System.Linq;
 using System.Linq.Dynamic.Core;

@@ -1,4 +1,4 @@
-using EasyRent.Common.Services;
+using EasyRent.Common.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;

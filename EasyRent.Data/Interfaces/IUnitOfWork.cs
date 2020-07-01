@@ -1,7 +1,7 @@
 ﻿using EasyRent.Data.Entities;
 using EasyRent.Data.Repositories;
 
-namespace EasyRent.Data
+namespace EasyRent.Data.Interfaces
 {
     public interface IUnitOfWork
     {

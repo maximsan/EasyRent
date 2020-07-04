@@ -1,6 +1,7 @@
 ﻿using EasyRent.BusinessLayer.Interfaces;
 using EasyRent.BusinessLayer.Models.AdModels;
 using EasyRent.Server.Controllers;
+using EasyRent.Tests.Helpers.DataHelpers;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using System.Collections.Generic;
@@ -29,12 +30,15 @@ namespace EasyRent.Tests.Controllers.Server
 
         [Theory]
         [MemberData(nameof(TestRequest))]
-        public async Task GetTest(AdRequest request)
+        public async Task GetAds(AdRequest request)
         {
+            mockedAdService.Setup(q => q.Search(request)).Returns(AdHelper.Search(request));
+
             var actionResult = await controller.Search(request);
 
             var convertedActionResult = Assert.IsType<OkObjectResult>(actionResult);
-            var model = Assert.IsAssignableFrom<IEnumerable<AdModel>>(convertedActionResult);
+            var model = Assert.IsAssignableFrom<IEnumerable<AdModel>>(convertedActionResult.Value);
+
             Assert.True(model.Count() <= request.PageSize);
         }
     }

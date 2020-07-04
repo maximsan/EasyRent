@@ -1,7 +1,11 @@
-﻿using EasyRent.BusinessLayer.Models.AdModels;
+﻿using DIMS_Core.Common.Enums;
+using EasyRent.BusinessLayer.Models.AdModels;
+using EasyRent.Common.Extensions;
 using EasyRent.Data.Entities;
+using EasyRent.Tests.Common;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace EasyRent.Tests.Helpers.DataHelpers
 {
@@ -34,11 +38,22 @@ namespace EasyRent.Tests.Helpers.DataHelpers
             return testData;
         }
 
-        //public static IEnumerable<AdViewModel> Search(AdRequest request)
-        //{
-        //    var query = GetTestAds().AsQueryable();
+        public static Task<List<AdModel>> Search(AdRequest request)
+        {
+            return Task.Run(() =>
+            {
+                var query = GetTestAds().AsQueryable();
 
-        //    return query.ToList();
-        //}
+                if (request.AdId.HasValue)
+                {
+                    query = query.Where(q => q.AdId == request.AdId.Value);
+                }
+
+                query = query.SortAndTake(request.SortExpression, request.Page, request.PageSize, q => q.AdId, SortDirections.ASC);
+                var model = TestMapper.Instance.ProjectTo<AdModel>(query, null);
+
+                return model.ToList();
+            });
+        }
     }
 }

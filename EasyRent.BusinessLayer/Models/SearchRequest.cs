@@ -13,33 +13,12 @@ namespace EasyRent.BusinessLayer.Models
 
         private string sortExpression;
 
-        public int? PageSize { get; set; }
-        public int? Page { get; set; }
+        public int PageSize { get; set; } = 0;
+        public int Page { get; set; } = 20;
         public string SortExpression
         {
             get => sortExpression;
             set => sortExpression = CheckSortExpression(value);
-        }
-
-        protected SearchRequest()
-        {
-            SetSearchRequestFieldOnEmpty();
-        }
-
-        /// <summary>
-        /// Set default values for page and pagesize if they are null.
-        /// </summary>
-        private void SetSearchRequestFieldOnEmpty()
-        {
-            if (!PageSize.HasValue)
-            {
-                PageSize = 20;
-            }
-
-            if (!Page.HasValue)
-            {
-                Page = 0;
-            }
         }
 
         private string CheckSortExpression(string sortExpression)

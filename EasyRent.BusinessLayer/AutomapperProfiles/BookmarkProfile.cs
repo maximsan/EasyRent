@@ -10,8 +10,8 @@ namespace EasyRent.BusinessLayer.AutomapperProfiles
         {
             CreateMap<BookmarkList, BookmarkListModel>();
             CreateMap<Ad, BookmarkModel>();
-            CreateMap<BookmarkAd, BookmarkModel>()
-                .ForMember(q => q, q => q.MapFrom(w => w.Ad));
+            //CreateMap<BookmarkAd, BookmarkModel>()
+            //    .ForMember(q => q, q => q.MapFrom(w => w.Ad));
         }
     }
 }

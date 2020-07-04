@@ -1,8 +1,8 @@
-﻿using EasyRent.Common.Attributes;
+﻿using EasyRent.BusinessLayer.Interfaces;
+using EasyRent.BusinessLayer.Models;
+using EasyRent.Common.Attributes;
 using EasyRent.Common.Constants;
 using EasyRent.Common.Extensions;
-using EasyRent.Common.Interfaces;
-using EasyRent.Common.Models;
 using EasyRent.Data.Entities;
 using EasyRent.Server.Controllers;
 using Microsoft.AspNetCore.Identity;

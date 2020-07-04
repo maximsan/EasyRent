@@ -1,5 +1,5 @@
-using EasyRent.Common.Interfaces;
-using EasyRent.Common.Models.AdModels;
+using EasyRent.BusinessLayer.Interfaces;
+using EasyRent.BusinessLayer.Models.AdModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;

@@ -1,4 +1,4 @@
-﻿using EasyRent.Common.Extensions;
+﻿using EasyRent.BusinessLayer.Extensions;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
@@ -37,7 +37,7 @@ namespace EasyRent.Server
 
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
-            
+
             app.UseRouting();
 
             app.UseCookiePolicy();

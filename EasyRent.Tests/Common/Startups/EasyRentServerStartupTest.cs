@@ -1,4 +1,5 @@
-﻿using EasyRent.Common.Extentions;
+﻿using EasyRent.BusinessLayer.Extensions;
+using EasyRent.Common.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;

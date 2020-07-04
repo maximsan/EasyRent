@@ -1,38 +1,41 @@
-﻿using EasyRent.Common.Interfaces;
-using EasyRent.Common.Models.AdModels;
+﻿using EasyRent.BusinessLayer.Interfaces;
+using EasyRent.BusinessLayer.Models.AdModels;
 using EasyRent.Server.Controllers;
-using EasyRent.Tests.Common.Fixtures;
-using System.Net.Http;
+using Microsoft.AspNetCore.Mvc;
+using Moq;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
 
 namespace EasyRent.Tests.Controllers.Server
 {
-    public class AdControllerTests : IClassFixture<EasyRentServerFixture>
+    public class AdControllerTests
     {
         private readonly AdController controller;
-        private readonly EasyRentServerFixture fixture;
-        private readonly HttpClient httpClient;
+        private readonly Mock<IAdService> mockedAdService;
 
-        public AdControllerTests(EasyRentServerFixture fixture)
+        public static IEnumerable<object[]> TestRequest { get; } = new List<object[]>
         {
-            this.fixture = fixture;
-            httpClient = this.fixture.CreateClient();
-            controller = new AdController(fixture.GetService<IAdService>());
+            new object[] { new AdRequest() { Page = 0, PageSize = 5 } }
+        };
+
+        public AdControllerTests()
+        {
+            mockedAdService = new Mock<IAdService>();
+
+            controller = new AdController(mockedAdService.Object);
         }
 
         [Theory]
-        [InlineData(1)]
-        public async Task GetTest(int? adId)
+        [MemberData(nameof(TestRequest))]
+        public async Task GetTest(AdRequest request)
         {
-            var request = new AdRequest
-            {
-                AdId = adId
-            };
+            var actionResult = await controller.Search(request);
 
-            var result = await controller.Search(request);
-
-            Assert.NotNull(result);
+            var convertedActionResult = Assert.IsType<OkObjectResult>(actionResult);
+            var model = Assert.IsAssignableFrom<IEnumerable<AdViewModel>>(convertedActionResult);
+            Assert.True(model.Count() <= request.PageSize);
         }
     }
 }

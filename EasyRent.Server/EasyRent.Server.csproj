@@ -31,7 +31,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="AutoMapper" Version="9.0.0" />
+    <PackageReference Include="AutoMapper" Version="10.0.0" />
     <PackageReference Include="FluentValidation.AspNetCore" Version="8.6.2" />
     <PackageReference Include="IdentityServer4.AccessTokenValidation" Version="3.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.5" />
@@ -53,7 +53,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\EasyRent.Data\EasyRent.Data.csproj" />
+    <ProjectReference Include="..\EasyRent.BusinessLayer\EasyRent.BusinessLayer.csproj" />
     <ProjectReference Include="..\EasyRent.Common\EasyRent.Common.csproj" />
   </ItemGroup>
 

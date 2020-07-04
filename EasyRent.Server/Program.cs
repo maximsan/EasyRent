@@ -1,4 +1,4 @@
-﻿using EasyRent.Common.Extensions;
+﻿using EasyRent.BusinessLayer.Extensions;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using NLog.Web;

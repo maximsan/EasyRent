@@ -8,7 +8,7 @@ namespace EasyRent.BusinessLayer.Interfaces
     {
         Task Create(AdModel model);
         Task Delete(int id);
-        Task<List<AdViewModel>> Search(AdRequest request);
+        Task<List<AdModel>> Search(AdRequest request);
         Task Update(AdModel model);
     }
 }

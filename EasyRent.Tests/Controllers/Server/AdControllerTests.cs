@@ -34,7 +34,7 @@ namespace EasyRent.Tests.Controllers.Server
             var actionResult = await controller.Search(request);
 
             var convertedActionResult = Assert.IsType<OkObjectResult>(actionResult);
-            var model = Assert.IsAssignableFrom<IEnumerable<AdViewModel>>(convertedActionResult);
+            var model = Assert.IsAssignableFrom<IEnumerable<AdModel>>(convertedActionResult);
             Assert.True(model.Count() <= request.PageSize);
         }
     }

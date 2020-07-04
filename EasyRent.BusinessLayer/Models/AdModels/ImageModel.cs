@@ -1,6 +1,6 @@
 ﻿namespace EasyRent.BusinessLayer.Models.AdModels
 {
-    public class ImageViewModel
+    public class ImageModel
     {
         public int ImageId { get; set; }
         public string Name { get; set; }

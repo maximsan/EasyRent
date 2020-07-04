@@ -16,16 +16,16 @@ namespace EasyRent.BusinessLayer.Services
         {
         }
 
-        public async Task<List<AdViewModel>> Search(AdRequest request)
+        public async Task<List<AdModel>> Search(AdRequest request)
         {
             if (request is null)
             {
-                return new List<AdViewModel>(0);
+                return new List<AdModel>(0);
             }
 
             var filter = mapper.Map<AdFilter>(request);
             var foundAds = unitOfWork.AdRepository.Search(filter);
-            var result = mapper.Map<List<AdViewModel>>(await foundAds.ToListAsync().ConfigureAwait(false));
+            var result = mapper.Map<List<AdModel>>(await foundAds.ToListAsync().ConfigureAwait(false));
 
             return result;
         }

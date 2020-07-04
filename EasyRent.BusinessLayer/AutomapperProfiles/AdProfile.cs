@@ -9,9 +9,8 @@ namespace EasyRent.BusinessLayer.AutomapperProfiles
     {
         public AdProfile()
         {
-            CreateMap<Ad, AdViewModel>();
             CreateMap<AdRequest, AdFilter>();
-            CreateMap<AdModel, Ad>();
+            CreateMap<Ad, AdModel>().ReverseMap();
         }
     }
 }

@@ -3,9 +3,9 @@ using EasyRent.Data.Entities;
 using EasyRent.Common.Constants;
 using FluentValidation;
 using Microsoft.AspNetCore.Identity;
-using EasyRent.Common.Extentions;
+using EasyRent.Common.Extensions;
 
-namespace EasyRent.Common.Extentions
+namespace EasyRent.Common.Extensions
 {
     public static class ValidatorExtentions
     {

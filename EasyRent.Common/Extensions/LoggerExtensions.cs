@@ -3,7 +3,7 @@ using Microsoft.Extensions.Logging;
 using NLog.Extensions.Logging;
 using System.IO;
 
-namespace EasyRent.Common.Extentions
+namespace EasyRent.Common.Extensions
 {
     public static class LoggerExtensions
     {

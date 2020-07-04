@@ -1,5 +1,5 @@
 ﻿using System.Linq;
-using EasyRent.Common.Extentions;
+using EasyRent.Common.Extensions;
 
 namespace EasyRent.Common.Models
 {

@@ -1,6 +1,6 @@
-namespace EasyRent.Common.Extentions
+namespace EasyRent.Common.Extensions
 {
-    public static class StringExtentions
+    public static class StringExtensions
     {
         public static bool IsNull(this string stringValue)
         {

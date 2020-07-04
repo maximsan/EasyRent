@@ -1,4 +1,4 @@
-﻿using EasyRent.Common.Extentions;
+﻿using EasyRent.Common.Extensions;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;

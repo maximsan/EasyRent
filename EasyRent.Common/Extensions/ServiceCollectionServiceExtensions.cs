@@ -13,7 +13,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 
-namespace EasyRent.Common.Extentions
+namespace EasyRent.Common.Extensions
 {
     public static class ServiceCollectionServiceExtensions
     {

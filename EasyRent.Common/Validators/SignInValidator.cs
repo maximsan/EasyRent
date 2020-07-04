@@ -1,6 +1,6 @@
 ﻿using EasyRent.Common.Constants;
 using EasyRent.Data.Entities;
-using EasyRent.Common.Extentions;
+using EasyRent.Common.Extensions;
 using EasyRent.Common.Models;
 using FluentValidation;
 using Microsoft.AspNetCore.Identity;

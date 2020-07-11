@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using EasyRent.BusinessLayer.Interfaces;
 using EasyRent.BusinessLayer.Models.AdModels;
-using EasyRent.Data;
 using EasyRent.Data.Entities;
+using EasyRent.Data.Interfaces;
 using EasyRent.Data.Repositories.Filters;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
@@ -12,7 +12,7 @@ namespace EasyRent.BusinessLayer.Services
 {
     public class AdService : BaseService, IAdService
     {
-        public AdService(UnitOfWork unitOfWork, IMapper mapper) : base(unitOfWork, mapper)
+        public AdService(IUnitOfWork unitOfWork, IMapper mapper) : base(unitOfWork, mapper)
         {
         }
 

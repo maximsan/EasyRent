@@ -7,7 +7,7 @@ namespace EasyRent.Tests.Common
     public static class TestMapper
     {
         private static Mapper _instance;
-        private static object locker = new object();
+        private static readonly object locker = new object();
 
         public static Mapper Instance
         {

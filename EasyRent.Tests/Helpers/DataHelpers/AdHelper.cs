@@ -2,6 +2,7 @@
 using EasyRent.BusinessLayer.Models.AdModels;
 using EasyRent.Common.Extensions;
 using EasyRent.Data.Entities;
+using EasyRent.Data.Repositories.Filters;
 using EasyRent.Tests.Common;
 using System.Collections.Generic;
 using System.Linq;
@@ -42,18 +43,27 @@ namespace EasyRent.Tests.Helpers.DataHelpers
         {
             return Task.Run(() =>
             {
-                var query = GetTestAds().AsQueryable();
+                var filter = TestMapper.Instance.Map<AdFilter>(request);
 
-                if (request.AdId.HasValue)
-                {
-                    query = query.Where(q => q.AdId == request.AdId.Value);
-                }
-
-                query = query.SortAndTake(request.SortExpression, request.Page, request.PageSize, q => q.AdId, SortDirections.ASC);
+                var query = Search(filter);
                 var model = TestMapper.Instance.ProjectTo<AdModel>(query, null);
 
                 return model.ToList();
             });
+        }
+
+        public static IQueryable<Ad> Search(AdFilter filter)
+        {
+            var query = GetTestAds().AsQueryable();
+
+            if (filter.AdId.HasValue)
+            {
+                query = query.Where(q => q.AdId == filter.AdId.Value);
+            }
+
+            query = query.SortAndTake(filter.SortExpression, filter.Page, filter.PageSize, q => q.AdId, SortDirections.ASC);
+
+            return query;
         }
     }
 }

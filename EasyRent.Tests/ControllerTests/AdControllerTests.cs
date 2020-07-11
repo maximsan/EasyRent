@@ -9,7 +9,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace EasyRent.Tests.Controllers.Server
+namespace EasyRent.Tests.ControllerTests
 {
     public class AdControllerTests
     {

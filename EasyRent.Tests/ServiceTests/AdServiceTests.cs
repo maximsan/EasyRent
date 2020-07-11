@@ -34,7 +34,7 @@ namespace EasyRent.Tests.ServiceTests
         [MemberData(nameof(TestRequest))]
         public async Task Search(AdRequest request)
         {
-            var searchResult = await adService.Search(request);
+            var searchResult = await adService.SearchAsync(request);
 
             Assert.True(searchResult.Count <= request.PageSize);
         }

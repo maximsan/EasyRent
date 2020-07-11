@@ -6,9 +6,9 @@ namespace EasyRent.BusinessLayer.Interfaces
 {
     public interface IAdService
     {
-        Task Create(AdModel model);
-        Task Delete(int id);
-        Task<List<AdModel>> Search(AdRequest request);
-        Task Update(AdModel model);
+        Task CreateAsync(AdModel model);
+        Task DeleteAsync(int id);
+        Task<List<AdModel>> SearchAsync(AdRequest request);
+        Task UpdateAsync(AdModel model);
     }
 }

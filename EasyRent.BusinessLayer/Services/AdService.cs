@@ -16,7 +16,7 @@ namespace EasyRent.BusinessLayer.Services
         {
         }
 
-        public async Task<List<AdModel>> Search(AdRequest request)
+        public async Task<List<AdModel>> SearchAsync(AdRequest request)
         {
             if (request is null)
             {
@@ -30,7 +30,7 @@ namespace EasyRent.BusinessLayer.Services
             return result;
         }
 
-        public async Task Create(AdModel model)
+        public async Task CreateAsync(AdModel model)
         {
             if (model is null)
             {
@@ -42,7 +42,7 @@ namespace EasyRent.BusinessLayer.Services
             await unitOfWork.AddressRepository.SaveAsync().ConfigureAwait(false);
         }
 
-        public async Task Update(AdModel model)
+        public async Task UpdateAsync(AdModel model)
         {
             if (model is null || model.AdId <= 0)
             {
@@ -58,7 +58,7 @@ namespace EasyRent.BusinessLayer.Services
             await unitOfWork.AdRepository.SaveAsync().ConfigureAwait(false);
         }
 
-        public async Task Delete(int id)
+        public async Task DeleteAsync(int id)
         {
             if (id == 0)
             {

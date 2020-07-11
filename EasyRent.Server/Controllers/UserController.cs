@@ -31,7 +31,7 @@ namespace EasyRent.Server.Controllers
         [HttpGet]
         public async Task<IActionResult> Bookmarks()
         {
-            var bookmarks = await userService.GetBookmarks(User.Identity.Name);
+            var bookmarks = await userService.GetBookmarksAsync(User.Identity.Name);
 
             return OkOrNotFound(bookmarks);
         }

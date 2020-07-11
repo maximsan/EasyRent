@@ -32,7 +32,7 @@ namespace EasyRent.Tests.ControllerTests
         [MemberData(nameof(TestRequest))]
         public async Task GetAds(AdRequest request)
         {
-            mockedAdService.Setup(q => q.Search(request)).Returns(AdHelper.Search(request));
+            mockedAdService.Setup(q => q.SearchAsync(request)).Returns(AdHelper.Search(request));
 
             var actionResult = await controller.Search(request);
 

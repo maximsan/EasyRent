@@ -23,7 +23,7 @@ namespace EasyRent.Server.Controllers
                 return BadRequest();
             }
 
-            var result = await adService.Search(request);
+            var result = await adService.SearchAsync(request);
 
             return Ok(result);
         }
@@ -38,11 +38,11 @@ namespace EasyRent.Server.Controllers
 
             if (model.AdId == 0)
             {
-                await adService.Create(model);
+                await adService.CreateAsync(model);
             }
             else
             {
-                await adService.Update(model);
+                await adService.UpdateAsync(model);
             }
 
             return Ok();
@@ -56,7 +56,7 @@ namespace EasyRent.Server.Controllers
                 return BadRequest();
             }
 
-            await adService.Delete(id);
+            await adService.DeleteAsync(id);
 
             return Ok();
         }

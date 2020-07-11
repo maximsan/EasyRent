@@ -17,6 +17,6 @@ namespace EasyRent.BusinessLayer.Interfaces
 
         Task SignOutAsync();
 
-        Task<BookmarkListModel> GetBookmarks(string email);
+        Task<BookmarkListModel> GetBookmarksAsync(string email);
     }
 }

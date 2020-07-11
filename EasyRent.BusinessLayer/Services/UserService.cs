@@ -78,7 +78,7 @@ namespace EasyRent.BusinessLayer.Services
             await signInManager.SignOutAsync();
         }
 
-        public async Task<BookmarkListModel> GetBookmarks(string email)
+        public async Task<BookmarkListModel> GetBookmarksAsync(string email)
         {
             var entity = await FindByUserNameOrEmailAsync(email);
             var mappedEntity = mapper.Map<BookmarkListModel>(entity?.BookmarkList);

@@ -32,6 +32,7 @@ namespace EasyRent.Data
             new Subcategory { Name = "Другое", CategoryId = 1 },
 
             new Subcategory { Name = "Одежда", CategoryId = 2 },
+            new Subcategory { Name = "Обувь", CategoryId = 2 },
             new Subcategory { Name = "Игрушки", CategoryId = 2 },
             new Subcategory { Name = "Транспорт и коляски", CategoryId = 2 },
             new Subcategory { Name = "Другое", CategoryId = 2 },
@@ -49,22 +50,34 @@ namespace EasyRent.Data
             new Subcategory { Name = "Охота и рыбалка", CategoryId = 3 },
             new Subcategory { Name = "Другое", CategoryId = 3 },
 
+            new Subcategory { Name = "Одежда", CategoryId = 4 },
+            new Subcategory { Name = "Обувь", CategoryId = 4 },
+            new Subcategory { Name = "Аксессуары", CategoryId = 4 },
             new Subcategory { Name = "Мебель", CategoryId = 4 },
-            new Subcategory { Name = "Автомобили", CategoryId = 4 },
-            new Subcategory { Name = "Мотоциклы, квадроциклы", CategoryId = 4 },
-            new Subcategory { Name = "Инструмент", CategoryId = 4 },
             new Subcategory { Name = "Другое", CategoryId = 4 },
 
-            new Subcategory { Name = "Тренажеры", CategoryId = 5 },
+            new Subcategory { Name = "Автомобили", CategoryId = 5 },
+            new Subcategory { Name = "Мотоциклы, квадроциклы", CategoryId = 5 },
+            new Subcategory { Name = "Аксессуары", CategoryId = 5 },
+            new Subcategory { Name = "Инструмент", CategoryId = 5 },
             new Subcategory { Name = "Другое", CategoryId = 5 },
 
-            new Subcategory { Name = "Зимние спорттовары", CategoryId = 6 },
-            new Subcategory { Name = "Летние спорттовары", CategoryId = 6 },
-            new Subcategory { Name = "Всесезонные спорттовары", CategoryId = 6 },
-            new Subcategory { Name = "Туристические товары", CategoryId = 6 },
-            new Subcategory { Name = "Велотовары", CategoryId = 6 },
-            new Subcategory { Name = "Туристические услуги", CategoryId = 6 },
-            new Subcategory { Name = "Другое", CategoryId = 6 }
+            new Subcategory { Name = "Инструмент", CategoryId = 6 },
+            new Subcategory { Name = "Другое", CategoryId = 6 },
+
+            new Subcategory { Name = "Тренажеры", CategoryId = 7 },
+            new Subcategory { Name = "Другое", CategoryId = 7 },
+
+            new Subcategory { Name = "Зимние спорттовары", CategoryId = 8 },
+            new Subcategory { Name = "Летние спорттовары", CategoryId = 8 },
+            new Subcategory { Name = "Всесезонные спорттовары", CategoryId = 8 },
+            new Subcategory { Name = "Туристические товары", CategoryId = 8 },
+            new Subcategory { Name = "Велотовары", CategoryId = 8 },
+            new Subcategory { Name = "Туристические услуги", CategoryId = 8 },
+            new Subcategory { Name = "Другое", CategoryId = 8 },
+
+            new Subcategory { Name = "Инструмент", CategoryId = 9 },
+            new Subcategory { Name = "Другое", CategoryId = 9 }
         };
 
         public DbSet<Address> Addresses { get; set; }

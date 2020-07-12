@@ -28,7 +28,7 @@ namespace EasyRent.Tests.Helpers.DataHelpers
                     MaxDays = counter,
                     Price = counter,
                     Title = $"Test title {counter}.",
-                    AdImages = null,
+                    Images = null,
                     UserAds = null,
                     IsGift = (counter % 2) == 0
                 };

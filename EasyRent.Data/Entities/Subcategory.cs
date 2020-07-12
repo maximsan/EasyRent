@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EasyRent.Data.Entities
 {
@@ -11,6 +11,7 @@ namespace EasyRent.Data.Entities
         [MaxLength(30)]
         public string Name { get; set; }
 
+        [ForeignKey("CategoryId")]
         public int CategoryId { get; set; }
 
         public virtual Category Category { get; set; }

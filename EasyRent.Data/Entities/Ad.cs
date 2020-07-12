@@ -8,8 +8,6 @@ namespace EasyRent.Data.Entities
         [Key]
         public int AdId { get; set; }
 
-        public virtual ICollection<AdImage> AdImages { get; set; }
-
         [MaxLength(500)]
         public string Description { get; set; }
 
@@ -24,6 +22,7 @@ namespace EasyRent.Data.Entities
         [MaxLength(50)]
         public string Title { get; set; }
 
+        public virtual ICollection<Image> Images { get; set; }
         public virtual ICollection<UserAd> UserAds { get; set; }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EasyRent.Data.Entities
 {
@@ -14,6 +15,9 @@ namespace EasyRent.Data.Entities
         [MaxLength(100)]
         public string Url { get; set; }
 
-        public virtual ICollection<AdImage> AdImages { get; set; }
+        [ForeignKey("AdId")]
+        public int AdId { get; set; }
+
+        public virtual Ad Ad { get; set; }
     }
 }

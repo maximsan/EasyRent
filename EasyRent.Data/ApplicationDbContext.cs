@@ -68,7 +68,6 @@ namespace EasyRent.Data
         };
 
         public DbSet<Address> Addresses { get; set; }
-        public DbSet<AdImage> AdImages { get; set; }
         public DbSet<Ad> Ads { get; set; }
         public DbSet<BookmarkAd> BookmarkAds { get; set; }
         public DbSet<BookmarkList> BookmarkLists { get; set; }
@@ -115,15 +114,10 @@ namespace EasyRent.Data
                 .WithOne(q => q.Category)
                 .HasForeignKey(q => q.CategoryId);
 
-            builder.Entity<AdImage>()
-                   .HasOne(q => q.Ad)
-                   .WithMany(q => q.AdImages)
-                   .HasForeignKey(q => q.AdId);
-
-            builder.Entity<AdImage>()
-                   .HasOne(q => q.Image)
-                   .WithMany(q => q.AdImages)
-                   .HasForeignKey(q => q.ImageId);
+            builder.Entity<Ad>()
+                .HasMany(q => q.Images)
+                .WithOne(q => q.Ad)
+                .HasForeignKey(q => q.AdId);
 
             builder.Entity<UserAd>()
                    .HasOne(q => q.User)

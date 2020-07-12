@@ -11,6 +11,8 @@ namespace EasyRent.Data.Entities
         [MaxLength(30)]
         public string Name { get; set; }
 
-        public virtual ICollection<CategorySubcategory> CategorySubcategories { get; set; }
+        public int CategoryId { get; set; }
+
+        public virtual Category Category { get; set; }
     }
 }

@@ -1,10 +1,12 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EasyRent.Data.Entities
 {
     public class BookmarkList
     {
+        [Key]
         public int BookmarkListId { get; set; }
 
         [ForeignKey("Id")]

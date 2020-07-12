@@ -11,6 +11,18 @@
     <Compile Remove="Migrations\20190728161554_identitytserver.Designer.cs" />
     <Compile Remove="Migrations\20200405182815_Initial.cs" />
     <Compile Remove="Migrations\20200405182815_Initial.Designer.cs" />
+    <Compile Remove="Migrations\20200712162709_Add_PK_Category.cs" />
+    <Compile Remove="Migrations\20200712162709_Add_PK_Category.Designer.cs" />
+    <Compile Remove="Migrations\20200712163151_Add_PK_Category_Again.cs" />
+    <Compile Remove="Migrations\20200712163151_Add_PK_Category_Again.Designer.cs" />
+    <Compile Remove="Migrations\20200712163539_Add_PK_Category_Again.cs" />
+    <Compile Remove="Migrations\20200712163539_Add_PK_Category_Again.Designer.cs" />
+    <Compile Remove="Migrations\20200712163855_Add_Identity_Subcategory.cs" />
+    <Compile Remove="Migrations\20200712163855_Add_Identity_Subcategory.Designer.cs" />
+    <Compile Remove="Migrations\20200712164428_Add_PK_Category.cs" />
+    <Compile Remove="Migrations\20200712164428_Add_PK_Category.Designer.cs" />
+    <Compile Remove="Migrations\20200712165715_Seed_Categories_And_SubCategories.cs" />
+    <Compile Remove="Migrations\20200712165715_Seed_Categories_And_SubCategories.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

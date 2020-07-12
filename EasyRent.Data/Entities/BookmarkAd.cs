@@ -1,7 +1,10 @@
-﻿namespace EasyRent.Data.Entities
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace EasyRent.Data.Entities
 {
     public class BookmarkAd
     {
+        [Key]
         public int BookmarkAdId { get; set; }
         public int AdId { get; set; }
         public int BookmarkListId { get; set; }

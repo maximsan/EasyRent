@@ -1,33 +1,29 @@
 ﻿using EasyRent.BusinessLayer.Models.AdModels;
 using EasyRent.BusinessLayer.Services;
-using EasyRent.Data;
 using EasyRent.Data.Interfaces;
 using EasyRent.Tests.Common;
-using EasyRent.Tests.Common.Data;
-using EasyRent.Tests.Helpers;
-using Microsoft.EntityFrameworkCore;
-using Moq;
+using EasyRent.Tests.Common.Fixtures;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Xunit;
 
 namespace EasyRent.Tests.ServiceTests
 {
-    public class AdServiceTests
+    public class AdServiceTests : IClassFixture<DatabaseFixture>
     {
         private readonly AdService adService;
-        private readonly IUnitOfWork mockedUnitOfWork;
+        private readonly IUnitOfWork unitOfWork;
 
         public static IEnumerable<object[]> TestRequest { get; } = new List<object[]>
         {
             new object[] { new AdRequest() { Page = 0, PageSize = 5 } }
         };
 
-        public AdServiceTests()
+        public AdServiceTests(DatabaseFixture databaseFixture)
         {
-            mockedUnitOfWork = new UnitOfWork(new TestApplicationDbContext(new DbContextOptions<ApplicationDbContext>()));
+            unitOfWork = databaseFixture.UnitOfWork;
 
-            adService = new AdService(mockedUnitOfWork, TestMapper.Instance);
+            adService = new AdService(unitOfWork, TestMapper.Instance);
         }
 
         [Theory]
@@ -36,7 +32,7 @@ namespace EasyRent.Tests.ServiceTests
         {
             var searchResult = await adService.SearchAsync(request);
 
-            Assert.True(searchResult.Count <= request.PageSize);
+            Assert.True(searchResult.Count == request.PageSize);
         }
     }
 }

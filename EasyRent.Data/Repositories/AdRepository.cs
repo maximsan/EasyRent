@@ -20,12 +20,12 @@ namespace EasyRent.Data.Repositories
 
             if (filter.AdId.HasValue)
             {
-                query.Where(q => q.AdId == filter.AdId.Value);
+                query = query.Where(q => q.AdId == filter.AdId.Value);
             }
 
             if (filter.PageSize > 0)
             {
-                query.Skip(filter.Page * filter.PageSize)
+                query = query.Skip(filter.Page * filter.PageSize)
                     .Take(filter.PageSize);
             }
 
@@ -33,7 +33,7 @@ namespace EasyRent.Data.Repositories
 
             if (!string.IsNullOrWhiteSpace(filter.SortExpression))
             {
-                query.OrderBy(filter.SortExpression);
+                query = query.OrderBy(filter.SortExpression);
             }
 
             return query;

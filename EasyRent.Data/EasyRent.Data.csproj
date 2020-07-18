@@ -23,9 +23,12 @@
     <Compile Remove="Migrations\20200712164428_Add_PK_Category.Designer.cs" />
     <Compile Remove="Migrations\20200712165715_Seed_Categories_And_SubCategories.cs" />
     <Compile Remove="Migrations\20200712165715_Seed_Categories_And_SubCategories.Designer.cs" />
+    <Compile Remove="Migrations\20200718220551_Seed_Ads.cs" />
+    <Compile Remove="Migrations\20200718220551_Seed_Ads.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Bogus" Version="29.0.2" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.5" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.5" />
     <PackageReference Include="Npgsql" Version="4.1.3.1" />

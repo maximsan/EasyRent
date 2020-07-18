@@ -1,4 +1,6 @@
-﻿using EasyRent.Data.Entities;
+﻿using Bogus;
+using Bogus.Extensions;
+using EasyRent.Data.Entities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
@@ -80,6 +82,8 @@ namespace EasyRent.Data
             new Subcategory { Name = "Другое", CategoryId = 9 }
         };
 
+        #region DataSets
+
         public DbSet<Address> Addresses { get; set; }
         public DbSet<Ad> Ads { get; set; }
         public DbSet<BookmarkAd> BookmarkAds { get; set; }
@@ -90,6 +94,8 @@ namespace EasyRent.Data
         public DbSet<Subcategory> Subcategories { get; set; }
         public DbSet<UserAd> UserAds { get; set; }
         public DbSet<UserContact> UserContacts { get; set; }
+
+        #endregion DataSets
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
@@ -103,14 +109,14 @@ namespace EasyRent.Data
                    .HasForeignKey<Address>(q => q.UserId);
 
             builder.Entity<User>()
-                .HasOne(q => q.BookmarkList)
-                .WithOne(q => q.User)
-                .HasForeignKey<BookmarkList>(q => q.UserId);
+                   .HasOne(q => q.BookmarkList)
+                   .WithOne(q => q.User)
+                   .HasForeignKey<BookmarkList>(q => q.UserId);
 
             builder.Entity<BookmarkList>()
-                .HasMany(q => q.BookmarkAds)
-                .WithOne(q => q.BookmarkList)
-                .HasForeignKey(q => q.BookmarkListId);
+                   .HasMany(q => q.BookmarkAds)
+                   .WithOne(q => q.BookmarkList)
+                   .HasForeignKey(q => q.BookmarkListId);
 
             builder.Entity<UserContact>()
                    .HasOne(q => q.User)
@@ -123,14 +129,18 @@ namespace EasyRent.Data
                    .HasForeignKey(q => q.ContactId);
 
             builder.Entity<Category>()
-                .HasMany(q => q.Subcategories)
-                .WithOne(q => q.Category)
-                .HasForeignKey(q => q.CategoryId);
+                   .HasMany(q => q.Subcategories)
+                   .WithOne(q => q.Category)
+                   .HasForeignKey(q => q.CategoryId);
 
             builder.Entity<Ad>()
-                .HasMany(q => q.Images)
-                .WithOne(q => q.Ad)
-                .HasForeignKey(q => q.AdId);
+                   .HasMany(q => q.Images)
+                   .WithOne(q => q.Ad)
+                   .HasForeignKey(q => q.AdId);
+
+            builder.Entity<Ad>()
+                .Property(q => q.Price)
+                .HasColumnType("decimal(18,2)");
 
             builder.Entity<UserAd>()
                    .HasOne(q => q.User)
@@ -173,6 +183,23 @@ namespace EasyRent.Data
             }
 
             #endregion Category and Subcategory seeding
+
+            #region Ads seeding
+
+            var faker = new Faker<Ad>();
+
+            var adId = 1;
+            faker.RuleFor(q => q.AdId, q => adId++)
+                .RuleFor(q => q.Description, q => q.Lorem.Paragraph())
+                .RuleFor(q => q.Location, q => q.Address.City())
+                .RuleFor(q => q.MaxDays, q => q.Random.Int(1, 30))
+                .RuleFor(q => q.Price, q => decimal.Parse(q.Commerce.Price()))
+                .RuleFor(q => q.Title, q => q.Commerce.ProductName());
+
+            builder.Entity<Ad>()
+                .HasData(faker.GenerateBetween(100, 100));
+
+            #endregion Ads seeding
         }
     }
 }

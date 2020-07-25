@@ -18,7 +18,7 @@ namespace EasyRent.Data.Entities
         [Range(0, 5)]
         public int Rating { get; set; }
 
-        public User Publisher { get; set; }
-        public User Owner { get; set; }
+        public virtual User Publisher { get; set; }
+        public virtual User Owner { get; set; }
     }
 }

@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EasyRent.Data.Entities
 {
@@ -8,9 +8,12 @@ namespace EasyRent.Data.Entities
         [Key]
         public int ContactId { get; set; }
 
+        [ForeignKey("UserId")]
+        public int UserId { get; set; }
+
         [MaxLength(50)]
         public string Name { get; set; }
 
-        public virtual ICollection<UserContact> UserContacts { get; set; }
+        public virtual User User { get; set; }
     }
 }

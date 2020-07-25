@@ -1,14 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Identity;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using Microsoft.AspNetCore.Identity;
 
 namespace EasyRent.Data.Entities
 {
     public class User : IdentityUser<int>
     {
-        public virtual Address Address { get; set; }
-
         [DefaultValue(null)]
         public int? AddressId { get; set; }
 
@@ -18,11 +16,15 @@ namespace EasyRent.Data.Entities
         [MaxLength(40)]
         public string LastName { get; set; }
 
+        [MaxLength(500)]
+        public string AboutMe { get; set; }
+
         public ICollection<Ad> Ads { get; set; }
         public virtual ICollection<UserAd> UserAds { get; set; }
-        public virtual ICollection<UserContact> UserContacts { get; set; }
+        public virtual ICollection<Contact> Contacts { get; set; }
         public virtual BookmarkList BookmarkList { get; set; }
-        public ICollection<UserComment> PublishedComments { get; set; }
-        public ICollection<UserComment> OwnedComments { get; set; }
+        public virtual ICollection<UserComment> PublishedComments { get; set; }
+        public virtual ICollection<UserComment> OwnedComments { get; set; }
+        public virtual Address Address { get; set; }
     }
 }

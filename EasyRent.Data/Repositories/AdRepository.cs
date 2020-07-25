@@ -1,4 +1,5 @@
-﻿using EasyRent.Data.Entities;
+﻿using EasyRent.Common.Extensions;
+using EasyRent.Data.Entities;
 using EasyRent.Data.Interfaces;
 using EasyRent.Data.Repositories.Filters;
 using System.Linq;
@@ -23,13 +24,16 @@ namespace EasyRent.Data.Repositories
                 query = query.Where(q => q.AdId == filter.AdId.Value);
             }
 
+            #endregion Filtering
+
+            query = query.SortAndTake(filter.SortExpression, filter.Page, filter.PageSize);
+
             if (filter.PageSize > 0)
             {
                 query = query.Skip(filter.Page * filter.PageSize)
                     .Take(filter.PageSize);
             }
 
-            #endregion Filtering
 
             if (!string.IsNullOrWhiteSpace(filter.SortExpression))
             {

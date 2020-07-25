@@ -8,29 +8,16 @@ namespace EasyRent.Common.Extensions
 {
     public static class QueryableExtensions
     {
-        public static IQueryable<T> DynamicSort<T, TKey>(this IQueryable<T> query, 
-            string sortExpression, 
-            Expression<Func<T,TKey>> defaultSorting,
-            SortDirections defaultDirection)
+        public static IQueryable<T> DynamicSort<T>(this IQueryable<T> query,
+            string sortExpression)
         {
-            if(sortExpression.IsNullOrWhiteSpace() && defaultSorting != null)
-            {
-                query = defaultDirection switch
-                {
-                    SortDirections.DESC => query.OrderByDescending(defaultSorting),
-                    _ => query.OrderBy(defaultSorting),
-                };
-            }
-            else
-            {
-                query = query.OrderBy(sortExpression);
-            }
+            query = query.OrderBy(sortExpression);
 
             return query;
         }
 
-        public static IQueryable<T> SkipAndTake<T>(this IQueryable<T> query, 
-            int page, 
+        public static IQueryable<T> SkipAndTake<T>(this IQueryable<T> query,
+            int page,
             int pageSize)
         {
             if (pageSize > 0)
@@ -42,14 +29,12 @@ namespace EasyRent.Common.Extensions
             return query;
         }
 
-        public static IQueryable<T> SortAndTake<T, TKey>(this IQueryable<T> query, 
-            string sortExpression, 
+        public static IQueryable<T> SortAndTake<T>(this IQueryable<T> query,
+            string sortExpression,
             int page,
-            int pageSize, 
-            Expression<Func<T, TKey>> defaultSorting,
-            SortDirections defaultDirection)
+            int pageSize)
         {
-            return query.DynamicSort(sortExpression, defaultSorting, defaultDirection)
+            return query.DynamicSort(sortExpression)
                 .SkipAndTake(page, pageSize);
         }
     }

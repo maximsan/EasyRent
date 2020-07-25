@@ -1,5 +1,4 @@
 ﻿using EasyRent.Data.Entities;
-using EasyRent.Data.Repositories;
 
 namespace EasyRent.Data.Interfaces
 {
@@ -11,7 +10,6 @@ namespace EasyRent.Data.Interfaces
         IRepository<Contact> ContactRepository { get; }
         IRepository<Image> ImageRepository { get; }
         IRepository<Subcategory> SubcategoryRepository { get; }
-        IRepository<UserContact> UserContactRepository { get; }
 
         void Dispose();
     }

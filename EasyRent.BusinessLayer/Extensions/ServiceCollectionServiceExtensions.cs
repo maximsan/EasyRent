@@ -41,7 +41,6 @@ namespace EasyRent.BusinessLayer.Extensions
             services.AddTransient<IRepository<Contact>, ContactRepository>();
             services.AddTransient<IRepository<Image>, ImageRepository>();
             services.AddTransient<IRepository<Subcategory>, SubcategoryRepository>();
-            services.AddTransient<IRepository<UserContact>, UserContactRepository>();
             services.AddTransient<IUnitOfWork, UnitOfWork>();
 
             return services;

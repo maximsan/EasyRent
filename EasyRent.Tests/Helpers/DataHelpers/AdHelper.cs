@@ -59,7 +59,7 @@ namespace EasyRent.Tests.Helpers.DataHelpers
                 query = query.Where(q => q.AdId == filter.AdId.Value);
             }
 
-            query = query.SortAndTake(filter.SortExpression, filter.Page, filter.PageSize, q => q.AdId, SortDirections.ASC);
+            query = query.SortAndTake(filter.SortExpression, filter.Page, filter.PageSize);
 
             return query;
         }

@@ -1,6 +1,5 @@
 ﻿using EasyRent.BusinessLayer.Interfaces;
 using EasyRent.BusinessLayer.Models;
-using EasyRent.Common.Attributes;
 using EasyRent.Common.Constants;
 using EasyRent.Common.Extensions;
 using EasyRent.Data.Entities;
@@ -13,7 +12,6 @@ using SignInResult = Microsoft.AspNetCore.Identity.SignInResult;
 
 namespace EasyRent.IdentityServer.Controllers
 {
-    [SecurityHeaders]
     [ResponseCache(NoStore = true, Duration = 0)]
     public class AccountController : BaseController
     {

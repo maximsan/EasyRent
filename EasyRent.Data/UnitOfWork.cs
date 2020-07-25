@@ -15,7 +15,6 @@ namespace EasyRent.Data
         private IRepository<Contact> contactRepository;
         private IRepository<Image> imageRepository;
         private IRepository<Subcategory> subcategoryRepository;
-        private IRepository<UserContact> userContactRepository;
 
         public IRepository<Address> AddressRepository => addressRepository ??= new AddressRepository(dbContext);
 
@@ -28,8 +27,6 @@ namespace EasyRent.Data
         public IRepository<Image> ImageRepository => imageRepository ??= new ImageRepository(dbContext);
 
         public IRepository<Subcategory> SubcategoryRepository => subcategoryRepository ??= new SubcategoryRepository(dbContext);
-
-        public IRepository<UserContact> UserContactRepository => userContactRepository ??= new UserContactRepository(dbContext);
 
         public UnitOfWork(ApplicationDbContext dbContext)
         {

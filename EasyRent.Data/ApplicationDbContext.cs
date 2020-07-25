@@ -1,9 +1,9 @@
-﻿using Bogus;
-using Bogus.Extensions;
-using EasyRent.Data.Entities;
+﻿using EasyRent.Data.Entities;
+using EasyRent.Data.Helpers;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
+using Address = EasyRent.Data.Entities.Address;
 
 namespace EasyRent.Data
 {
@@ -184,20 +184,17 @@ namespace EasyRent.Data
 
             #endregion Category and Subcategory seeding
 
+            #region Users seeding
+
+            builder.Entity<User>()
+                .HasData(FakeData.GetFakeUsers());
+
+            #endregion Users seeding
+
             #region Ads seeding
 
-            var faker = new Faker<Ad>();
-
-            var adId = 1;
-            faker.RuleFor(q => q.AdId, q => adId++)
-                .RuleFor(q => q.Description, q => q.Lorem.Paragraph())
-                .RuleFor(q => q.Location, q => q.Address.City())
-                .RuleFor(q => q.MaxDays, q => q.Random.Int(1, 30))
-                .RuleFor(q => q.Price, q => decimal.Parse(q.Commerce.Price()))
-                .RuleFor(q => q.Title, q => q.Commerce.ProductName());
-
             builder.Entity<Ad>()
-                .HasData(faker.GenerateBetween(100, 100));
+                .HasData(FakeData.GetFakeAds());
 
             #endregion Ads seeding
         }

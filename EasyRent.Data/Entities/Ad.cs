@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EasyRent.Data.Entities
 {
@@ -8,21 +10,26 @@ namespace EasyRent.Data.Entities
         [Key]
         public int AdId { get; set; }
 
+        [ForeignKey("UserId")]
+        public int OwnerId { get; set; }
+
         [MaxLength(500)]
         public string Description { get; set; }
-
-        public bool IsGift { get; set; }
 
         [MaxLength(100)]
         public string Location { get; set; }
 
-        public int MaxDays { get; set; }
         public decimal Price { get; set; }
+
+        public int Available { get; set; }
+
+        public DateTime CreatedDate { get; set; }
 
         [MaxLength(50)]
         public string Title { get; set; }
 
         public virtual ICollection<Image> Images { get; set; }
         public virtual ICollection<UserAd> UserAds { get; set; }
+        public virtual User Owner { get; set; }
     }
 }

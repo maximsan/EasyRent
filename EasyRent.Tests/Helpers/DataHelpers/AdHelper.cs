@@ -25,12 +25,10 @@ namespace EasyRent.Tests.Helpers.DataHelpers
                     AdId = counter,
                     Description = $"Test description {counter}.",
                     Location = $"Test location {counter}.",
-                    MaxDays = counter,
                     Price = counter,
                     Title = $"Test title {counter}.",
                     Images = null,
-                    UserAds = null,
-                    IsGift = (counter % 2) == 0
+                    UserAds = null
                 };
 
                 testData.Add(testItem);

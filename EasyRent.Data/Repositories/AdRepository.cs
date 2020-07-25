@@ -28,18 +28,6 @@ namespace EasyRent.Data.Repositories
 
             query = query.SortAndTake(filter.SortExpression, filter.Page, filter.PageSize);
 
-            if (filter.PageSize > 0)
-            {
-                query = query.Skip(filter.Page * filter.PageSize)
-                    .Take(filter.PageSize);
-            }
-
-
-            if (!string.IsNullOrWhiteSpace(filter.SortExpression))
-            {
-                query = query.OrderBy(filter.SortExpression);
-            }
-
             return query;
         }
     }

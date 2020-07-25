@@ -25,6 +25,8 @@
     <Compile Remove="Migrations\20200712165715_Seed_Categories_And_SubCategories.Designer.cs" />
     <Compile Remove="Migrations\20200718220551_Seed_Ads.cs" />
     <Compile Remove="Migrations\20200718220551_Seed_Ads.Designer.cs" />
+    <Compile Remove="Migrations\20200725195940_AddUserComments.cs" />
+    <Compile Remove="Migrations\20200725195940_AddUserComments.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

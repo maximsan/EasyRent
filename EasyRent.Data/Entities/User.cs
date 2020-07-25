@@ -18,8 +18,11 @@ namespace EasyRent.Data.Entities
         [MaxLength(40)]
         public string LastName { get; set; }
 
+        public ICollection<Ad> Ads { get; set; }
         public virtual ICollection<UserAd> UserAds { get; set; }
         public virtual ICollection<UserContact> UserContacts { get; set; }
         public virtual BookmarkList BookmarkList { get; set; }
+        public ICollection<UserComment> PublishedComments { get; set; }
+        public ICollection<UserComment> OwnedComments { get; set; }
     }
 }

@@ -94,6 +94,8 @@ namespace EasyRent.Data
         public DbSet<Subcategory> Subcategories { get; set; }
         public DbSet<UserAd> UserAds { get; set; }
         public DbSet<UserContact> UserContacts { get; set; }
+        public DbSet<AdComment> AdComments { get; set; }
+        public DbSet<UserComment> UserComments { get; set; }
 
         #endregion DataSets
 
@@ -142,6 +144,16 @@ namespace EasyRent.Data
                 .Property(q => q.Price)
                 .HasColumnType("decimal(18,2)");
 
+            builder.Entity<Ad>()
+                .HasMany(q => q.AdComments)
+                .WithOne(q => q.Ad)
+                .HasForeignKey(q => q.AdId);
+
+            builder.Entity<Ad>()
+                .HasOne(q => q.Owner)
+                .WithMany(q => q.Ads)
+                .HasForeignKey(q => q.OwnerId);
+
             builder.Entity<UserAd>()
                    .HasOne(q => q.User)
                    .WithMany(q => q.UserAds)
@@ -151,6 +163,16 @@ namespace EasyRent.Data
                    .HasOne(q => q.Ad)
                    .WithMany(q => q.UserAds)
                    .HasForeignKey(q => q.AdId);
+
+            builder.Entity<UserComment>()
+                .HasOne(q => q.Owner)
+                .WithMany(q => q.OwnedComments)
+                .HasForeignKey(q => q.OwnerId);
+
+            builder.Entity<UserComment>()
+                .HasOne(q => q.Publisher)
+                .WithMany(q => q.PublishedComments)
+                .HasForeignKey(q => q.PublisherId);
 
             SeedData(builder);
 

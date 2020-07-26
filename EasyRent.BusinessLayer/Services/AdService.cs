@@ -25,21 +25,26 @@ namespace EasyRent.BusinessLayer.Services
 
             var filter = mapper.Map<AdFilter>(request);
             var foundAds = unitOfWork.AdRepository.Search(filter);
-            var result = mapper.Map<List<AdModel>>(await foundAds.ToListAsync().ConfigureAwait(false));
+            var result = await mapper.ProjectTo<AdModel>(foundAds).ToListAsync().ConfigureAwait(false);
 
             return result;
         }
 
-        public async Task CreateAsync(AdModel model)
+        public async Task<AdModel> CreateAsync(AdModel model)
         {
             if (model is null)
             {
-                return;
+                return default;
             }
 
             var adEntity = mapper.Map<Ad>(model);
+
             unitOfWork.AdRepository.Create(adEntity);
             await unitOfWork.AddressRepository.SaveAsync().ConfigureAwait(false);
+
+            var result = mapper.Map<AdModel>(adEntity);
+
+            return result;
         }
 
         public async Task UpdateAsync(AdModel model)
@@ -54,7 +59,6 @@ namespace EasyRent.BusinessLayer.Services
             mapper.Map(model, adEntity, model.GetType(), adEntity.GetType());
 
             unitOfWork.AdRepository.Update(adEntity);
-
             await unitOfWork.AdRepository.SaveAsync().ConfigureAwait(false);
         }
 
@@ -68,7 +72,6 @@ namespace EasyRent.BusinessLayer.Services
             var entity = await unitOfWork.AdRepository.GetByIdAsync(id).ConfigureAwait(false);
 
             unitOfWork.AdRepository.Delete(entity);
-
             await unitOfWork.AdRepository.SaveAsync().ConfigureAwait(false);
         }
     }

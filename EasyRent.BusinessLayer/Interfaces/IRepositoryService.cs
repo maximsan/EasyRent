@@ -7,6 +7,8 @@ namespace EasyRent.BusinessLayer.Interfaces
     public interface IRepositoryService<TModel, in TRequest> where TRequest : SearchRequest
         where TModel : class, new()
     {
+        Task<TModel> GetByIdAsync(int id);
+
         Task<TModel> CreateAsync(TModel model);
 
         Task DeleteAsync(int id);

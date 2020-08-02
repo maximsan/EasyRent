@@ -17,19 +17,15 @@ namespace EasyRent.Data.Repositories
             CurrentSet = context.Set<TEntity>();
         }
 
-        public virtual void Create(TEntity entity) => CurrentSet.Add(entity);
+        public virtual async Task CreateAsync(TEntity entity) => await CurrentSet.AddAsync(entity).ConfigureAwait(false);
 
         public virtual void Delete(TEntity entity) => CurrentSet.Remove(entity);
 
         public virtual IQueryable<TEntity> GetAll() => CurrentSet.AsNoTracking();
 
-        public virtual TEntity GetById(int id) => CurrentSet.Find(id);
-
         public virtual async Task<TEntity> GetByIdAsync(int id) => await CurrentSet.FindAsync(id).ConfigureAwait(false);
 
-        public virtual void Save() => Context.SaveChanges();
-
-        public virtual async Task SaveAsync() => await Context.SaveChangesAsync();
+        public virtual async Task SaveAsync() => await Context.SaveChangesAsync().ConfigureAwait(false);
 
         public virtual void Update(TEntity entity) => Context.Entry(entity).State = EntityState.Modified;
 

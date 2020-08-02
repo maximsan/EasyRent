@@ -1,7 +1,6 @@
 ﻿using EasyRent.Data;
 using EasyRent.Data.Interfaces;
-using EasyRent.Tests.Common.Data;
-using Microsoft.EntityFrameworkCore;
+using EasyRent.Tests.Helpers.DataHelpers;
 using System;
 
 namespace EasyRent.Tests.Common.Fixtures
@@ -12,7 +11,8 @@ namespace EasyRent.Tests.Common.Fixtures
 
         public DatabaseFixture()
         {
-            UnitOfWork = new UnitOfWork(new TestApplicationDbContext(new DbContextOptions<ApplicationDbContext>()));
+            var dbContext = DbContextHelper.GetTestDbContext();
+            UnitOfWork = new UnitOfWork(dbContext);
         }
 
         public void Dispose()

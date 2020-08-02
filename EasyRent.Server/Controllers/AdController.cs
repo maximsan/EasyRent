@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 namespace EasyRent.Server.Controllers
 {
     [Authorize]
+    [Route("ads")]
     public class AdController : BaseController
     {
         private readonly IAdService adService;
@@ -14,6 +15,14 @@ namespace EasyRent.Server.Controllers
         public AdController(IAdService adService)
         {
             this.adService = adService;
+        }
+
+        [HttpGet("ad/{id}")]
+        public async Task<IActionResult> Get(int id)
+        {
+            var model = await adService.GetByIdAsync(id);
+
+            return OkOrNotFound(model);
         }
 
         public async Task<IActionResult> Search([FromQuery, FromBody] AdRequest request)
@@ -28,7 +37,7 @@ namespace EasyRent.Server.Controllers
             return Ok(result);
         }
 
-        [HttpPut("[action]")]
+        [HttpPost]
         public async Task<IActionResult> Put([FromBody] AdModel model)
         {
             if (!ModelState.IsValid)
@@ -38,14 +47,20 @@ namespace EasyRent.Server.Controllers
 
             if (model.AdId == 0)
             {
-                await adService.CreateAsync(model);
+                var result = await adService.CreateAsync(model);
+
+                if (result is null)
+                {
+                    return BadRequest();
+                }
+                
+                return CreatedAtAction(Url.Content($"~/ads/ad/{result.AdId}"), result);
             }
             else
             {
                 await adService.UpdateAsync(model);
+                return Ok(model);
             }
-
-            return Ok();
         }
 
         [HttpDelete]

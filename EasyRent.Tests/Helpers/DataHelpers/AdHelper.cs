@@ -1,7 +1,7 @@
-﻿using DIMS_Core.Common.Enums;
-using EasyRent.BusinessLayer.Models.AdModels;
+﻿using EasyRent.BusinessLayer.Models.AdModels;
 using EasyRent.Common.Extensions;
 using EasyRent.Data.Entities;
+using EasyRent.Data.Helpers;
 using EasyRent.Data.Repositories.Filters;
 using EasyRent.Tests.Common;
 using System.Collections.Generic;
@@ -12,29 +12,18 @@ namespace EasyRent.Tests.Helpers.DataHelpers
 {
     public static class AdHelper
     {
-        public static List<Ad> GetTestAds()
+        public static IEnumerable<Ad> GetTestAds()
         {
-            const int counter = 20;
+            var fakeDate = FakeData.GetFakeAds();
 
-            var testData = new List<Ad>(counter);
+            return fakeDate;
+        }
 
-            for (int i = 1; i <= counter; i++)
-            {
-                var testItem = new Ad
-                {
-                    AdId = counter,
-                    Description = $"Test description {counter}.",
-                    Location = $"Test location {counter}.",
-                    Price = counter,
-                    Title = $"Test title {counter}.",
-                    Images = null,
-                    UserAds = null
-                };
+        public static IEnumerable<Ad> GetTestAdDbSet()
+        {
+            var data = GetTestAds();
 
-                testData.Add(testItem);
-            }
-
-            return testData;
+            return data;
         }
 
         public static Task<List<AdModel>> Search(AdRequest request)

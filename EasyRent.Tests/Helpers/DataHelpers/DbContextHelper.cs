@@ -1,41 +1,36 @@
 ﻿using EasyRent.Data;
 using Microsoft.EntityFrameworkCore;
-using System.Threading.Tasks;
+using System.Linq;
 
 namespace EasyRent.Tests.Helpers.DataHelpers
 {
     public class DbContextHelper
     {
-        public static async Task<ApplicationDbContext> GetTestDbContextAsync()
-        {
-            var data = AdHelper.GetTestAdDbSet();
-            var options = GetInMemoryOptions();
-
-            var context = new ApplicationDbContext(options);
-
-            foreach (var item in data)
-            {
-                await context.Ads.AddAsync(item);
-            }
-
-            await context.SaveChangesAsync();
-
-            return context;
-        }
+        private static readonly object locker = new object();
 
         public static ApplicationDbContext GetTestDbContext()
         {
-            var data = AdHelper.GetTestAdDbSet();
             var options = GetInMemoryOptions();
 
             var context = new ApplicationDbContext(options);
 
-            foreach (var item in data)
+            if (!context.Ads.Any())
             {
-                context.Ads.Add(item);
-            }
+                lock (locker) // sync all threads
+                {
+                    if (!context.Ads.Any())
+                    {
+                        var data = AdHelper.GetTestAds();
 
-            context.SaveChanges();
+                        foreach (var item in data)
+                        {
+                            context.Ads.Add(item);
+                        }
+
+                        context.SaveChanges();
+                    }
+                }
+            }
 
             return context;
         }

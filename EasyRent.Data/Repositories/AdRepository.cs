@@ -19,11 +19,6 @@ namespace EasyRent.Data.Repositories
 
             #region Filtering
 
-            if (filter.AdId.HasValue)
-            {
-                query = query.Where(q => q.AdId == filter.AdId.Value);
-            }
-
             #endregion Filtering
 
             query = query.SortAndTake(filter.SortExpression, filter.Page, filter.PageSize);

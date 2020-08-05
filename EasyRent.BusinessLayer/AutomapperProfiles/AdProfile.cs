@@ -11,6 +11,7 @@ namespace EasyRent.BusinessLayer.AutomapperProfiles
         {
             CreateMap<AdRequest, AdFilter>();
             CreateMap<Ad, AdModel>().ReverseMap();
+            CreateMap<Image, ImageModel>();
         }
     }
 }

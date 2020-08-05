@@ -2,6 +2,5 @@
 {
     public class AdFilter : BaseFilter
     {
-        public int? AdId { get; set; }
     }
 }

@@ -1,8 +1,5 @@
-﻿using DIMS_Core.Common.Enums;
-using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Linq.Dynamic.Core;
-using System.Linq.Expressions;
 
 namespace EasyRent.Common.Extensions
 {
@@ -11,7 +8,10 @@ namespace EasyRent.Common.Extensions
         public static IQueryable<T> DynamicSort<T>(this IQueryable<T> query,
             string sortExpression)
         {
-            query = query.OrderBy(sortExpression);
+            if (sortExpression.IsNotNullOrWhiteSpace())
+            {
+                query = query.OrderBy(sortExpression);
+            }
 
             return query;
         }

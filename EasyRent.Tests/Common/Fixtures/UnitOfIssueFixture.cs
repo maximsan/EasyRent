@@ -5,11 +5,11 @@ using System;
 
 namespace EasyRent.Tests.Common.Fixtures
 {
-    public class DatabaseFixture : IDisposable
+    public class UnitOfIssueFixture : IDisposable
     {
         public IUnitOfWork UnitOfWork { get; set; }
 
-        public DatabaseFixture()
+        public UnitOfIssueFixture()
         {
             var dbContext = DbContextHelper.GetTestDbContext();
             UnitOfWork = new UnitOfWork(dbContext);

@@ -9,7 +9,7 @@ using Xunit;
 
 namespace EasyRent.Tests.ServiceTests
 {
-    public class AdServiceTests : IClassFixture<UnitOfIssueFixture>
+    public class AdServiceTest : IClassFixture<UnitOfWorkFixture>
     {
         private readonly AdService _adService;
         private readonly IUnitOfWork _unitOfWork;
@@ -19,7 +19,7 @@ namespace EasyRent.Tests.ServiceTests
             new object[] { new AdRequest() { Page = 0, PageSize = 5 } }
         };
 
-        public AdServiceTests(UnitOfIssueFixture databaseFixture)
+        public AdServiceTest(UnitOfWorkFixture databaseFixture)
         {
             _unitOfWork = databaseFixture.UnitOfWork;
             _adService = new AdService(_unitOfWork, TestMapper.Instance);

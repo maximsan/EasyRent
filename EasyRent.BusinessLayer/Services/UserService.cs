@@ -3,8 +3,8 @@ using EasyRent.BusinessLayer.Interfaces;
 using EasyRent.BusinessLayer.Models;
 using EasyRent.BusinessLayer.Models.UserModels;
 using EasyRent.Common.Extensions;
-using EasyRent.Data;
 using EasyRent.Data.Entities;
+using EasyRent.Data.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using System.Threading.Tasks;
 
@@ -16,7 +16,7 @@ namespace EasyRent.BusinessLayer.Services
         private readonly SignInManager<User> signInManager;
 
         public UserService(
-            UnitOfWork unitOfWork,
+            IUnitOfWork unitOfWork,
             IMapper mapper,
             UserManager<User> userManager,
             SignInManager<User> signInManager) : base(unitOfWork, mapper)
@@ -87,7 +87,7 @@ namespace EasyRent.BusinessLayer.Services
             return mappedEntity;
         }
 
-        public async Task<ProfileModel> GetProfile(string email)
+        public async Task<ProfileModel> GetProfileAsync(string email)
         {
             var entity = await FindByUserNameOrEmailAsync(email);
             var mappedEntity = _mapper.Map<ProfileModel>(entity);

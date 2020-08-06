@@ -12,18 +12,18 @@ using Xunit;
 
 namespace EasyRent.Tests.ControllerTests
 {
-    public class AdControllerTests : IClassFixture<UnitOfIssueFixture>
+    public class AdControllerTests : IClassFixture<UnitOfWorkFixture>
     {
         private readonly AdController _controller;
         private readonly IAdService _adService;
-        private readonly UnitOfIssueFixture _fixture;
+        private readonly UnitOfWorkFixture _fixture;
 
         public static IEnumerable<object[]> TestRequest { get; } = new List<object[]>
         {
             new object[] { new AdRequest() { Page = 0, PageSize = 5 } }
         };
 
-        public AdControllerTests(UnitOfIssueFixture fixture)
+        public AdControllerTests(UnitOfWorkFixture fixture)
         {
             _fixture = fixture;
             _adService = new AdService(_fixture.UnitOfWork, TestMapper.Instance);

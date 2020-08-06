@@ -1,5 +1,7 @@
 ﻿using EasyRent.Data;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace EasyRent.Tests.Helpers.DataHelpers
@@ -14,25 +16,33 @@ namespace EasyRent.Tests.Helpers.DataHelpers
 
             var context = new ApplicationDbContext(options);
 
-            if (!context.Ads.Any())
+            FillDbSet(context, AdHelper.GetTestAds);
+            FillDbSet(context, UserHelper.GetTestUsers);
+
+            return context;
+        }
+
+        private static void FillDbSet<TEntity>(ApplicationDbContext context, Func<IEnumerable<TEntity>> dataFunc) where TEntity : class
+        {
+            var dbSet = context.Set<TEntity>();
+
+            if (!dbSet.Any())
             {
                 lock (locker) // sync all threads
                 {
-                    if (!context.Ads.Any())
+                    if (!dbSet.Any())
                     {
-                        var data = AdHelper.GetTestAds();
+                        var data = dataFunc();
 
                         foreach (var item in data)
                         {
-                            context.Ads.Add(item);
+                            dbSet.Add(item);
                         }
 
                         context.SaveChanges();
                     }
                 }
             }
-
-            return context;
         }
 
         private static DbContextOptions<ApplicationDbContext> GetInMemoryOptions()

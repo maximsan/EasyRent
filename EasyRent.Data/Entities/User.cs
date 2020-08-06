@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using EasyRent.Data.Enums;
+using Microsoft.AspNetCore.Identity;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -18,6 +20,10 @@ namespace EasyRent.Data.Entities
 
         [MaxLength(500)]
         public string AboutMe { get; set; }
+
+        public SexTypes? Sex { get; set; }
+
+        public DateTime? Birthday { get; set; }
 
         public ICollection<Ad> Ads { get; set; }
         public virtual ICollection<UserAd> UserAds { get; set; }

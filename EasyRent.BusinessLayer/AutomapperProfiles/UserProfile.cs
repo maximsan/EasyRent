@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using EasyRent.BusinessLayer.Models;
+using EasyRent.BusinessLayer.Models.UserModels;
 using EasyRent.Data.Entities;
 
 namespace EasyRent.BusinessLayer.AutomapperProfiles
@@ -10,6 +11,8 @@ namespace EasyRent.BusinessLayer.AutomapperProfiles
         {
             CreateMap<SignInModel, User>();
             CreateMap<SignUpModel, User>();
+            CreateMap<User, ProfileModel>()
+                .ForMember(q => q.UserId, q => q.MapFrom(w => w.Id));
         }
     }
 }

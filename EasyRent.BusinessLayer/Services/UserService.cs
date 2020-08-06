@@ -15,7 +15,8 @@ namespace EasyRent.BusinessLayer.Services
         private readonly UserManager<User> userManager;
         private readonly SignInManager<User> signInManager;
 
-        public UserService(UnitOfWork unitOfWork,
+        public UserService(
+            UnitOfWork unitOfWork,
             IMapper mapper,
             UserManager<User> userManager,
             SignInManager<User> signInManager) : base(unitOfWork, mapper)
@@ -32,7 +33,7 @@ namespace EasyRent.BusinessLayer.Services
             }
 
             var addressEntity = (await FindByUserNameOrEmailAsync(email).ConfigureAwait(false))?.Address;
-            var mappedModel = mapper.Map<AddressModel>(addressEntity);
+            var mappedModel = _mapper.Map<AddressModel>(addressEntity);
 
             return mappedModel;
         }
@@ -45,7 +46,7 @@ namespace EasyRent.BusinessLayer.Services
             }
 
             var addressEntity = (await FindByIdAsync(userId).ConfigureAwait(false))?.Address;
-            var mappedModel = mapper.Map<AddressModel>(addressEntity);
+            var mappedModel = _mapper.Map<AddressModel>(addressEntity);
 
             return mappedModel;
         }
@@ -66,7 +67,7 @@ namespace EasyRent.BusinessLayer.Services
 
         public async Task<IdentityResult> SignUpAsync(SignUpModel model)
         {
-            var mappedUser = mapper.Map<User>(model);
+            var mappedUser = _mapper.Map<User>(model);
 
             var signUpStatus = await userManager.CreateAsync(mappedUser, model.Password).ConfigureAwait(false);
 
@@ -81,7 +82,15 @@ namespace EasyRent.BusinessLayer.Services
         public async Task<BookmarkListModel> GetBookmarksAsync(string email)
         {
             var entity = await FindByUserNameOrEmailAsync(email);
-            var mappedEntity = mapper.Map<BookmarkListModel>(entity?.BookmarkList);
+            var mappedEntity = _mapper.Map<BookmarkListModel>(entity?.BookmarkList);
+
+            return mappedEntity;
+        }
+
+        public async Task<ProfileModel> GetProfile(string email)
+        {
+            var entity = await FindByUserNameOrEmailAsync(email);
+            var mappedEntity = _mapper.Map<ProfileModel>(entity);
 
             return mappedEntity;
         }

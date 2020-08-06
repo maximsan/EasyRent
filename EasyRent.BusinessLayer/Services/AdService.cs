@@ -23,8 +23,8 @@ namespace EasyRent.BusinessLayer.Services
                 return default;
             }
 
-            var entity = await unitOfWork.AdRepository.GetByIdAsync(id);
-            var model = mapper.Map<AdModel>(entity);
+            var entity = await _unitOfWork.AdRepository.GetByIdAsync(id);
+            var model = _mapper.Map<AdModel>(entity);
 
             return model;
         }
@@ -36,9 +36,9 @@ namespace EasyRent.BusinessLayer.Services
                 return new List<AdModel>(0);
             }
 
-            var filter = mapper.Map<AdFilter>(request);
-            var foundAds = unitOfWork.AdRepository.Search(filter);
-            var result = await mapper.ProjectTo<AdModel>(foundAds).ToListAsync().ConfigureAwait(false);
+            var filter = _mapper.Map<AdFilter>(request);
+            var foundAds = _unitOfWork.AdRepository.Search(filter);
+            var result = await _mapper.ProjectTo<AdModel>(foundAds).ToListAsync().ConfigureAwait(false);
 
             return result;
         }
@@ -50,12 +50,12 @@ namespace EasyRent.BusinessLayer.Services
                 return default;
             }
 
-            var adEntity = mapper.Map<Ad>(model);
+            var adEntity = _mapper.Map<Ad>(model);
 
-            await unitOfWork.AdRepository.CreateAsync(adEntity);
-            await unitOfWork.AddressRepository.SaveAsync().ConfigureAwait(false);
+            await _unitOfWork.AdRepository.CreateAsync(adEntity);
+            await _unitOfWork.AddressRepository.SaveAsync().ConfigureAwait(false);
 
-            var result = mapper.Map<AdModel>(adEntity);
+            var result = _mapper.Map<AdModel>(adEntity);
 
             return result;
         }
@@ -67,12 +67,12 @@ namespace EasyRent.BusinessLayer.Services
                 return;
             }
 
-            var adEntity = await unitOfWork.AdRepository.GetByIdAsync(model.AdId).ConfigureAwait(false);
+            var adEntity = await _unitOfWork.AdRepository.GetByIdAsync(model.AdId).ConfigureAwait(false);
 
-            mapper.Map(model, adEntity, model.GetType(), adEntity.GetType());
+            _mapper.Map(model, adEntity, model.GetType(), adEntity.GetType());
 
-            unitOfWork.AdRepository.Update(adEntity);
-            await unitOfWork.AdRepository.SaveAsync().ConfigureAwait(false);
+            _unitOfWork.AdRepository.Update(adEntity);
+            await _unitOfWork.AdRepository.SaveAsync().ConfigureAwait(false);
         }
 
         public async Task DeleteAsync(int id)
@@ -82,10 +82,10 @@ namespace EasyRent.BusinessLayer.Services
                 return;
             }
 
-            var entity = await unitOfWork.AdRepository.GetByIdAsync(id).ConfigureAwait(false);
+            var entity = await _unitOfWork.AdRepository.GetByIdAsync(id).ConfigureAwait(false);
 
-            unitOfWork.AdRepository.Delete(entity);
-            await unitOfWork.AdRepository.SaveAsync().ConfigureAwait(false);
+            _unitOfWork.AdRepository.Delete(entity);
+            await _unitOfWork.AdRepository.SaveAsync().ConfigureAwait(false);
         }
     }
 }

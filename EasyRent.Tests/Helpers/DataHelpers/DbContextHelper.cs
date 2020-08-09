@@ -1,4 +1,5 @@
 ﻿using EasyRent.Data;
+using EasyRent.Data.Helpers;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -18,6 +19,9 @@ namespace EasyRent.Tests.Helpers.DataHelpers
 
             FillDbSet(context, AdHelper.GetTestAds);
             FillDbSet(context, UserHelper.GetTestUsers);
+
+            FillDbSet(context, FakeData.GetCategories);
+            FillDbSet(context, FakeData.GetSubcategories);
 
             return context;
         }

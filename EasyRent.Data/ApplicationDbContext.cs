@@ -2,86 +2,12 @@
 using EasyRent.Data.Helpers;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using System.Linq;
 using Address = EasyRent.Data.Entities.Address;
 
 namespace EasyRent.Data
 {
     public class ApplicationDbContext : IdentityDbContext<User, Role, int>
     {
-        private static readonly Category[] SeedDataCategories = new Category[]
-        {
-            new Category { Name = "Одежда и аксессуары" },
-            new Category { Name = "Детские товары" },
-            new Category { Name = "Техника и электроника" },
-            new Category { Name = "Хобби и отдых" },
-            new Category { Name = "Свадьба и праздники" },
-            new Category { Name = "Автотовары" },
-            new Category { Name = "Сад и огород" },
-            new Category { Name = "Здоровье" },
-            new Category { Name = "Спорт, туризм и активный отдых" },
-            new Category { Name = "Ремонт и стройка" },
-            new Category { Name = "Другое" }
-        };
-
-        private static readonly Subcategory[] SeedDataSubcategories = new Subcategory[]
-        {
-            new Subcategory { Name = "Мужская одежда", CategoryId = 1 },
-            new Subcategory { Name = "Женская одежда", CategoryId = 1 },
-            new Subcategory { Name = "Обувь", CategoryId = 1 },
-            new Subcategory { Name = "Для мероприятий", CategoryId = 1 }, //??
-            new Subcategory { Name = "Аксессуары", CategoryId = 1 },
-            new Subcategory { Name = "Другое", CategoryId = 1 },
-
-            new Subcategory { Name = "Одежда", CategoryId = 2 },
-            new Subcategory { Name = "Обувь", CategoryId = 2 },
-            new Subcategory { Name = "Игрушки", CategoryId = 2 },
-            new Subcategory { Name = "Транспорт и коляски", CategoryId = 2 },
-            new Subcategory { Name = "Другое", CategoryId = 2 },
-
-            new Subcategory { Name = "Бытовая техника", CategoryId = 3 },
-            new Subcategory { Name = "Телефоны, планшеты, гаджеты", CategoryId = 3 },
-            new Subcategory { Name = "Компьютерная техника", CategoryId = 3 },
-            new Subcategory { Name = "Консоли", CategoryId = 3 },
-            new Subcategory { Name = "Другое", CategoryId = 3 },
-
-            new Subcategory { Name = "Компьютерные игры", CategoryId = 3 },
-            new Subcategory { Name = "Настольные игры", CategoryId = 3 },
-            new Subcategory { Name = "Музыкальные инструменты", CategoryId = 3 },
-            new Subcategory { Name = "Книги и журналы", CategoryId = 3 },
-            new Subcategory { Name = "Охота и рыбалка", CategoryId = 3 },
-            new Subcategory { Name = "Другое", CategoryId = 3 },
-
-            new Subcategory { Name = "Одежда", CategoryId = 4 },
-            new Subcategory { Name = "Обувь", CategoryId = 4 },
-            new Subcategory { Name = "Аксессуары", CategoryId = 4 },
-            new Subcategory { Name = "Мебель", CategoryId = 4 },
-            new Subcategory { Name = "Другое", CategoryId = 4 },
-
-            new Subcategory { Name = "Автомобили", CategoryId = 5 },
-            new Subcategory { Name = "Мотоциклы, квадроциклы", CategoryId = 5 },
-            new Subcategory { Name = "Аксессуары", CategoryId = 5 },
-            new Subcategory { Name = "Инструмент", CategoryId = 5 },
-            new Subcategory { Name = "Другое", CategoryId = 5 },
-
-            new Subcategory { Name = "Инструмент", CategoryId = 6 },
-            new Subcategory { Name = "Другое", CategoryId = 6 },
-
-            new Subcategory { Name = "Тренажеры", CategoryId = 7 },
-            new Subcategory { Name = "Другое", CategoryId = 7 },
-
-            new Subcategory { Name = "Зимние спорттовары", CategoryId = 8 },
-            new Subcategory { Name = "Летние спорттовары", CategoryId = 8 },
-            new Subcategory { Name = "Всесезонные спорттовары", CategoryId = 8 },
-            new Subcategory { Name = "Туристические товары", CategoryId = 8 },
-            new Subcategory { Name = "Велотовары", CategoryId = 8 },
-            new Subcategory { Name = "Туристические услуги", CategoryId = 8 },
-            new Subcategory { Name = "Другое", CategoryId = 8 },
-
-            new Subcategory { Name = "Инструмент", CategoryId = 9 },
-            new Subcategory { Name = "Другое", CategoryId = 9 }
-        };
-
         #region DataSets
 
         public DbSet<Address> Addresses { get; set; }
@@ -177,26 +103,11 @@ namespace EasyRent.Data
         {
             #region Category and Subcategory seeding
 
-            int subcategoryId = 0;
-            for (int categoryId = 1; categoryId < SeedDataCategories.Length; categoryId++)
-            {
-                var category = SeedDataCategories[categoryId];
-                category.CategoryId = categoryId;
-                var subcategories = SeedDataSubcategories.Where(q => q.CategoryId == category.CategoryId).ToArray();
+            builder.Entity<Category>()
+                .HasData(FakeData.GetCategories());
 
-                builder.Entity<Category>()
-                    .HasData(category);
-
-                foreach (var subcategory in subcategories)
-                {
-                    subcategoryId++;
-
-                    subcategory.SubcategoryId = subcategoryId;
-
-                    builder.Entity<Subcategory>()
-                        .HasData(subcategory);
-                }
-            }
+            builder.Entity<Subcategory>()
+                .HasData(FakeData.GetSubcategories());
 
             #endregion Category and Subcategory seeding
 

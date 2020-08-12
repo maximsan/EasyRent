@@ -13,20 +13,18 @@ namespace EasyRent.BusinessLayer.Validators
         {
             RuleFor(q => q.Email)
                 .Cascade(CascadeMode.StopOnFirstFailure)
-                .NotEmpty()
-                .WithMessage(ErrorMessages.EmailRequired)
-                .NotNull()
-                .WithMessage(ErrorMessages.EmailRequired)
+                .NotNullOrEmpty()
                 .EmailAddress()
                 .WithMessage(ErrorMessages.InvalidEmailFormat)
                 .UserMustExist(signInManager.UserManager);
 
             RuleFor(q => q.Password)
                 .Cascade(CascadeMode.StopOnFirstFailure)
-                .NotNull()
-                .WithMessage(ErrorMessages.PasswordRequired)
-                .NotEmpty()
-                .WithMessage(ErrorMessages.PasswordRequired);
+                .NotNullOrEmpty();
+
+            RuleFor(q => q.ConfirmPassword)
+                .Equal(q => q.Password)
+                .WithMessage(ErrorMessages.ConfirmPasswordInvalid);
         }
     }
 }

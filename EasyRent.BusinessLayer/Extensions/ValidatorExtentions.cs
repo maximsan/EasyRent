@@ -1,9 +1,9 @@
-﻿using System.Threading.Tasks;
+﻿using EasyRent.Common.Constants;
+using EasyRent.Common.Extensions;
 using EasyRent.Data.Entities;
-using EasyRent.Common.Constants;
 using FluentValidation;
 using Microsoft.AspNetCore.Identity;
-using EasyRent.Common.Extensions;
+using System.Threading.Tasks;
 
 namespace EasyRent.BusinessLayer.Extensions
 {
@@ -75,6 +75,17 @@ namespace EasyRent.BusinessLayer.Extensions
             }
 
             return false;
+        }
+
+        public static IRuleBuilder<T, string> NotNullOrEmpty<T>(this IRuleBuilder<T, string> ruleBuilder)
+        {
+            return ruleBuilder.Custom((prop, context) =>
+            {
+                if (prop.IsNullOrWhiteSpace())
+                {
+                    context.AddFailure(context.PropertyName, $"{context.DisplayName} cannot be empty.");
+                }
+            });
         }
     }
 }

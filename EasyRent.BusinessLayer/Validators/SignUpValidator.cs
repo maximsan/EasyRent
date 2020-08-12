@@ -13,44 +13,33 @@ namespace EasyRent.BusinessLayer.Validators
         {
             RuleFor(q => q.Email)
                 .Cascade(CascadeMode.StopOnFirstFailure)
-                .NotEmpty()
-                .WithMessage(ErrorMessages.EmailRequired)
-                .NotNull()
-                .WithMessage(ErrorMessages.EmailRequired)
+                .NotNullOrEmpty()
                 .EmailAddress()
                 .WithMessage(ErrorMessages.InvalidEmailFormat)
                 .UserNotMustExist(userManager);
 
-            RuleFor(q => q.Password).Cascade(CascadeMode.StopOnFirstFailure)
-                .NotNull()
-                .WithMessage(ErrorMessages.PasswordRequired)
-                .NotEmpty()
-                .WithMessage(ErrorMessages.PasswordRequired);
+            RuleFor(q => q.Password)
+                .Cascade(CascadeMode.StopOnFirstFailure)
+                .NotNullOrEmpty();
 
-            RuleFor(q => q.UserName).Cascade(CascadeMode.StopOnFirstFailure)
-                .NotEmpty()
-                .WithMessage(ErrorMessages.UserNameRequired)
-                .NotNull()
-                .WithMessage(ErrorMessages.UserNameRequired)
+            RuleFor(q => q.UserName)
+                .Cascade(CascadeMode.StopOnFirstFailure)
+                .NotNullOrEmpty()
                 .UserNotMustExist(userManager);
 
-            RuleFor(q => q.Password).Cascade(CascadeMode.StopOnFirstFailure)
-                .NotNull()
-                .WithMessage(ErrorMessages.PasswordRequired)
-                .NotEmpty()
-                .WithMessage(ErrorMessages.PasswordRequired);
+            RuleFor(q => q.Password)
+                .Cascade(CascadeMode.StopOnFirstFailure)
+                .NotNullOrEmpty();
 
             RuleFor(q => q.ConfirmPassword)
                 .Cascade(CascadeMode.StopOnFirstFailure)
-                .NotEmpty()
-                .NotNull()
+                .NotNullOrEmpty()
                 .Equal(q => q.Password)
                 .WithMessage(ErrorMessages.ConfirmPasswordInvalid);
 
             RuleFor(q => q.ReturnUrl)
                 .Cascade(CascadeMode.StopOnFirstFailure)
-                .NotEmpty()
-                .NotNull();
+                .NotNullOrEmpty();
         }
     }
 }

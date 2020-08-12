@@ -6,34 +6,43 @@ using System.Threading.Tasks;
 namespace EasyRent.Server.Controllers
 {
     [Authorize]
-    public class UserController : BaseController
+    [Route("user")]
+    public class UserController : AuthorizedController
     {
-        private readonly IUserService userService;
+        private readonly IUserService _userService;
 
-        public UserController(IUserService userService) => this.userService = userService;
+        public UserController(IUserService userService) => _userService = userService;
 
-        [HttpGet]
-        public async Task<IActionResult> Address()
+        [HttpGet("address")]
+        public async Task<IActionResult> GetAddressAsync()
         {
-            var address = await userService.GetAddressByEmailAsync(User.Identity.Name);
+            var address = await _userService.GetAddressByEmailAsync(GetUserName());
 
             return OkOrNotFound(address);
         }
 
-        [HttpGet]
-        public async Task<IActionResult> Address(int id)
+        [HttpGet("address/{id:int}")]
+        public async Task<IActionResult> GetAddressAsync(int id)
         {
-            var address = await userService.GetAddressByIdAsync(id);
+            var address = await _userService.GetAddressByIdAsync(id);
 
             return OkOrNotFound(address);
         }
 
-        [HttpGet]
-        public async Task<IActionResult> Bookmarks()
+        [HttpGet("bookmarks")]
+        public async Task<IActionResult> GetBookmarksAsync()
         {
-            var bookmarks = await userService.GetBookmarksAsync(User.Identity.Name);
+            var bookmarks = await _userService.GetBookmarksAsync(GetUserName());
 
             return OkOrNotFound(bookmarks);
+        }
+
+        [HttpGet("profile")]
+        public async Task<IActionResult> GetProfileAsync()
+        {
+            var result = await _userService.GetProfileAsync(GetUserName());
+
+            return OkOrNotFound(result);
         }
     }
 }

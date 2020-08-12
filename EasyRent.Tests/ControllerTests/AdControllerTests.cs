@@ -34,7 +34,7 @@ namespace EasyRent.Tests.ControllerTests
         [MemberData(nameof(TestRequest))]
         public async Task GetAds(AdRequest request)
         {
-            var actionResult = await _controller.Search(request);
+            var actionResult = await _controller.SearchAsync(request);
 
             var convertedActionResult = Assert.IsType<OkObjectResult>(actionResult);
             var model = Assert.IsAssignableFrom<IEnumerable<AdModel>>(convertedActionResult.Value);

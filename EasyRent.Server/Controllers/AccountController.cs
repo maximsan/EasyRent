@@ -1,119 +1,102 @@
 ﻿using EasyRent.BusinessLayer.Interfaces;
 using EasyRent.BusinessLayer.Models;
-using EasyRent.Common.Constants;
-using EasyRent.Common.Extensions;
-using EasyRent.Data.Entities;
 using EasyRent.Server.Controllers;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System.Linq;
 using System.Threading.Tasks;
 using SignInResult = Microsoft.AspNetCore.Identity.SignInResult;
 
 namespace EasyRent.IdentityServer.Controllers
 {
-    [ResponseCache(NoStore = true, Duration = 0)]
+    [Route("account")]
     public class AccountController : BaseController
     {
-        protected readonly SignInManager<User> signInManager;
-        private readonly IUserService userService;
+        private readonly IUserService _userService;
 
-        public AccountController(SignInManager<User> signInManager,
-            IUserService userService)
+        public AccountController(IUserService userService)
         {
-            this.signInManager = signInManager;
-            this.userService = userService;
+            _userService = userService;
         }
 
-        //TODO: Implement by user service
-        [HttpPost]
-        public async Task<IActionResult> ResetPasswordToken([FromBody] string email)
+        [HttpPost("reset-password-token")]
+        public async Task<IActionResult> GetResetPasswordTokenAsync([FromQuery, FromBody] string email)
         {
             if (string.IsNullOrWhiteSpace(email))
             {
-                return Json(new JsonResponseTemplate(false, ErrorMessages.EmailRequired));
+                return BadRequest();
             }
 
-            User user = await signInManager.UserManager.FindByUserNameOrEmailAsync(email);
+            var resetTokenResult = await _userService.GetResetPaswordTokenAsync(email);
 
-            return user is null
-                ? Json(new JsonResponseTemplate(false, ErrorMessages.UserNotExist))
-                : Json(new JsonResponseTemplate(await signInManager.UserManager.GeneratePasswordResetTokenAsync(user), string.Empty));
+            return Ok(resetTokenResult);
         }
 
-        //TODO: Implement by user service
-        [HttpPost]
-        public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordModel resetPassword)
+        [HttpPost("reset-password")]
+        public async Task<IActionResult> ResetPasswordAsync([FromBody] ResetPasswordModel model)
         {
             if (!ModelState.IsValid)
             {
-                return ValidationProblem();
+                return ValidationProblem(ModelState);
             }
 
-            User user = await signInManager.UserManager.FindByUserNameOrEmailAsync(resetPassword.Email);
+            var resetPasswordResult = await _userService.ResetPasswordAsync(model);
 
-            IdentityResult result = await signInManager.UserManager.ResetPasswordAsync(user, resetPassword.Key, resetPassword.Password).ConfigureAwait(false);
+            if (!resetPasswordResult.Succeeded)
+            {
+                foreach (var item in resetPasswordResult.Errors)
+                {
+                    ModelState.AddModelError("", item.Description);
+                }
 
-            return Json(new JsonResponseTemplate(result.Succeeded, result.Errors.Select(q => q.Description)));
+                return ValidationProblem(ModelState);
+            }
+
+            return Ok();
         }
 
-        [HttpPost]
-        public async Task<IActionResult> SignIn([FromBody] SignInModel model)
+        [HttpPost("sign-in")]
+        public async Task<IActionResult> SignInAsync([FromBody] SignInModel model)
         {
             if (!ModelState.IsValid)
             {
-                return ValidationProblem();
+                return ValidationProblem(ModelState);
             }
 
-            SignInResult signInStatus = await userService.SignInAsync(model);
+            SignInResult signInStatus = await _userService.SignInAsync(model);
 
             return signInStatus.Succeeded
                 ? Ok()
                 : (IActionResult)BadRequest();
         }
 
-        [HttpGet]
-        public async Task<IActionResult> SignOut()
+        [HttpGet("sign-out")]
+        public async Task<IActionResult> SignOutAsync()
         {
-            await userService.SignOutAsync();
+            await _userService.SignOutAsync();
 
             return Ok();
         }
 
-        [HttpPost]
-        public async Task<IActionResult> SignUp([FromBody] SignUpModel model)
+        [HttpPost("sign-up")]
+        public async Task<IActionResult> SignUpAsync([FromBody] SignUpModel model)
         {
             if (!ModelState.IsValid)
             {
-                return ValidationProblem();
+                return ValidationProblem(ModelState);
             }
 
-            var creatingResult = await userService.SignUpAsync(model);
+            var creatingResult = await _userService.SignUpAsync(model);
 
-            return creatingResult.Succeeded
-                ? Ok()
-                : (IActionResult)BadRequest();
-        }
-
-        //TODO: Implement by user service
-        [HttpPost]
-        public async Task<IActionResult> CheckPassword([FromBody] ResetPasswordModel checkPassword)
-        {
-            if (!ModelState.IsValid)
+            if (!creatingResult.Succeeded)
             {
-                return ValidationProblem();
+                foreach (var item in creatingResult.Errors)
+                {
+                    ModelState.AddModelError("", item.Description);
+                }
+
+                return ValidationProblem(ModelState);
             }
 
-            var user = await signInManager.UserManager.FindByEmailAsync(checkPassword.Email);
-
-            if (user is null)
-            {
-                return Json(new JsonResponseTemplate(false, ErrorMessages.UserNotExist));
-            }
-
-            var result = await signInManager.UserManager.CheckPasswordAsync(user, checkPassword.Password);
-
-            return Json(new JsonResponseTemplate(result, string.Empty));
+            return Ok();
         }
     }
 }

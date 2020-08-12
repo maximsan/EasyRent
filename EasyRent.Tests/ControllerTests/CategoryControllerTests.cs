@@ -26,7 +26,7 @@ namespace EasyRent.Tests.ControllerTests
         [Fact]
         public async Task GetCategoriesAsync()
         {
-            var result = await _controller.GetCategories();
+            var result = await _controller.GetCategoriesAsync();
 
             var convertedResult = Assert.IsType<OkObjectResult>(result);
             var model = Assert.IsAssignableFrom<IEnumerable<CategoryModel>>(convertedResult.Value);

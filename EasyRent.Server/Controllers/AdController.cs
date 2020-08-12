@@ -18,14 +18,15 @@ namespace EasyRent.Server.Controllers
         }
 
         [HttpGet("ad/{id}")]
-        public async Task<IActionResult> Get(int id)
+        public async Task<IActionResult> GetAsync(int id)
         {
             var model = await adService.GetByIdAsync(id);
 
             return OkOrNotFound(model);
         }
 
-        public async Task<IActionResult> Search([FromQuery, FromBody] AdRequest request)
+        [Route("ads")]
+        public async Task<IActionResult> SearchAsync([FromQuery, FromBody] AdRequest request)
         {
             if (request is null)
             {
@@ -37,8 +38,8 @@ namespace EasyRent.Server.Controllers
             return Ok(result);
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Put([FromBody] AdModel model)
+        [HttpPost("ad")]
+        public async Task<IActionResult> CreateOrUpdateAsync([FromBody] AdModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -53,18 +54,19 @@ namespace EasyRent.Server.Controllers
                 {
                     return BadRequest();
                 }
-                
-                return CreatedAtAction(Url.Content($"~/ads/ad/{result.AdId}"), result);
+
+                return Ok(result);
             }
             else
             {
                 await adService.UpdateAsync(model);
+
                 return Ok(model);
             }
         }
 
-        [HttpDelete]
-        public async Task<IActionResult> Delete(int id)
+        [HttpDelete("ad/{id:int}")]
+        public async Task<IActionResult> DeleteAsync(int id)
         {
             if (id == 0)
             {

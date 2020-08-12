@@ -31,5 +31,6 @@ namespace EasyRent.Data.Entities
         public virtual ICollection<UserComment> PublishedComments { get; set; }
         public virtual ICollection<UserComment> OwnedComments { get; set; }
         public virtual Address Address { get; set; }
+        public virtual ICollection<RentedAd> RentedAds { get; set; }
     }
 }

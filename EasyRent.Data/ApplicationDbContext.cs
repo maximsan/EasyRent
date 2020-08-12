@@ -83,6 +83,20 @@ namespace EasyRent.Data
                 .WithMany(q => q.PublishedComments)
                 .HasForeignKey(q => q.PublisherId);
 
+            builder.Entity<User>()
+                .HasMany(q => q.RentedAds)
+                .WithOne(q => q.RentedAdUser)
+                .HasForeignKey(q => q.RentedAdUserId);
+
+            builder.Entity<RentedAd>()
+                .Property(q => q.Price)
+                .HasColumnType("decimal(18,2)");
+
+            builder.Entity<Ad>()
+                .HasMany(q => q.RentedAds)
+                .WithOne(q => q.Ad)
+                .HasForeignKey(q => q.AdId);
+
             SeedData(builder);
 
             base.OnModelCreating(builder);

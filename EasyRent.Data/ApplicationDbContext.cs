@@ -18,7 +18,6 @@ namespace EasyRent.Data
         public DbSet<Contact> Contacts { get; set; }
         public DbSet<Image> Images { get; set; }
         public DbSet<Subcategory> Subcategories { get; set; }
-        public DbSet<UserAd> UserAds { get; set; }
         public DbSet<AdComment> AdComments { get; set; }
         public DbSet<UserComment> UserComments { get; set; }
 
@@ -73,16 +72,6 @@ namespace EasyRent.Data
                 .HasOne(q => q.Owner)
                 .WithMany(q => q.Ads)
                 .HasForeignKey(q => q.OwnerId);
-
-            builder.Entity<UserAd>()
-                   .HasOne(q => q.User)
-                   .WithMany(q => q.UserAds)
-                   .HasForeignKey(q => q.UserId);
-
-            builder.Entity<UserAd>()
-                   .HasOne(q => q.Ad)
-                   .WithMany(q => q.UserAds)
-                   .HasForeignKey(q => q.AdId);
 
             builder.Entity<UserComment>()
                 .HasOne(q => q.Owner)

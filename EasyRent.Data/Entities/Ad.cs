@@ -29,7 +29,6 @@ namespace EasyRent.Data.Entities
         public string Title { get; set; }
 
         public virtual ICollection<Image> Images { get; set; }
-        public virtual ICollection<UserAd> UserAds { get; set; }
         public virtual User Owner { get; set; }
         public virtual ICollection<AdComment> AdComments { get; set; }
     }

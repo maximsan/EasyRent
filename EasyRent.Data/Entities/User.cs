@@ -26,7 +26,6 @@ namespace EasyRent.Data.Entities
         public DateTime? Birthday { get; set; }
 
         public ICollection<Ad> Ads { get; set; }
-        public virtual ICollection<UserAd> UserAds { get; set; }
         public virtual ICollection<Contact> Contacts { get; set; }
         public virtual BookmarkList BookmarkList { get; set; }
         public virtual ICollection<UserComment> PublishedComments { get; set; }

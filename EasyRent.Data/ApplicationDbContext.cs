@@ -20,6 +20,8 @@ namespace EasyRent.Data
         public DbSet<Subcategory> Subcategories { get; set; }
         public DbSet<AdComment> AdComments { get; set; }
         public DbSet<UserComment> UserComments { get; set; }
+        public DbSet<RentedAd> RentedAds { get; set; }
+        public DbSet<RentHistory> RentHistories { get; set; }
 
         #endregion DataSets
 
@@ -96,6 +98,24 @@ namespace EasyRent.Data
                 .HasMany(q => q.RentedAds)
                 .WithOne(q => q.Ad)
                 .HasForeignKey(q => q.AdId);
+
+            builder.Entity<User>()
+                .HasMany(q => q.RentingHistories)
+                .WithOne(q => q.RentingUser)
+                .HasForeignKey(q => q.RentingUserId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            builder.Entity<RentHistory>()
+                .HasOne(q => q.Ad)
+                .WithMany(q => q.RentHistories)
+                .HasForeignKey(q => q.AdId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            builder.Entity<RentHistory>()
+                .HasOne(q => q.AdOwner)
+                .WithMany(q => q.OwnerRentHistories)
+                .HasForeignKey(q => q.AdOwnerId)
+                .OnDelete(DeleteBehavior.NoAction);
 
             SeedData(builder);
 

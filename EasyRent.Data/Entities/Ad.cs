@@ -33,5 +33,6 @@ namespace EasyRent.Data.Entities
         public virtual User Owner { get; set; }
         public virtual ICollection<AdComment> AdComments { get; set; }
         public virtual ICollection<RentedAd> RentedAds { get; set; }
+        public virtual ICollection<RentHistory> RentHistories { get; set; }
     }
 }

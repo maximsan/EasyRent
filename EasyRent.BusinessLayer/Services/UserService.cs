@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using EasyRent.BusinessLayer.Interfaces;
 using EasyRent.BusinessLayer.Models;
+using EasyRent.BusinessLayer.Models.AdModels;
 using EasyRent.BusinessLayer.Models.UserModels;
 using EasyRent.BusinessLayer.Services.Results;
 using EasyRent.Common.Constants;
@@ -8,7 +9,10 @@ using EasyRent.Common.Extensions;
 using EasyRent.Data.Entities;
 using EasyRent.Data.Interfaces;
 using Microsoft.AspNetCore.Identity;
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using EasyRent.BusinessLayer.Extensions;
+using System.Linq;
 
 namespace EasyRent.BusinessLayer.Services
 {
@@ -55,6 +59,11 @@ namespace EasyRent.BusinessLayer.Services
 
         public async Task<SignInResult> SignInAsync(SignInModel model)
         {
+            if (model is null)
+            {
+                return SignInResult.Failed;
+            }
+
             var user = await FindByUserNameOrEmailAsync(model.Email);
 
             if (user is null)
@@ -69,8 +78,12 @@ namespace EasyRent.BusinessLayer.Services
 
         public async Task<IdentityResult> SignUpAsync(SignUpModel model)
         {
-            var mappedUser = _mapper.Map<User>(model);
+            if (model is null)
+            {
+                return IdentityResult.Failed();
+            }
 
+            var mappedUser = _mapper.Map<User>(model);
             var signUpStatus = await _userManager.CreateAsync(mappedUser, model.Password).ConfigureAwait(false);
 
             return signUpStatus;
@@ -116,6 +129,11 @@ namespace EasyRent.BusinessLayer.Services
 
         public async Task<BookmarkListModel> GetBookmarksAsync(string email)
         {
+            if (email.IsNullOrWhiteSpace())
+            {
+                return null;
+            }
+
             var entity = await FindByUserNameOrEmailAsync(email);
             var mappedEntity = _mapper.Map<BookmarkListModel>(entity?.BookmarkList);
 
@@ -124,10 +142,41 @@ namespace EasyRent.BusinessLayer.Services
 
         public async Task<ProfileModel> GetProfileAsync(string email)
         {
+            if (email.IsNullOrWhiteSpace())
+            {
+                return null;
+            }
+
             var entity = await FindByUserNameOrEmailAsync(email);
             var mappedEntity = _mapper.Map<ProfileModel>(entity);
 
             return mappedEntity;
+        }
+
+        public async Task<IEnumerable<AdModel>> GetUserAdsAsync(string email)
+        {
+            if (email.IsNullOrWhiteSpace())
+            {
+                return Enumerable.Empty<AdModel>();
+            }
+
+            var user = await FindByUserNameOrEmailAsync(email);
+            var model = GetAdModels(user);
+
+            return model;
+        }
+
+        public async Task<IEnumerable<AdModel>> GetUserAdsAsync(int id)
+        {
+            if (id <= 0)
+            {
+                return Enumerable.Empty<AdModel>();
+            }
+
+            var user = await FindByIdAsync(id);
+            var model = GetAdModels(user);
+
+            return model;
         }
 
         #region Private methods
@@ -140,6 +189,18 @@ namespace EasyRent.BusinessLayer.Services
         private async Task<User> FindByIdAsync(int userId)
         {
             return await _userManager.FindByIdAsync(userId.ToString()).ConfigureAwait(false);
+        }
+
+        private IEnumerable<AdModel> GetAdModels(User user)
+        {
+            if (user is null)
+            {
+                return Enumerable.Empty<AdModel>();
+            }
+
+            var mappedAds = _mapper.MapCollection<AdModel>(user.Ads);
+
+            return mappedAds;
         }
 
         #endregion Private methods
